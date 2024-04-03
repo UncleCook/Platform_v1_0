@@ -5,7 +5,9 @@ Definition of views.
 from datetime import datetime
 from django.shortcuts import render
 from django.http import HttpRequest
-from .models import Contact	
+from django.http import JsonResponse
+from django.db.models import Avg, Sum, Count
+from .models import Bids, Contact, Menu, Item
 
 def home(request):
     """Renders the home page."""
@@ -16,6 +18,20 @@ def home(request):
         {
             'title':'Home Page',
             'year':datetime.now().year,
+        }
+    )
+
+
+def trading(request):
+    """Renders the trading page."""
+    assert isinstance(request, HttpRequest)
+
+    return render(
+        request,
+        'app/trading.html',
+        {
+            'title':'Trading',
+            'message':'Submit bids to the auction.',
         }
     )
 
@@ -38,7 +54,7 @@ def contact(request):
         }
     )
 
-    
+
 def about(request):
     """Renders the about page."""
     assert isinstance(request, HttpRequest)
@@ -51,3 +67,72 @@ def about(request):
             'year':datetime.now().year,
         }
     )
+
+
+def menu_chart(request):
+    labels = []
+    data = []
+
+    queryset = Item.objects.values('menu__name_menu').annotate(menu_price=Sum('price'))
+    #for entry in queryset:
+    #    labels.append(entry['menu__name_menu'])
+    #    data.append(entry['menu_price'])
+
+    labels = list(queryset.values_list('menu__name_menu', flat=True).order_by('menu__name_menu'))
+    data = list(queryset.values_list('menu_price', flat=True).order_by('menu__name_menu'))
+    data={
+        'labels': labels,
+        'data': data,
+    }
+    
+    return JsonResponse(data)
+
+
+def bidding_chart(request):
+    
+    #labels = []
+    #data = []
+    #labels = list(Bids.objects.values_list('id', flat=True))
+    #data = list(Bids.objects.values_list('bid_value', flat=True))
+    #data={
+    #    'labels': labels,
+    #    'data': data,
+    #}
+
+    data = list(Bids.objects.values())
+    for d in data:
+        d['x'] = d.pop('id')
+        d['y'] = d.pop('bid_value')
+
+    return JsonResponse(data, safe=False)
+
+
+def json_response(request):
+    
+    #labels = []
+    #data = []
+    #queryset = Item.objects.values('menu__name_menu').annotate(menu_price=Sum('price'))
+    #labels = list(queryset.values_list('menu__name_menu', flat=True).order_by('menu__name_menu'))
+    #data = list(queryset.values_list('menu_price', flat=True).order_by('menu__name_menu')) 
+    #data={
+    #    'labels': labels,
+    #    'data': data,
+    #}
+
+    data = list(Bids.objects.values()[0:10])
+    for d in data:
+        d['x'] = d.pop('id')
+        d['y'] = d.pop('bid_value')
+
+
+    return JsonResponse(data, safe=False)
+
+
+def bidding_data(request):
+
+    data = list(Bids.objects.values())
+    for d in data:
+        d['x'] = d.pop('id')
+        d['y'] = d.pop('bid_value')
+
+    return JsonResponse(data, safe=False)
