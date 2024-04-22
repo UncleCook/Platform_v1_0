@@ -20,6 +20,7 @@ urlpatterns = [
     path('trading-chart-child-currentbidpricevalue/', views.bidding_data, name='trading-chart-child-currentbidpricevalue'),
     path("json/", views.json_response),
     
+    
     path('login/',
          LoginView.as_view
          (

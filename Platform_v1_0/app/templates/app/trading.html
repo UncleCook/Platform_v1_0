@@ -281,10 +281,11 @@
     });
 </script>
 
-<form id="trading-chart-container">
+<form id="trading-chart-container" method="post">
+    {% csrf_token %}
     <div class="trading-chart-child" id="trading-chart-child-chart" style="width: 100%; max-width: 800px; max-height: 500px">
         <h3 style="font-weight: bold; text-align: center">Bids Over Time</h3>
-        <canvas id="bidding-chart2" data-url="{% url 'bidding-chart2' %}"></canvas>
+        <canvas id="bidding-chart2X" data-url="{% url 'bidding-chart2' %}"></canvas>
     </div>
     <label class="trading-chart-child" id="trading-chart-child-lastpricetext">Last price achieved:</label>
     <div class="trading-chart-child" id="trading-chart-child-lastpricevalue">Not applicable - primary issuance auction</div>
@@ -295,19 +296,18 @@
     <label class="trading-chart-child" id="trading-chart-child-numberbondssaletext">Number of bonds offered for sale:</label>
     <div class="trading-chart-child" id="trading-chart-child-numberbondssalevalue">500</div>
     <label class="trading-chart-child" id="trading-chart-child-numberbondsbuytext">Number of bonds to purchase:</label>
-    <input class="trading-chart-child" id="trading-chart-child-numberbondsbuyvalue" type="number"></input>
+    <div class="trading-chart-child" id="trading-chart-child-numberbondsbuyvalue"></div>
     <label class="trading-chart-child" id="trading-chart-child-bidpricetext">Bid price:</label>
-    <input class="trading-chart-child" id="trading-chart-child-bidpricevalue" type="number"></input>
+    <input class="trading-chart-child" id="trading-chart-child-bidpricevalue" type="number" name="bid_value" placeholder="Enter your price bid.."></input>
     <label class="trading-chart-child" id="trading-chart-child-totalcosttext">Total bidding cost:</label>
     <div class="trading-chart-child" id="trading-chart-child-totalcostvalue">TOTAL BIDDING COST VALUE - RESULT OF OTHER USER ENTERED VALUES</div>
-    <div class="trading-chart-child" id="trading-chart-child-submitbutton">Submit Bid</div>
+    <button class="trading-chart-child" id="trading-chart-child-submitbutton" type="submit">Submit Bid</button>
 </form>
 
 
-
-
-<!-- current auction price data sourcing -->
+<!-- bidding information -->
 <script>
+
     /*
     data = [
         { "x": 1, "y": 130 },
@@ -322,6 +322,8 @@
         { "x": 10, "y": 515 }
     ]
     */
+
+    // Current auction price data sourcing
     
     $(function () {
         $.ajax({
@@ -329,14 +331,76 @@
             type: 'GET',
             success: function (data) {
                 data.sort(function (a, b) { return a.y - b.y });
-                const bid500 = data[data.length - 500].y.toLocaleString('en-GB', { style: 'currency', currency: 'GBP', maximumFractionDigits: 0});
+                const bid500 = data[data.length - 500].y.toLocaleString('en-GB', { style: 'currency', currency: 'GBP', maximumFractionDigits: 0 });
                 $("#trading-chart-child-currentbidpricevalue").html(bid500);
             }
         });
     });
+    
+
+    // Submit bid execution
+    var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+    $(function () {
+        $("#trading-chart-child-submitbutton").click(function (e) {
+            e.preventDefault();
+
+            
+            $.ajax({
+                url: $("#trading-chart-child-currentbidpricevalue").data("url"),
+                type: "POST",
+                data: { x: 4943, y: 2010 },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('X-CSRFToken', csrftoken);
+                },
+                success: function (data) {
+                    //data.sort(function (a, b) { return a.y - b.y });
+                    //const bid500 = data[data.length - 500].y.toLocaleString('en-GB', { style: 'currency', currency: 'GBP', maximumFractionDigits: 0 });
+                    //$("#trading-chart-child-currentbidpricevalue").html(bid500);
+
+                    //const xvar = data.length;
+                    //const yvar = $("form").serialize();
+                    //$("#testdiv").text("id=" + xvar + "&" + yvar);
+                    //$("#testdiv").text(JSON.stringify({x: 4943, y: 2010 }));
+                    
+                    $("#testdiv").text(JSON.stringify(data[4941]));
+                }
+            });
+            
+        });
+    });
+    
+
+   /*
+    $(function () {
+        $("#trading-chart-child-submitbutton").click(function (e) {
+            e.preventDefault();
+            //alert($("#trading-chart-child-bidpricevalue").val());
+            //$("#testdiv").html($("#trading-chart-child-bidpricevalue").val());
+            var yvar = $("form").serialize();
+            $("#testdiv").text("&"+yvar);
+        });
+    });
+    */
+
+   /*
+    $(function () {
+        $("#trading-chart-child-submitbutton").click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: $("#trading-chart-child-currentbidpricevalue").data("url"),
+                type: 'GET',
+                success: function (data) {
+                    $("#testdiv").html(data.length + " " + $("#trading-chart-child-bidpricevalue").val());
+                }
+            });
+        });
+    });
+    */
 
 </script>
 
+
+<div id="testdiv">Test text</div>
 
 
 {% endblock content %}
