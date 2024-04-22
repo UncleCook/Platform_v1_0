@@ -130,7 +130,6 @@ def json_response(request):
 
 
 def bidding_data(request):
-    import pdb; pdb.set_trace()
     if request.method == 'POST':
         form = BidForm(request.POST)
         if form.is_valid():
