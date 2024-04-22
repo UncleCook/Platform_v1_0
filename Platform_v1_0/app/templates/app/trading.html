@@ -344,11 +344,10 @@
         $("#trading-chart-child-submitbutton").click(function (e) {
             e.preventDefault();
 
-            
             $.ajax({
                 url: $("#trading-chart-child-currentbidpricevalue").data("url"),
                 type: "POST",
-                data: { x: 4943, y: 2010 },
+                data: { x: 4943, bid_value: $("#trading-chart-child-bidpricevalue").val() },
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('X-CSRFToken', csrftoken);
                 },

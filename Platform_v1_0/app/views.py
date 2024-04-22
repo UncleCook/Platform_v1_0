@@ -8,6 +8,7 @@ from django.http import HttpRequest
 from django.http import JsonResponse
 from django.db.models import Avg, Sum, Count
 from .models import Bids, Contact, Menu, Item
+from .forms import BidForm
 
 def home(request):
     """Renders the home page."""
@@ -129,7 +130,12 @@ def json_response(request):
 
 
 def bidding_data(request):
-
+    import pdb; pdb.set_trace()
+    if request.method == 'POST':
+        form = BidForm(request.POST)
+        if form.is_valid():
+            form.save()
+    
     data = list(Bids.objects.values())
     for d in data:
         d['x'] = d.pop('id')
