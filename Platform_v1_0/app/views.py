@@ -121,10 +121,9 @@ def json_response(request):
     #}
 
     data = list(Bids.objects.values()[0:10])
-    for d in data:
-        d['x'] = d.pop('id')
-        d['y'] = d.pop('bid_value')
-
+    # for d in data:
+    #    d['x'] = d.pop('id')
+    #    d['y'] = d.pop('bid_value')
 
     return JsonResponse(data, safe=False)
 
@@ -136,8 +135,8 @@ def bidding_data(request):
             form.save()
     
     data = list(Bids.objects.values())
-    for d in data:
-        d['x'] = d.pop('id')
-        d['y'] = d.pop('bid_value')
+    #for d in data:
+    #    d['x'] = d.pop('id')
+    #    d['y'] = d.pop('bid_value')
 
     return JsonResponse(data, safe=False)

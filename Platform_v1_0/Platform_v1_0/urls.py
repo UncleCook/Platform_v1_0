@@ -18,7 +18,7 @@ urlpatterns = [
     path('bidding-chart/', views.bidding_chart, name='bidding-chart'),
     path('bidding-chart2/', views.bidding_data, name='bidding-chart2'),
     path('trading-chart-child-currentbidpricevalue/', views.bidding_data, name='trading-chart-child-currentbidpricevalue'),
-    path("json/", views.json_response),
+    path('json/', views.json_response),
     
     
     path('login/',

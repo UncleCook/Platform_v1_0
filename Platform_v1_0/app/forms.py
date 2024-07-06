@@ -24,4 +24,4 @@ class BidForm(forms.ModelForm):
     
     class Meta:
         model = Bids
-        fields = ['bid_value']
+        fields = ['volume', 'bid_value']
