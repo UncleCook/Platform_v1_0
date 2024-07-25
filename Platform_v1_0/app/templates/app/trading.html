@@ -302,9 +302,9 @@
     <label class="trading-chart-child" id="trading-chart-child-numberbondssaletext">Number of bonds offered for sale:</label>
     <div class="trading-chart-child" id="trading-chart-child-numberbondssalevalue">500</div>
     <label class="trading-chart-child" id="trading-chart-child-numberbondsbuytext">Number of bonds to purchase:</label>
-    <input class="trading-chart-child form-control" id="trading-chart-child-numberbondsbuyvalue" type="number" name="volume" placeholder="Enter here"></input>
+    <input class="trading-chart-child form-control" id="trading-chart-child-numberbondsbuyvalue" type="number" name="volume" placeholder="Enter here">
     <label class="trading-chart-child" id="trading-chart-child-bidpricetext">Bid price:</label>
-    <input class="trading-chart-child form-control" id="trading-chart-child-bidpricevalue" type="number" name="bid_value" placeholder="Enter here"></input>
+    <input class="trading-chart-child form-control" id="trading-chart-child-bidpricevalue" type="number" name="bid_value" placeholder="Enter here">
     <label class="trading-chart-child" id="trading-chart-child-totalcosttext">Total bidding cost:</label>
     <div class="trading-chart-child" id="trading-chart-child-totalcostvalue">TOTAL BIDDING COST VALUE - RESULT OF OTHER USER ENTERED VALUES</div>
     <button class="trading-chart-child btn btn-default" id="trading-chart-child-submitbutton" type="submit">Submit Bid</button>
@@ -322,8 +322,22 @@
             url: $("#trading-chart-child-currentbidpricevalue").data("url"),
             type: 'GET',
             success: function (data) {
-                data.sort(function (a, b) { return a.bid_value - b.bid_value });
-                const bid500 = data[data.length - 500].bid_value.toLocaleString('en-GB', { style: 'currency', currency: 'GBP', maximumFractionDigits: 0 });
+
+                myObj = data;
+
+                myObj.sort((a, b) => b.bid_value - a.bid_value);
+
+                myObj.forEach((element) => {
+                    element.sumvol = 0
+                });
+                myObj[0].sumvol = myObj[0].volume;
+
+                for (let i = 0; i < myObj.length - 1; i++) {
+                    myObj[i + 1].sumvol = myObj[i + 1].volume + myObj[i].sumvol;
+                }
+                const bid500 = myObj.find(element => element.sumvol >= 500).bid_value.toLocaleString('en-GB', { style: 'currency', currency: 'GBP', maximumFractionDigits: 0 });
+
+                //const bid500 = data[data.length - 500].bid_value.toLocaleString('en-GB', { style: 'currency', currency: 'GBP', maximumFractionDigits: 0 });
                 $("#trading-chart-child-currentbidpricevalue").html(bid500);
             }
         });
@@ -339,7 +353,7 @@
             $.ajax({
                 url: $("#trading-chart-child-currentbidpricevalue").data("url"),
                 type: "POST",
-                data: { id: 4949, volume: $("trading-chart-child-numberbondsbuyvalue").val(), bid_value: $("#trading-chart-child-bidpricevalue").val() },
+                data: { id: 4939, volume: $("trading-chart-child-numberbondsbuyvalue").val(), bid_value: $("#trading-chart-child-bidpricevalue").val() },
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('X-CSRFToken', csrftoken);
                 },
@@ -348,7 +362,7 @@
                     //const bid500 = data[data.length - 500].y.toLocaleString('en-GB', { style: 'currency', currency: 'GBP', maximumFractionDigits: 0 });
                     //$("#trading-chart-child-currentbidpricevalue").html(bid500);
                     
-                    $("#testdiv").text(JSON.stringify(data[4943]));
+                    $("#testdiv").text(JSON.stringify(data[4939].bid_value));
                 }
             });
             
@@ -363,3 +377,4 @@
 
 
 {% endblock content %}
+
