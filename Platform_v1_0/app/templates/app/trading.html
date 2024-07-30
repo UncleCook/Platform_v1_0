@@ -348,11 +348,12 @@
     $(function () {
         $("#trading-chart-child-submitbutton").click(function (e) {
             e.preventDefault();
+            console.log('submitting to', $("#trading-chart-child-currentbidpricevalue").data("url"), $("#trading-chart-child-numberbondsbuyvalue").val())
 
             $.ajax({
                 url: $("#trading-chart-child-currentbidpricevalue").data("url"),
                 type: "POST",
-                data: { id: 4939, volume: $("trading-chart-child-numberbondsbuyvalue").val(), bid_value: $("#trading-chart-child-bidpricevalue").val() },
+                data: { id: 4939, volume: $("#trading-chart-child-numberbondsbuyvalue").val(), bid_value: $("#trading-chart-child-bidpricevalue").val() },
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('X-CSRFToken', csrftoken);
                 },
