@@ -348,21 +348,33 @@
     $(function () {
         $("#trading-chart-child-submitbutton").click(function (e) {
             e.preventDefault();
-            console.log('submitting to', $("#trading-chart-child-currentbidpricevalue").data("url"), $("#trading-chart-child-numberbondsbuyvalue").val())
+            //console.log('submitting to', $("#trading-chart-child-currentbidpricevalue").data("url"), $("#trading-chart-child-numberbondsbuyvalue").val())
 
             $.ajax({
                 url: $("#trading-chart-child-currentbidpricevalue").data("url"),
                 type: "POST",
-                data: { id: 4939, volume: $("#trading-chart-child-numberbondsbuyvalue").val(), bid_value: $("#trading-chart-child-bidpricevalue").val() },
+                data: { volume: $("#trading-chart-child-numberbondsbuyvalue").val(), bid_value: $("#trading-chart-child-bidpricevalue").val() },
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('X-CSRFToken', csrftoken);
                 },
                 success: function (data) {
-                    //data.sort(function (a, b) { return a.y - b.y });
-                    //const bid500 = data[data.length - 500].y.toLocaleString('en-GB', { style: 'currency', currency: 'GBP', maximumFractionDigits: 0 });
-                    //$("#trading-chart-child-currentbidpricevalue").html(bid500);
-                    
-                    $("#testdiv").text(JSON.stringify(data[4939].bid_value));
+                    myObj = data;
+
+                    myObj.sort((a, b) => b.bid_value - a.bid_value);
+
+                    myObj.forEach((element) => {
+                        element.sumvol = 0
+                    });
+                    myObj[0].sumvol = myObj[0].volume;
+
+                    for (let i = 0; i < myObj.length - 1; i++) {
+                        myObj[i + 1].sumvol = myObj[i + 1].volume + myObj[i].sumvol;
+                    }
+                    const bid500 = myObj.find(element => element.sumvol >= 500).bid_value.toLocaleString('en-GB', { style: 'currency', currency: 'GBP', maximumFractionDigits: 0 });
+
+                    $("#trading-chart-child-currentbidpricevalue").html(bid500);
+
+                    //$("#testdiv").text(JSON.stringify(data[4947].bid_value));
                 }
             });
             
