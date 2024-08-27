@@ -360,7 +360,9 @@
                 success: function (data) {
                     myObj = data;
 
+
                     myObj.sort((a, b) => b.bid_value - a.bid_value);
+
 
                     myObj.forEach((element) => {
                         element.sumvol = 0

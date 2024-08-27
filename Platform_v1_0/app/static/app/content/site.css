@@ -213,9 +213,7 @@ input[type="checkbox"].input-validation-error {
     grid-column: 2;
     grid-row: 10;
     width: 120px;
-    /* border-radius: 6px;
-    border-color: rgba(200, 200, 200, 1.0);
-    box-shadow: none; */
+    height: 32px;
 }
 
 
@@ -232,3 +230,31 @@ input::-webkit-inner-spin-button {
 input[type=number] {
     -moz-appearance: textfield;
 }
+
+
+/* filtering elements CSS */
+.filterDiv {
+    float: left;
+    background-color: #2196F3;
+    color: #ffffff;
+    width: 100px;
+    line-height: 100px;
+    text-align: center;
+    margin: 2px;
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+#filteringContainer {
+    margin-top: 20px;
+    overflow: hidden;
+}
+
+#filteringBtnContainer {
+    margin-top: 40px;
+}
+
+
