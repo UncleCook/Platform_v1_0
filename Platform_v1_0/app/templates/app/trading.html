@@ -287,6 +287,7 @@
     });
 </script>
 
+
 <form id="trading-chart-container" method="post">
     {% csrf_token %}
     <div class="trading-chart-child" id="trading-chart-child-chart" style="width: 100%; max-width: 800px; max-height: 500px">
@@ -360,9 +361,7 @@
                 success: function (data) {
                     myObj = data;
 
-
                     myObj.sort((a, b) => b.bid_value - a.bid_value);
-
 
                     myObj.forEach((element) => {
                         element.sumvol = 0

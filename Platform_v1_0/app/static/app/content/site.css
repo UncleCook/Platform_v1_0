@@ -233,28 +233,57 @@ input[type=number] {
 
 
 /* filtering elements CSS */
-.filterDiv {
-    float: left;
-    background-color: #2196F3;
-    color: #ffffff;
-    width: 100px;
-    line-height: 100px;
-    text-align: center;
-    margin: 2px;
-    display: none;
-}
-
 .show {
     display: block;
+}
+
+#filteringBtnContainer {
+    margin-top: 40px;
+    display: flex;
+    justify-content: left;
+    grid-gap: 4px;
 }
 
 #filteringContainer {
     margin-top: 20px;
     overflow: hidden;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(6, 150px);
+    grid-gap: 6px;
 }
 
-#filteringBtnContainer {
-    margin-top: 40px;
+.filterDiv {
+    height: 150px;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 20px;
+    display: none;
+    background-color: #ffffff;
+    border: 2px solid #cccccc;
+    border-radius: 6px;
+    align-content: center;
+    text-align: center;
 }
 
+.filterDiv:hover,
+.filterDiv:focus,
+.filterDiv:active,
+.filterDiv.active,
+.open .dropdown-toggle.filterDiv {
+    color: #333333;
+    background-color: #ebebeb;
+    border-color: #adadad;
+}
+
+a {
+    color: rgba(25, 25, 25, 1.0);
+    text-decoration: none;
+}
+
+a:hover,
+a:focus {
+    color: rgba(60, 255, 20, 1.0);
+    text-decoration: none;
+}
 

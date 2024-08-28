@@ -27,27 +27,28 @@
 
 <!-- filtering elements -->
 <div id="filteringBtnContainer">
-    <button class="btn btn-default active" onclick="filterSelection('all')"> Show all</button>
+    <button class="btn btn-default" onclick="filterSelection('all')"> Show all</button>
     <button class="btn btn-default " onclick="filterSelection('cars')"> Cars</button>
     <button class="btn btn-default " onclick="filterSelection('animals')"> Animals</button>
     <button class="btn btn-default " onclick="filterSelection('fruits')"> Fruits</button>
     <button class="btn btn-default " onclick="filterSelection('colors')"> Colors</button>
 </div>
 
+
 <div id="filteringContainer">
-    <div class="filterDiv cars">BMW</div>
-    <div class="filterDiv colors fruits">Orange</div>
-    <div class="filterDiv cars">Volvo</div>
-    <div class="filterDiv colors">Red</div>
-    <div class="filterDiv cars">Ford</div>
-    <div class="filterDiv colors">Blue</div>
-    <div class="filterDiv animals">Cat</div>
-    <div class="filterDiv animals">Dog</div>
-    <div class="filterDiv fruits">Melon</div>
-    <div class="filterDiv fruits animals">Kiwi</div>
-    <div class="filterDiv fruits">Banana</div>
-    <div class="filterDiv fruits">Lemon</div>
-    <div class="filterDiv animals">Cow</div>
+    <button class="filterDiv btn cars"><a href="{% url 'trading' %}">BMW</a></button>
+    <button class="filterDiv btn colors fruits"><a href="{% url 'trading' %}">Orange</a></button>
+    <button class="filterDiv btn cars"><a href="{% url 'trading' %}">Volvo</a></button>
+    <button class="filterDiv btn colors"><a href="{% url 'trading' %}">Red</a></button>
+    <button class="filterDiv btn cars"><a href="{% url 'trading' %}">Ford</a></button>
+    <button class="filterDiv btn colors"><a href="{% url 'trading' %}">Blue</a></button>
+    <button class="filterDiv btn animals"><a href="{% url 'trading' %}">Cat</a></button>
+    <button class="filterDiv btn animals"><a href="{% url 'trading' %}">Dog</a></button>
+    <button class="filterDiv btn fruits"><a href="{% url 'trading' %}">Melon</a></button>
+    <button class="filterDiv btn fruits animals"><a href="{% url 'trading' %}">Kiwi</a></button>
+    <button class="filterDiv btn fruits"><a href="{% url 'trading' %}">Banana</a></button>
+    <button class="filterDiv btn fruits"><a href="{% url 'trading' %}">Lemon</a></button>
+    <button class="filterDiv btn animals"><a href="{% url 'trading' %}">Cow</a></button>
 </div>
 
 
