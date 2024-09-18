@@ -1,6 +1,6 @@
 from import_export.admin import ImportExportModelAdmin
 from django.contrib import admin
-from .models import Bids, Contact, Menu, Item
+from .models import Bids, Contact, Menu, Item, Financials
 
 admin.site.register(Contact) 
 
@@ -11,5 +11,9 @@ class BidsAdmin(ImportExportModelAdmin):
 admin.site.register(Menu)
 
 @admin.register(Item)
+class ItemAdmin(ImportExportModelAdmin):
+    pass
+
+@admin.register(Financials)
 class ItemAdmin(ImportExportModelAdmin):
     pass

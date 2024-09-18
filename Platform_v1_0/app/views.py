@@ -7,8 +7,8 @@ from django.shortcuts import render
 from django.http import HttpRequest
 from django.http import JsonResponse
 from django.db.models import Avg, Sum, Count
-from .models import Bids, Contact, Menu, Item
-from .forms import BidForm
+from .models import Bids, Contact, Menu, Item, Financials
+from .forms import BidForm, FinancialsForm
 
 def home(request):
     """Renders the home page."""
