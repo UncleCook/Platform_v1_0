@@ -50,7 +50,7 @@ class Contact(models.Model):
    def __str__(self):
       return self.name
     
-
+"""
 class Menu(models.Model):
     name_menu = models.CharField(max_length=30)
 
@@ -59,3 +59,4 @@ class Item(models.Model):
     name_item = models.CharField(max_length=30)
     price = models.FloatField(blank=True,null=True)
 
+"""

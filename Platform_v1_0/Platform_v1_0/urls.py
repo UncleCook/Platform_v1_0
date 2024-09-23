@@ -14,12 +14,14 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('trading/', views.trading, name='trading'),
     path('contact/', views.contact, name='contact'),
-    path('menu-chart/', views.menu_chart, name='menu-chart'),
-    path('bidding-chart/', views.bidding_chart, name='bidding-chart'),
+    path('analytics/', views.analytics, name='analytics'),
+    #path('menu-chart/', views.menu_chart, name='menu-chart'),
+    #path('bidding-chart/', views.bidding_chart, name='bidding-chart'),
     path('bidding-chart2/', views.bidding_data, name='bidding-chart2'),
     path('trading-chart-child-currentbidpricevalue/', views.bidding_data, name='trading-chart-child-currentbidpricevalue'),
     path('trading-chart-child-numberbondsbuyvalue/', views.bidding_data, name='trading-chart-child-numberbondsbuyvalue'),
     path('json/', views.json_response),
+    path('financials-chart/', views.financials_data, name='financials-chart'),
     
     
     path('login/',

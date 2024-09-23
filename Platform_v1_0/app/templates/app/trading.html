@@ -8,159 +8,12 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.0/chart.umd.js"></script>
 
-<!-- menu chart JS -->
-<!--
-<canvas class="grid-item" id="menu-chart" style="width:100%; max-width:1000px" data-url="{% url 'menu-chart' %}"></canvas>
+<!-- Old charting JS i.e. Menu and Bidding-chart went here; this old code is stored in JSFiddle -->
+
+<!-- Bidding chart -->
+<!-- data is stored as an Array of Objects -->
 <script>
 
-    //JS here so JS commenting applies
-    $(function () {
-
-        var $menuChart = $("#menu-chart"); // jQuery #id selector to find specific element
-        $.ajax({
-            url: $menuChart.data("url"), //jQuery standard element selector
-            success: function (data) {
-
-                var ctx = $menuChart[0].getContext("2d");
-
-                new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: data.labels,
-                        datasets: [{
-                            label: 'Menu',
-                            backgroundColor: 'rgba(127, 127, 127, 1.0)',
-                            data: data.data
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        legend: {
-                            position: 'top',
-                        },
-                        title: {
-                            display: true,
-                            text: 'Total menu prices'
-                        }
-                    }
-                });
-            }
-        });
-    });
-</script>
--->
-
-<!-- bidding chart JS -->
-<!--
-<canvas class="grid-item" id="bidding-chart" style="width: 100%; max-width: 800px; max-height: 500px" data-url="{% url 'bidding-chart' %}"></canvas>
-<script>
-
-    //JS here so JS commenting applies
-    $(function () {
-
-        var $biddingChart = $("#bidding-chart"); // jQuery #id selector to find specific element
-        $.ajax({
-            url: $biddingChart.data("url"), //jQuery standard element selector
-            success: function (data) {
-
-                var ctx = $biddingChart[0].getContext("2d");
-
-                new Chart(ctx, {
-                    type: 'scatter',
-                    data: {
-                        //labels: data.labels,
-                        datasets: [
-                            {
-                                showLine: true,
-                                pointStyle: false,
-                                //pointBorderColor: 'rgba(127, 127, 127, 1.0)',
-                                //pointBorderWidth: 2,
-                                //pointRadius: 5,
-                                lineBorderColor: 'rgba(127, 127, 127, 1.0)',
-                                lineBorderWidth: 2,
-                                data: data,
-                            },
-                            {
-                                showLine: true,
-                                pointStyle: false,
-                                lineBorderColor: 'rgba(64, 64, 64, 1.0)',
-                                lineBorderWidth: 2,
-                                lineBorderDash: [10, 10],
-                                data: [
-                                    { x: 0, y: 1100 },
-                                    { x: 5000, y: 1100 }]
-                            },
-                            {
-                                showLine: true,
-                                pointStyle: false,
-                                lineBorderColor: 'rgba(64, 64, 64, 1.0)',
-                                lineBorderWidth: 2,
-                                lineBorderDash: [10, 10],
-                                data: [
-                                    { x: 0, y: 2300 },
-                                    { x: 5000, y: 2300 }]
-                            }
-
-                        ]
-                    },
-                    options: {
-                        /*elements: {
-                            point: {
-                                pointStyle: 'rect',
-                                borderColor: 'rgba(127, 127, 127, 1.0)',
-                                borderWidth: 1,
-                                radius: 5,
-                            },
-                            line: {
-                                borderWidth: 1.0,
-                                borderColor: 'rgba(127, 127, 127, 1.0)',
-                            }
-                        },*/
-                        scales: {
-                            x: {
-                                type: 'linear',
-                                min: 0,
-                                ticks: {
-                                    stepSize: 100,
-                                }
-                            },
-                            y: {
-                                type: 'linear',
-                                min: 0,
-                                max: 2500,
-                                ticks: {
-                                    stepSize: 100,
-                                }
-                            }
-                        },
-                        plugins: {
-                            responsive: true,
-                            legend: {
-                                display: false,
-                            },
-                            title: {
-                                display: true,
-                                text: 'Bids over time',
-                                font: {
-                                    size: 24,
-                                    style: 'bold',
-                                    family: 'IBM Plex Sans'
-                                }
-                            }
-                        }
-                    }
-
-                });
-            }
-        });
-    });
-</script>
--->
-
-<!-- bidding chart2, includes animation JS -->
-<script>
-
-    //JS here so JS commenting applies
     $(function () {
 
         const $biddingChart = $("#bidding-chart2"); // jQuery #id selector to find specific element; .data() then attaches 'url' object to selected, search for 'jquery .data()' for more
@@ -173,6 +26,7 @@
 
                 // '?' is an inline JS IF statment, with ':' being equivalent to the ELSE part; see 'Conditional (ternary) operator' for further details
                 // the 100 value is the y start point at t=0, which doesn't seem to work...
+                /*
                 const totalDuration = 2000;
                 const delayBetweenPoints = totalDuration / data.length;
                 const previousY = (ctx) => ctx.index === 0 ? ctx.chart.scales.y.getPixelForValue(100) : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y;
@@ -181,7 +35,7 @@
                         type: 'number',
                         easing: 'linear',
                         duration: delayBetweenPoints,
-                        from: NaN, // the point is initially skipped
+                        from: NaN,
                         delay(ctx) {
                             if (ctx.type !== 'data' || ctx.xStarted) {
                                 return 0;
@@ -204,7 +58,7 @@
                         }
                     }
                 };
-
+                */
                 new Chart(ctx, {
                     type: 'scatter',
                     data: {
@@ -244,7 +98,7 @@
                         ]
                     },
                     options: {
-                        animation,
+                        /*animation,*/
                         scales: {
                             x: {
                                 type: 'linear',
@@ -312,11 +166,11 @@
 </form>
 
 
-<!-- bidding information -->
+<!-- Bidding information -->
 <script>
 
-    // Current auction price data sourcing
-    
+    // Current auction price sourcing
+    // Data is stored as an Array of Objects
     $(function () {
         $.ajax({
             url: $("#trading-chart-child-currentbidpricevalue").data("url"),
@@ -345,6 +199,7 @@
     
 
     // Submit bid execution
+    // Data is stored as an Array of Objects
     var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
     $(function () {
         $("#trading-chart-child-submitbutton").click(function (e) {

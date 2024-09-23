@@ -292,9 +292,9 @@ a:focus {
 
 
 
-/* DROPDOWN and RANGE SLIDER stuff */
-
-.dropdown {
+/* DROPDOWN and RANGE SLIDER */
+/* Targets divs with the dropdown class */
+div.dropdown {
     position: relative;
     display: inline-block;
     font-size: 16px;
@@ -306,14 +306,13 @@ a:focus {
     it we will be done via the label element.
 */
 
-input[type=checkbox] {
+.dropdown input[type=checkbox] {
     display: none;
 }
 
-
 /* Click to expand button */
-
-label {
+/* Only applies to labels within dropdown class */
+.dropdown label {
     box-sizing: border-box;
     display: inline-block;
     width: 100%;
@@ -331,7 +330,7 @@ label {
 
 /*  The ul will have display:none by default */
 
-ul {
+.dropdown ul {
     position: absolute;
     list-style: none;
     text-align: left;
@@ -343,8 +342,8 @@ ul {
     display: none;
 }
 
-li {
-    padding: 10px;
+.dropdown li {
+    padding: 15px;
     background-color: pink;
     color: red;
     margin-bottom: 1px;
@@ -352,28 +351,22 @@ li {
 }
 
 /* transparency removes the button default shading when hovering */
-button {
+.dropdown button {
     border-style: none;
     padding: 0px;
     background-color: transparent;
     color: inherit;
     margin-bottom: 0px;
     cursor: pointer;
-    width: 100%;
-    text-align: left;
 }
 
-li:hover {
-    background-color: #4FB9A7;
-    color: #FFF;
+.dropdown li:hover {
+    background-color: green;
+    color: white;
 }
 
-a {
-    color: inherit;
-    text-decoration: none;
-}
+/**
 
-/*
     By using the Following-sibling selector (~),
     we can target elements positioned after our checkbox in the DOM tree.
 
@@ -388,11 +381,13 @@ a {
 
 */
 
-input[type=checkbox]:checked ~ label {
-    background-color: #3D88BD;
+
+/* Combines a class, pseudo-classe and the label element type,     along with two combinators i.e. ' ' and ~ */
+.dropdown input[type=checkbox]:checked ~ label {
+    background-color: aqua;
 }
 
-input[type=checkbox]:checked ~ ul {
+.dropdown input[type=checkbox]:checked ~ ul {
     display: block;
 }
 
