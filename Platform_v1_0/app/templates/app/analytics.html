@@ -9,14 +9,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.0/chart.umd.js"></script>
 
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            Yadda yadda yadda.
-        </p>
-    </div>
-</div>
+<h2 id="financials-company-name">Company name placeholder text</h2>
 
 
 <!-- Financials chart -->
@@ -82,6 +75,9 @@
                         }
                     }
                 });
+
+                $("#financials-company-name").html(companyData[0].company);
+
             }
         });
     });
@@ -91,17 +87,17 @@
 
 
 <div style="width: 100%; max-width: 800px; max-height: 500px">
-    <h3 style="font-weight: bold; text-align: center">Company Financials Chart</h3>
+    <h3 id="financials-chart-title" style="font-weight: bold; text-align: center">Financial metric placeholder text</h3>
     <canvas id="financials-chart" data-url="{% url 'financials-chart' %}"></canvas>
 </div>
 
 
 
 
-<h3>Britvic</h3> <!-- Company name hardcoded for now -->
+<h3>Financial metric placeholder text</h3> <!-- Company name hardcoded for now -->
 
 <table style="width:100%">
-    <!-- Years hardcoded for now but may benefit from sourcing from database in future -->
+    <!-- Year values for th divs are hardcoded for now but may benefit from sourcing from database in future -->
     <tr>
         <th>2019</th>
         <th>2020</th>
@@ -109,7 +105,7 @@
         <th>2022</th>
         <th>2023</th>
     </tr>
-    <tr id="financials-data" data-url="{% url 'financials-data' %}">
+    <tr id="financials-table" data-url="{% url 'financials-table' %}">
         <td id="financials-table-1"></td>
         <td id="financials-table-2"></td>
         <td id="financials-table-3"></td>
@@ -127,7 +123,7 @@
     // Data is stored as an Array of Objects
     $(function () {
         $.ajax({
-            url: $("#financials-data").data("url"),
+            url: $("#financials-table").data("url"),
             type: 'GET',
             success: function (data) {
 
@@ -138,12 +134,14 @@
                 const data2021 = companyData.filter(item => item.year === 2021);
                 const data2022 = companyData.filter(item => item.year === 2022);
                 const data2023 = companyData.filter(item => item.year === 2023);
-                                
-                $("#financials-table-1").html(data2019[0].turnover);
-                $("#financials-table-2").html(data2020[0].turnover);
-                $("#financials-table-3").html(data2021[0].turnover);
-                $("#financials-table-4").html(data2022[0].turnover);
-                $("#financials-table-5").html(data2023[0].turnover);
+                
+                // [0] is needed to remove the square brackets that encompose the inner curly brackets i.e. pulls out the
+                // inner object from the outer array container
+                $("#financials-table-1").html(data2019[0].turnover.toLocaleString('en-US'));
+                $("#financials-table-2").html(data2020[0].turnover.toLocaleString('en-US'));
+                $("#financials-table-3").html(data2021[0].turnover.toLocaleString('en-US'));
+                $("#financials-table-4").html(data2022[0].turnover.toLocaleString('en-US'));
+                $("#financials-table-5").html(data2023[0].turnover.toLocaleString('en-US'));
             }
         });
     });

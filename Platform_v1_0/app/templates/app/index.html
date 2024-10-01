@@ -4,6 +4,7 @@
 
 {% load static %}
 
+
 <div class="row">
     <div class="col-md-4">
         <h2>Getting started</h2>
@@ -27,7 +28,9 @@
 </div>
 
 
-<!-- filtering elements -->
+
+
+<!-- Filtering elements -->
 <div id="filteringBtnContainer">
     <button class="btn btn-default" onclick="filterSelection('all')"> Show all</button>
     <button class="btn btn-default " onclick="filterSelection('cars')"> Cars</button>
@@ -37,28 +40,38 @@
 </div>
 
 
-<!-- range slider and hide / show toggle button -->
+
+<!-- Range slider and hide / show toggle button -->
 <div class="dropdown">
     <input type="checkbox" id="checkbox-toggle">
     <label for="checkbox-toggle">Click to Expand</label>
     <ul>
-        <li><button onclick="rangeHideFcn()">Link One</button></li>
-        <li><button onclick="rangeHideFcn()">Link Two</button></li>
-        <li><button onclick="rangeHideFcn()">Link Three</button></li>
-        <li><button onclick="rangeHideFcn()">Link Four</button></li>
+        <li><button value="turnover" onclick="rangeHideFcn()">Turnover</button></li>
+        <li><button value="assets" onclick="rangeHideFcn()">Assets</button></li>
+        <li><button value="operating_profit" onclick="rangeHideFcn()">Operating Margin</button></li>
+        <li><button value="free_cash_flow_margin" onclick="rangeHideFcn()">Free Cash Flow Margin</button></li>
+        <li><button value="interest_cover" onclick="rangeHideFcn()">Interest Cover</button></li>
     </ul>
 </div>
 
-<input type="range" min="0" max="100" value="50" id="myRange">
 
+<!-- Range slider
+<div id="range-slider-container-1">
+    <span id="financials-range-min"></span>
+    <input type="range" min="0" max="100" value="50" id="range-slider-1" class="financials-data" data-url="{% url 'financials-data' %}">
+    <span id="financials-range-max"></span>
+</div>
+-->
 
 
 <div id="filteringContainer">
     <!-- the link div <a> is not used and instead the link is added to a button div's onclick action -->
+
     <button class="filterDiv btn cars" onclick="document.location={% url 'trading' %}"><figure><img src="{% static 'app/images/Board game company logo.svg' %}" width=150 height=150 alt=""><figcaption>Board Game Company</figcaption></figure></button>
     <button class="filterDiv btn colors fruits" onclick="document.location={% url 'trading' %}"><figure><img src="{% static 'app/images/Pizza company logo.svg' %}" width=150 height=150 alt=""><figcaption>Pizza Company</figcaption></figure></button>
     <button class="filterDiv btn cars" onclick="document.location={% url 'trading' %}"><figure><img src="{% static 'app/images/Building materials company logo.svg' %}" width=150 height=150 alt=""><figcaption>Building Materials<br>Company</figcaption></figure></button>
     <button class="filterDiv btn colors" onclick="document.location={% url 'trading' %}"><figure><img src="{% static 'app/images/Chemicals company logo.svg' %}" width=150 height=150 alt=""><figcaption>Chemicals Company</figcaption></figure></button>
+
     <button class="filterDiv btn cars"><a href="{% url 'trading' %}">Ford</a></button>
     <button class="filterDiv btn colors"><a href="{% url 'trading' %}">Blue</a></button>
     <button class="filterDiv btn animals"><a href="{% url 'trading' %}">Cat</a></button>
@@ -72,9 +85,6 @@
 
 
 
-
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.0/chart.umd.js"></script>
 
 <!-- the "document.location..." code above causes the auto code colouring below to go wrong for some reason -->
 <script>
@@ -116,15 +126,44 @@
 
     // Range slider and hide / show toggle button
     function rangeHideFcn() {
-        var x = document.getElementById("myRange");
+        var x = document.getElementById("range-slider-container-1");
         if (x.style.display === "inline-block") {
             x.style.display = "none";
-        } else {
+        }
+        else {
             x.style.display = "inline-block";
         }
+
+        // For some reason the range slider needs a separate hide / show if statement, whereas the max and min values don't
+        var y = document.getElementById("range-slider-1");
+        if (y.style.display === "inline-block") {
+            y.style.display = "none";
+        }
+        else {
+            y.style.display = "inline-block";
+        }
+
+        $.ajax({
+            url: $(".financials-data").data("url"),
+            type: 'GET',
+            success: function (data) {
+
+                // [0] is needed to remove the square brackets that encompose the inner curly brackets i.e. pulls out the
+                // inner object from the outer array container
+                $("#financials-range-max").html(data.sort((a, b) => b.turnover - a.turnover)[0].turnover);
+                $("#financials-range-min").html(data.sort((a, b) => a.turnover - b.turnover)[0].turnover);
+
+            }
+        });
     }
 
+    //JQuery range slider code
+
+
+
 </script>
+
+
 
 
 {% endblock %}

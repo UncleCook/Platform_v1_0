@@ -59,9 +59,13 @@
     <Folder Include="app\templates\" />
     <Folder Include="app\templates\app\" />
     <Folder Include="Platform_v1_0\" />
+    <Folder Include="Properties\" />
+    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\templates\app\analytics.html" />
     <Content Include="app\templates\app\trading.html" />
+    <None Include="Properties\PublishProfiles\Platformv1020240925163943 - Web Deploy.pubxml" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
     <Content Include="app\static\app\content\bootstrap.css" />

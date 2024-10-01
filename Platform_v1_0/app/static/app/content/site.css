@@ -1,3 +1,5 @@
+/* # is an ID selector and '.' is a class selector */
+
 body {
     padding-top: 50px;
     padding-bottom: 20px;
@@ -293,7 +295,7 @@ a:focus {
 
 
 /* DROPDOWN and RANGE SLIDER */
-/* Targets divs with the dropdown class */
+/* Compound selector, as is not separated by a combinator, so targets divs with the dropdown class */
 div.dropdown {
     position: relative;
     display: inline-block;
@@ -350,7 +352,7 @@ div.dropdown {
     cursor: pointer;
 }
 
-/* transparency removes the button default shading when hovering */
+/* Transparency removes the button default shading when hovering */
 .dropdown button {
     border-style: none;
     padding: 0px;
@@ -382,7 +384,7 @@ div.dropdown {
 */
 
 
-/* Combines a class, pseudo-classe and the label element type,     along with two combinators i.e. ' ' and ~ */
+/* Combines a class, pseudo-class and the label element type, along with two combinators i.e. ' ' and ~ */
 .dropdown input[type=checkbox]:checked ~ label {
     background-color: aqua;
 }
@@ -394,3 +396,34 @@ div.dropdown {
 input[type=range] {
     display: none;
 }
+
+
+
+
+/* ANALYTICS / FINANCIALS STYLING */
+table {
+    border: 2px solid rgba(51, 51, 51, 0.5);
+    border-collapse: separate;
+    border-radius: 5px;
+    table-layout: fixed;
+    max-width: 600px;
+    background-color: transparent;
+    padding: 10px; /* the spacing created inwards radiating from the edge of the outer table edge */
+}
+
+td, th {
+    text-align: center;
+}
+
+td {
+    border-top: 2px solid rgba(51, 51, 51, 0.25);
+    padding-top: 5px;
+}
+
+th {
+    padding-bottom: 5px;
+}
+
+
+
+

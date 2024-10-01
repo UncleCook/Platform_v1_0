@@ -22,6 +22,7 @@ urlpatterns = [
     path('trading-chart-child-numberbondsbuyvalue/', views.bidding_data, name='trading-chart-child-numberbondsbuyvalue'),
     path('json/', views.json_response),
     path('financials-chart/', views.financials_data, name='financials-chart'),
+    path('financials-table/', views.financials_data, name='financials-table'),
     path('financials-data/', views.financials_data, name='financials-data'),
     
     

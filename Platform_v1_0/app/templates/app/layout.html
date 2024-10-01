@@ -41,20 +41,20 @@
         </div>
     </div>
 
-<!-- main part below navbar -->
-<!-- formatting here is set in the 'body' class on line 313 of the bootstrap.css file -->
+    <!-- main part below navbar -->
+    <!-- formatting here is set in the 'body' class on line 313 of the bootstrap.css file -->
     <div class="container body-content">
-{% block content %}{% endblock content %}
-        <hr/>
+        {% block content %}{% endblock content %}
+        <hr />
         <footer>
-            <p>&copy; {{ year }} - My Django Application</p>
+            <p>&copy; {{ year }} - Osborns Credit Markets Ltd</p>
         </footer>
     </div>
-
+    <!-- previous JQuery version used 1.10.2 -->
     <script src="{% static 'app/scripts/jquery-1.10.2.js' %}"></script>
     <script src="{% static 'app/scripts/bootstrap.js' %}"></script>
     <script src="{% static 'app/scripts/respond.js' %}"></script>
-{% block scripts %}{% endblock scripts %}
+    {% block scripts %}{% endblock scripts %}
 
 </body>
 </html>

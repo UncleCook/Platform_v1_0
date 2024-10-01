@@ -1,0 +1,423 @@
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    background-color: rgba(233, 233, 233, 1.0);
+    font-family: 'IBM Plex Sans', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: rgba(51, 51, 51, 1.0); /* font colours */
+}
+
+.label {
+
+}
+
+label {
+    display: inline;
+    margin-bottom: 0px;
+    font-weight: normal;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* styles for validation helpers */
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+
+#trading-chart-container {
+    display: grid;
+    width: 1200px;
+    grid-template-columns: 2fr 3fr;
+    grid-template-rows: repeat(10, auto);
+    /*background-color: rgba(100, 0, 0, 1.0); */
+    padding: 0px; /*the space around the edge of the parent container and not the space between child containers*/
+    grid-row-gap: 5px; /*the space between child containers*/
+    grid-template-areas:
+        'chart chart'
+        'lastpricetext lastpricevalue'
+        'datelastpricetext datelastpricevalue'
+        'currentbidpricetext currentbidpricevalue'
+        'numberbondssaletext numberbondssalevalue'
+        'separator separator'
+        'numberbondsbuytext numberbondsbuyvalue'
+        'bidpricetext bidpricevalue'
+        'totalcosttext totalcostvalue'
+        'blank submitbutton'
+}
+
+.trading-chart-child {
+    padding: 3px; /* within a child container it is the space around the content to the border of the child container */
+    box-shadow: none;
+}
+
+#trading-chart-child-chart {
+    grid-area: chart;
+    grid-column: 1 / 3;
+    grid-row: 1;
+    justify-self: center;
+    padding-bottom: 20px;
+}
+
+#trading-chart-child-lastpricetext {
+    grid-area: lastpricetext;
+    text-align: right;
+    grid-column: 1;
+    grid-row: 2;
+    font-weight: bold;
+}
+
+#trading-chart-child-lastpricevalue {
+    grid-area: lastpricevalue;
+    text-align: left;
+    grid-column: 2;
+    grid-row: 2;
+}
+
+#trading-chart-child-datelastpricetext {
+    grid-area: datelastpricetext;
+    text-align: right;
+    grid-column: 1;
+    grid-row: 3;
+    font-weight: bold;
+}
+
+#trading-chart-child-datelastpricevalue {
+    grid-area: datelastpricevalue;
+    text-align: left;
+    grid-column: 2;
+    grid-row: 3;
+}
+
+#trading-chart-child-currentbidpricetext {
+    grid-area: currentbidpricetext;
+    text-align: right;
+    grid-column: 1;
+    grid-row: 4;
+    font-weight: bold;
+}
+
+#trading-chart-child-currentbidpricevalue {
+    grid-area: currentbidpricevalue;
+    text-align: left;
+    grid-column: 2;
+    grid-row: 4;
+}
+
+#trading-chart-child-numberbondssaletext {
+    grid-area: numberbondssaletext;
+    text-align: right;
+    grid-column: 1;
+    grid-row: 5;
+    font-weight: bold;
+}
+
+#trading-chart-child-numberbondssalevalue {
+    grid-area: numberbondssalevalue;
+    text-align: left;
+    grid-column: 2;
+    grid-row: 5;
+    margin-bottom: 20px;
+}
+
+#trading-chart-child-separator {
+    grid-area: separator;
+    grid-column: 1 / 2;
+    grid-row: 6;
+}
+
+#trading-chart-child-numberbondsbuytext {
+    grid-area: numberbondsbuytext;
+    text-align: right;
+    grid-column: 1;
+    grid-row: 7;
+    align-content: center;
+    font-weight: bold;
+}
+
+#trading-chart-child-numberbondsbuyvalue {
+    grid-area: numberbondsbuyvalue;
+    text-align: left;
+    grid-column: 2;
+    grid-row: 7;
+    width: 120px;
+}
+
+#trading-chart-child-bidpricetext {
+    grid-area: bidpricetext;
+    text-align: right;
+    grid-column: 1;
+    grid-row: 8;
+    align-content: center;
+    font-weight: bold;
+}
+
+#trading-chart-child-bidpricevalue {
+    grid-area: bidpricevalue;
+    text-align: left;
+    grid-column: 2;
+    grid-row: 8;
+    width: 120px;
+}
+
+#trading-chart-child-totalcosttext {
+    grid-area: totalcosttext;
+    text-align: right;
+    grid-column: 1;
+    grid-row: 9;
+    font-weight: bold;
+}
+
+#trading-chart-child-totalcostvalue {
+    grid-area: totalcostvalue;
+    text-align: left;
+    grid-column: 2;
+    grid-row: 9;
+}
+
+#trading-chart-child-submitbutton {
+    grid-area: submitbutton;
+    text-align: center;
+    grid-column: 2;
+    grid-row: 10;
+    width: 120px;
+    height: 32px;
+}
+
+
+
+
+/* Removes number input tag arrows for Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Removes number input tag arrows for Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+
+/* filtering elements CSS */
+.show {
+    display: block;
+}
+
+#filteringBtnContainer {
+    margin-top: 40px;
+    display: flex;
+    justify-content: left;
+    grid-gap: 4px;
+}
+
+#filteringContainer {
+    margin-top: 20px;
+    overflow: hidden;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(4, 250px);
+    grid-gap: 6px;
+}
+
+.filterDiv {
+    height: 250px;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333333;
+    display: none;
+    background-color: #ffffff;
+    border: 2px solid #cccccc;
+    border-radius: 6px;
+    align-content: center;
+    text-align: center;
+}
+
+.filterDiv:hover,
+.filterDiv:focus,
+.filterDiv:active,
+.filterDiv.active,
+.open .dropdown-toggle.filterDiv {
+    color: #333333;
+    background-color: #ebebeb;
+    border-color: #adadad;
+}
+
+a {
+    color: rgba(25, 25, 25, 1.0);
+    text-decoration: none;
+}
+
+a:hover,
+a:focus {
+    color: rgba(60, 255, 20, 1.0); /* green text on hover */
+    text-decoration: none;
+}
+
+
+
+
+/* DROPDOWN and RANGE SLIDER */
+/* Targets divs with the dropdown class */
+div.dropdown {
+    position: relative;
+    display: inline-block;
+    font-size: 16px;
+    color: #fff;
+}
+
+/**
+    Hide the checkbox itself. Checking and unchecking 
+    it we will be done via the label element.
+*/
+
+.dropdown input[type=checkbox] {
+    display: none;
+}
+
+/* Click to expand button */
+/* Only applies to labels within dropdown class */
+.dropdown label {
+    box-sizing: border-box;
+    display: inline-block;
+    width: 100%;
+    background-color: blue;
+    padding: 15px 20px;
+    cursor: pointer;
+    text-align: center;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+
+/*  The ul will have display:none by default */
+
+.dropdown ul {
+    position: absolute;
+    list-style: none;
+    text-align: left;
+    width: 100%;
+    z-index: 1;
+    margin: 0;
+    padding: 0;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+    display: none;
+}
+
+.dropdown li {
+    padding: 15px;
+    background-color: pink;
+    color: red;
+    margin-bottom: 1px;
+    cursor: pointer;
+}
+
+/* transparency removes the button default shading when hovering */
+.dropdown button {
+    border-style: none;
+    padding: 0px;
+    background-color: transparent;
+    color: inherit;
+    margin-bottom: 0px;
+    cursor: pointer;
+}
+
+.dropdown li:hover {
+    background-color: green;
+    color: white;
+}
+
+/**
+
+    By using the Following-sibling selector (~),
+    we can target elements positioned after our checkbox in the DOM tree.
+
+    With the state pseudo selector (:checked),
+    we can make changes depending on the state of the checkbox.
+
+    Using this combination of selectors
+    allows to change the color
+    of the label
+    and show the list of items
+    only when the checkbox is checked.
+
+*/
+
+
+/* Combines a class, pseudo-classe and the label element type,     along with two combinators i.e. ' ' and ~ */
+.dropdown input[type=checkbox]:checked ~ label {
+    background-color: aqua;
+}
+
+.dropdown input[type=checkbox]:checked ~ ul {
+    display: block;
+}
+
+input[type=range] {
+    display: none;
+}
+
+
+
+
+/* ANALYTICS / FINANCIALS STYLING */
+table {
+    border: 2px solid rgba(51, 51, 51, 0.5);
+    border-collapse: separate;
+    border-radius: 5px;
+    table-layout: fixed;
+    max-width: 600px;
+    background-color: transparent;
+    padding: 10px; /* the spacing created inwards radiating from the edge of the outer table edge */
+}
+
+td, th {
+    text-align: center;
+}
+
+td {
+    border-top: 2px solid rgba(51, 51, 51, 0.25);
+    padding-top: 5px;
+}
+
+th {
+    padding-bottom: 5px;
+}
