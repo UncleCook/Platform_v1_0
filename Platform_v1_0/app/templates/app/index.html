@@ -5,6 +5,11 @@
 {% load static %}
 
 
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" defer></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" defer></script>
+
+
 <div class="row">
     <div class="col-md-4">
         <h2>Getting started</h2>
@@ -55,13 +60,15 @@
 </div>
 
 
-<!-- Range slider
-<div id="range-slider-container-1">
-    <span id="financials-range-min"></span>
-    <input type="range" min="0" max="100" value="50" id="range-slider-1" class="financials-data" data-url="{% url 'financials-data' %}">
-    <span id="financials-range-max"></span>
-</div>
--->
+<!-- Range slider -->
+<p>
+    <label for="amount">Price range:</label>
+    <input type="text" id="amount" readonly="" style="border:0; color:#f6931f; font-weight:bold;">
+</p>
+
+<div id="slider-range"></div>
+
+
 
 
 <div id="filteringContainer">
@@ -157,10 +164,23 @@
         });
     }
 
-    //JQuery range slider code
 
+    $(document).ready(function () {
+        // Initialize the slider once the DOM is ready
+        $("#slider-range").slider({
+            range: true,
+            min: 0,
+            max: 500,
+            values: [75, 300],
+            slide: function (event, ui) {
+                $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+            }
+        });
+        $("#amount").val("$" + $("#slider-range").slider("values", 0) +
+            " - $" + $("#slider-range").slider("values", 1));
+    });
 
-
+    
 </script>
 
 
