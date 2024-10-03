@@ -2,44 +2,14 @@
 
 {% block content %}
 
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
-<!-- original link -->
-<!-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.0/themes/base/jquery-ui.css"> -->
-<!-- Updated link. Version downgraded -->
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-
-<!-- Original link -->
-<!-- <script src="https://code.jquery.com/ui/1.14.0/jquery-ui.js"></script> -->
-<!-- Updated link. The "defer" attribute in the <script> tag is used to ensure that the script is executed after the HTML document has been fully parsed and loaded.
-    This means that the browser will download the script but not execute it until the HTML parsing is complete. -->
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" defer></script>
+
 
 <h2>{{ title }}.</h2>
 <h3>{{ message }}</h3>
 
-<p>
-    <label for="amount">Price range:</label>
-    <input type="text" id="amount" readonly="" style="border:0; color:#f6931f; font-weight:bold;">
-</p>
-
-<div id="slider-range"></div>
-
-<script>
-    $(document).ready(function () {
-        // Initialize the slider once the DOM is ready
-        $("#slider-range").slider({
-            range: true,
-            min: 0,
-            max: 500,
-            values: [75, 300],
-            slide: function (event, ui) {
-                $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
-            }
-        });
-        $("#amount").val("$" + $("#slider-range").slider("values", 0) +
-            " - $" + $("#slider-range").slider("values", 1));
-    });
-</script>
 
 {% endblock %}

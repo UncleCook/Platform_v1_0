@@ -3,12 +3,18 @@
 {% block content %}
 
 {% load static %}
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" defer></script>
+<!-- original link -->
+<!-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.0/themes/base/jquery-ui.css"> -->
+<!-- Updated link. Version downgraded -->
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" defer></script>
 
+<!-- Original link -->
+<!-- <script src="https://code.jquery.com/ui/1.14.0/jquery-ui.js"></script> -->
+<!-- Updated link. The "defer" attribute in the <script> tag is used to ensure that the script is executed after the HTML document has been fully parsed and loaded.
+    This means that the browser will download the script but not execute it until the HTML parsing is complete. -->
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" defer></script>
 
 <div class="row">
     <div class="col-md-4">
@@ -35,7 +41,7 @@
 
 
 
-<!-- Filtering elements -->
+<!-- Filtering buttons -->
 <div id="filteringBtnContainer">
     <button class="btn btn-default" onclick="filterSelection('all')"> Show all</button>
     <button class="btn btn-default " onclick="filterSelection('cars')"> Cars</button>
@@ -46,34 +52,81 @@
 
 
 
+
+<!-- Range sliders -->
+<div id="range-slider-cont">
+    <div id="range-turnover-cont" class="financials-data" data-url="{% url 'financials-data' %}">
+        <p>
+            <label for="turnover">Turnover:</label>
+            <input type="text" id="turnover" readonly="" style="border:0; color:#f6931f; font-weight:bold;">
+        </p>
+        <span id="turnover-min"></span>
+        <div id="range-slider-turnover"></div>
+        <span id="turnover-max"></span>
+    </div>
+
+    <div id="range-assets-cont" class="financials-data" data-url="{% url 'financials-data' %}">
+        <p>
+            <label for="assets">Total Assets:</label>
+            <input type="text" id="assets" readonly="" style="border:0; color:#f6931f; font-weight:bold;">
+        </p>
+        <span id="assets-min"></span>
+        <div id="range-slider-assets"></div>
+        <span id="assets-max"></span>
+    </div>
+
+    <div id="range-profit-cont" class="financials-data" data-url="{% url 'financials-data' %}">
+        <p>
+            <label for="profit">Operating Profit:</label>
+            <input type="text" id="profit" readonly="" style="border:0; color:#f6931f; font-weight:bold;">
+        </p>
+        <span id="profit-min"></span>
+        <div id="range-slider-profit"></div>
+        <span id="profit-max"></span>
+    </div>
+
+    <div id="range-cashflow-cont" class="financials-data" data-url="{% url 'financials-data' %}">
+        <p>
+            <label for="cashflow">Free Cash Flow Margin:</label>
+            <input type="text" id="cashflow" readonly="" style="border:0; color:#f6931f; font-weight:bold;">
+        </p>
+        <span id="cashflow-min"></span>
+        <div id="range-slider-cashflow"></div>
+        <span id="cashflow-max"></span>
+    </div>
+
+    <div id="range-interestcover-cont" class="financials-data" data-url="{% url 'financials-data' %}">
+        <p>
+            <label for="interestcover">Interest Cover Ratio:</label>
+            <input type="text" id="interestcover" readonly="" style="border:0; color:#f6931f; font-weight:bold;">
+        </p>
+        <span id="interestcover-min"></span>
+        <div id="range-slider-interestcover"></div>
+        <span id="interestcover-max"></span>
+    </div>
+</div>
+
+
+
+
 <!-- Range slider and hide / show toggle button -->
-<div class="dropdown">
+<div class="sliderDropdown">
     <input type="checkbox" id="checkbox-toggle">
-    <label for="checkbox-toggle">Click to Expand</label>
+    <label for="checkbox-toggle">Financials Filters</label>
     <ul>
-        <li><button value="turnover" onclick="rangeHideFcn()">Turnover</button></li>
-        <li><button value="assets" onclick="rangeHideFcn()">Assets</button></li>
-        <li><button value="operating_profit" onclick="rangeHideFcn()">Operating Margin</button></li>
-        <li><button value="free_cash_flow_margin" onclick="rangeHideFcn()">Free Cash Flow Margin</button></li>
-        <li><button value="interest_cover" onclick="rangeHideFcn()">Interest Cover</button></li>
+        <li><button value="turnover" onclick="rangeTurnover()">Turnover</button></li>
+        <li><button value="assets" onclick="rangeAssets()">Assets</button></li>
+        <li><button value="operating_profit" onclick="rangeProfit()">Operating Profit Margin</button></li>
+        <li><button value="free_cash_flow_margin" onclick="rangeCashFlow()">Free Cash Flow Margin</button></li>
+        <li><button value="interest_cover" onclick="rangeInterestCover()">Interest Cover</button></li>
     </ul>
 </div>
 
 
-<!-- Range slider -->
-<p>
-    <label for="amount">Price range:</label>
-    <input type="text" id="amount" readonly="" style="border:0; color:#f6931f; font-weight:bold;">
-</p>
-
-<div id="slider-range"></div>
 
 
-
-
+<!-- Tiles of each company -->
 <div id="filteringContainer">
-    <!-- the link div <a> is not used and instead the link is added to a button div's onclick action -->
-
     <button class="filterDiv btn cars" onclick="document.location={% url 'trading' %}"><figure><img src="{% static 'app/images/Board game company logo.svg' %}" width=150 height=150 alt=""><figcaption>Board Game Company</figcaption></figure></button>
     <button class="filterDiv btn colors fruits" onclick="document.location={% url 'trading' %}"><figure><img src="{% static 'app/images/Pizza company logo.svg' %}" width=150 height=150 alt=""><figcaption>Pizza Company</figcaption></figure></button>
     <button class="filterDiv btn cars" onclick="document.location={% url 'trading' %}"><figure><img src="{% static 'app/images/Building materials company logo.svg' %}" width=150 height=150 alt=""><figcaption>Building Materials<br>Company</figcaption></figure></button>
@@ -121,7 +174,7 @@
     }
 
     // Add active class to the current button (highlight it)
-    var btnContainer = document.getElementById("myBtnContainer");
+    var btnContainer = document.getElementById("filteringContainer");
     var btns = btnContainer.getElementsByClassName("btn");
     for (var i = 0; i < btns.length; i++) {
         btns[i].addEventListener("click", function () {
@@ -131,23 +184,17 @@
         });
     }
 
-    // Range slider and hide / show toggle button
-    function rangeHideFcn() {
-        var x = document.getElementById("range-slider-container-1");
-        if (x.style.display === "inline-block") {
+
+
+
+    // Turnover range slider hide / show
+    function rangeTurnover() {
+        var x = document.getElementById("range-turnover-cont");
+        if (x.style.display === "grid") {
             x.style.display = "none";
         }
         else {
-            x.style.display = "inline-block";
-        }
-
-        // For some reason the range slider needs a separate hide / show if statement, whereas the max and min values don't
-        var y = document.getElementById("range-slider-1");
-        if (y.style.display === "inline-block") {
-            y.style.display = "none";
-        }
-        else {
-            y.style.display = "inline-block";
+            x.style.display = "grid";
         }
 
         $.ajax({
@@ -157,33 +204,190 @@
 
                 // [0] is needed to remove the square brackets that encompose the inner curly brackets i.e. pulls out the
                 // inner object from the outer array container
-                $("#financials-range-max").html(data.sort((a, b) => b.turnover - a.turnover)[0].turnover);
-                $("#financials-range-min").html(data.sort((a, b) => a.turnover - b.turnover)[0].turnover);
+                $("#turnover-max").html(data.sort((a, b) => b.turnover - a.turnover)[0].turnover);
+                $("#turnover-min").html(data.sort((a, b) => a.turnover - b.turnover)[0].turnover);
 
             }
         });
-    }
+    };
 
 
+    // Assets range slider hide / show
+    function rangeAssets() {
+        var x = document.getElementById("range-assets-cont");
+        if (x.style.display === "grid") {
+            x.style.display = "none";
+        }
+        else {
+            x.style.display = "grid";
+        }
+
+        $.ajax({
+            url: $(".financials-data").data("url"),
+            type: 'GET',
+            success: function (data) {
+
+                $("#assets-max").html(data.sort((a, b) => b.total_assets - a.total_assets)[0].total_assets);
+                $("#assets-min").html(data.sort((a, b) => a.total_assets - b.total_assets)[0].total_assets);
+
+            }
+        });
+    };
+
+
+    // Operating Profit Margin range slider hide / show
+    function rangeProfit() {
+        var x = document.getElementById("range-profit-cont");
+        if (x.style.display === "grid") {
+            x.style.display = "none";
+        }
+        else {
+            x.style.display = "grid";
+        }
+
+        $.ajax({
+            url: $(".financials-data").data("url"),
+            type: 'GET',
+            success: function (data) {
+
+                $("#profit-max").html(data.sort((a, b) => b.operating_margin - a.operating_margin)[0].operating_margin);
+                $("#profit-min").html(data.sort((a, b) => a.operating_margin - b.operating_margin)[0].operating_margin);
+
+            }
+        });
+    };
+
+
+    // Free Cash Flow Margin range slider hide / show
+    function rangeCashFlow() {
+        var x = document.getElementById("range-cashflow-cont");
+        if (x.style.display === "grid") {
+            x.style.display = "none";
+        }
+        else {
+            x.style.display = "grid";
+        }
+
+        $.ajax({
+            url: $(".financials-data").data("url"),
+            type: 'GET',
+            success: function (data) {
+
+                $("#cashflow-max").html(data.sort((a, b) => b.free_cash_flow_margin - a.free_cash_flow_margin)[0].free_cash_flow_margin);
+                $("#cashflow-min").html(data.sort((a, b) => a.free_cash_flow_margin - b.free_cash_flow_margin)[0].free_cash_flow_margin);
+
+            }
+        });
+    };
+
+
+    // Interest Cover range slider hide / show
+    function rangeInterestCover() {
+        var x = document.getElementById("range-interestcover-cont");
+        if (x.style.display === "grid") {
+            x.style.display = "none";
+        }
+        else {
+            x.style.display = "grid";
+        }
+
+        $.ajax({
+            url: $(".financials-data").data("url"),
+            type: 'GET',
+            success: function (data) {
+
+                $("#interestcover-max").html(data.sort((a, b) => b.interest_cover - a.interest_cover)[0].interest_cover);
+                $("#interestcover-min").html(data.sort((a, b) => a.interest_cover - b.interest_cover)[0].interest_cover);
+
+            }
+        });
+    };
+
+
+    //Generates Turnover JQuery range slider
     $(document).ready(function () {
-        // Initialize the slider once the DOM is ready
-        $("#slider-range").slider({
+        $("#range-slider-turnover").slider({
             range: true,
             min: 0,
             max: 500,
             values: [75, 300],
             slide: function (event, ui) {
-                $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+                $("#turnover").val("$" + ui.values[0] + " - $" + ui.values[1]);
             }
         });
-        $("#amount").val("$" + $("#slider-range").slider("values", 0) +
-            " - $" + $("#slider-range").slider("values", 1));
+        $("#turnover").val("$" + $("#range-slider-turnover").slider("values", 0) +
+            " - $" + $("#range-slider-turnover").slider("values", 1));
     });
 
-    
+
+    //Generates Assets range slider
+    $(document).ready(function () {
+        $("#range-slider-assets").slider({
+            range: true,
+            min: 0,
+            max: 500,
+            values: [75, 300],
+            slide: function (event, ui) {
+                $("#assets").val("$" + ui.values[0] + " - $" + ui.values[1]);
+            }
+        });
+        $("#assets").val("$" + $("#range-slider-assets").slider("values", 0) +
+            " - $" + $("#range-slider-assets").slider("values", 1));
+    });
+
+
+    //Generates Operarating Profit Margin range slider
+    $(document).ready(function () {
+        $("#range-slider-profit").slider({
+            range: true,
+            min: 0,
+            max: 500,
+            values: [75, 300],
+            slide: function (event, ui) {
+                $("#profit").val("$" + ui.values[0] + " - $" + ui.values[1]);
+            }
+        });
+        $("#profit").val("$" + $("#range-slider-profit").slider("values", 0) +
+            " - $" + $("#range-slider-profit").slider("values", 1));
+    });
+
+
+    //Generates Free Cash Flow Margin range slider
+    $(document).ready(function () {
+        $("#range-slider-cashflow").slider({
+            range: true,
+            min: 0,
+            max: 500,
+            values: [75, 300],
+            slide: function (event, ui) {
+                $("#cashflow").val("$" + ui.values[0] + " - $" + ui.values[1]);
+            }
+        });
+        $("#cashflow").val("$" + $("#range-slider-cashflow").slider("values", 0) +
+            " - $" + $("#range-slider-cashflow").slider("values", 1));
+    });
+
+
+    //Generates Interest Cover Ratio range slider
+    $(document).ready(function () {
+        $("#range-slider-interestcover").slider({
+            range: true,
+            min: 0,
+            max: 500,
+            values: [75, 300],
+            slide: function (event, ui) {
+                $("#interestcover").val("$" + ui.values[0] + " - $" + ui.values[1]);
+            }
+        });
+        $("#interestcover").val("$" + $("#range-slider-interestcover").slider("values", 0) +
+            " - $" + $("#range-slider-interestcover").slider("values", 1));
+    });
+
+
 </script>
 
 
 
 
 {% endblock %}
+
