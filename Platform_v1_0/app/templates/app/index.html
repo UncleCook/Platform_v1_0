@@ -313,18 +313,19 @@
             success: function (data) {
                 //$("#range-slider-turnover").slider("option", "max", data.sort((a, b) => b.turnover - a.turnover)[0].turnover);
                 const max = data.sort((a, b) => b.turnover - a.turnover)[0].turnover;
+                $("#range-slider-turnover").slider({
+                    range: true,
+                    min: 0,
+                    max: max,
+                    values: [100, 400],
+                    slide: function (event, ui) {
+                        $("#turnover").val("$" + ui.values[0] + " - $" + ui.values[1]);
+                    }
+                });
             }
         });
 
-        $("#range-slider-turnover").slider({
-            range: true,
-            min: 0,
-            max: max,
-            values: [100, 400],
-            slide: function (event, ui) {
-                $("#turnover").val("$" + ui.values[0] + " - $" + ui.values[1]);
-            }
-        });
+        
 
         $("#turnover").val("$" + $("#range-slider-turnover").slider("values", 0) +
             " - $" + $("#range-slider-turnover").slider("values", 1));            
