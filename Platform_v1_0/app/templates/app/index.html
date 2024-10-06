@@ -304,23 +304,37 @@
     };
 
 
-    //Generates Turnover JQuery range slider
+    // Generates Turnover JQuery range slider
     $(document).ready(function () {
+
+        $.ajax({
+            url: $(".financials-data").data("url"),
+            type: 'GET',
+            success: function (data) {
+                //$("#range-slider-turnover").slider("option", "max", data.sort((a, b) => b.turnover - a.turnover)[0].turnover);
+                const max = data.sort((a, b) => b.turnover - a.turnover)[0].turnover;
+            }
+        });
+
         $("#range-slider-turnover").slider({
             range: true,
             min: 0,
-            max: 500,
-            values: [75, 300],
+            max: max,
+            values: [100, 400],
             slide: function (event, ui) {
                 $("#turnover").val("$" + ui.values[0] + " - $" + ui.values[1]);
             }
         });
+
         $("#turnover").val("$" + $("#range-slider-turnover").slider("values", 0) +
-            " - $" + $("#range-slider-turnover").slider("values", 1));
+            " - $" + $("#range-slider-turnover").slider("values", 1));            
+
+        //$("#range-slider-turnover").slider("option", "max", 1000000);
+
     });
 
 
-    //Generates Assets range slider
+    // Generates Assets range slider
     $(document).ready(function () {
         $("#range-slider-assets").slider({
             range: true,
@@ -336,7 +350,7 @@
     });
 
 
-    //Generates Operarating Profit Margin range slider
+    // Generates Operarating Profit Margin range slider
     $(document).ready(function () {
         $("#range-slider-profit").slider({
             range: true,
@@ -352,7 +366,7 @@
     });
 
 
-    //Generates Free Cash Flow Margin range slider
+    // Generates Free Cash Flow Margin range slider
     $(document).ready(function () {
         $("#range-slider-cashflow").slider({
             range: true,
@@ -368,7 +382,7 @@
     });
 
 
-    //Generates Interest Cover Ratio range slider
+    // Generates Interest Cover Ratio range slider
     $(document).ready(function () {
         $("#range-slider-interestcover").slider({
             range: true,
