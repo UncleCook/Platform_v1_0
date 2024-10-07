@@ -311,23 +311,28 @@
             url: $(".financials-data").data("url"),
             type: 'GET',
             success: function (data) {
-                //$("#range-slider-turnover").slider("option", "max", data.sort((a, b) => b.turnover - a.turnover)[0].turnover);
+                
                 const max = data.sort((a, b) => b.turnover - a.turnover)[0].turnover;
+                const min = data.sort((a, b) => a.turnover - b.turnover)[0].turnover;
+                const leftstart = (4 * min + max) / 5;
+                const rightstart = (4 * max + min) / 5;
+
+
+                $("#range-slider-turnover").slider({
+                    range: true,
+                    min: min,
+                    max: max,
+                    values: [leftstart, rightstart],
+                    slide: function (event, ui) {
+                        $("#turnover").val("$" + ui.values[0] + " - $" + ui.values[1]);
+                    }
+                });
             }
         });
 
-        $("#range-slider-turnover").slider({
-            range: true,
-            min: 0,
-            max: max,
-            values: [100, 400],
-            slide: function (event, ui) {
-                $("#turnover").val("$" + ui.values[0] + " - $" + ui.values[1]);
-            }
-        });
 
         $("#turnover").val("$" + $("#range-slider-turnover").slider("values", 0) +
-            " - $" + $("#range-slider-turnover").slider("values", 1));            
+            " - $" + $("#range-slider-turnover").slider("values", 1));           
 
         //$("#range-slider-turnover").slider("option", "max", 1000000);
 
