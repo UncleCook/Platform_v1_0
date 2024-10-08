@@ -204,8 +204,8 @@
 
                 // [0] is needed to remove the square brackets that encompose the inner curly brackets i.e. pulls out the
                 // inner object from the outer array container
-                $("#turnover-max").html(data.sort((a, b) => b.turnover - a.turnover)[0].turnover);
-                $("#turnover-min").html(data.sort((a, b) => a.turnover - b.turnover)[0].turnover);
+                $("#turnover-max").html(data.filter((item) => item.year === 2023).sort((a, b) => b.turnover - a.turnover)[0].turnover);
+                $("#turnover-min").html(data.filter((item) => item.year === 2023).sort((a, b) => a.turnover - b.turnover)[0].turnover);
 
             }
         });
@@ -227,8 +227,8 @@
             type: 'GET',
             success: function (data) {
 
-                $("#assets-max").html(data.sort((a, b) => b.total_assets - a.total_assets)[0].total_assets);
-                $("#assets-min").html(data.sort((a, b) => a.total_assets - b.total_assets)[0].total_assets);
+                $("#assets-max").html(data.filter((item) => item.year === 2023).sort((a, b) => b.total_assets - a.total_assets)[0].total_assets);
+                $("#assets-min").html(data.filter((item) => item.year === 2023).sort((a, b) => a.total_assets - b.total_assets)[0].total_assets);
 
             }
         });
@@ -250,8 +250,8 @@
             type: 'GET',
             success: function (data) {
 
-                $("#profit-max").html(data.sort((a, b) => b.operating_margin - a.operating_margin)[0].operating_margin);
-                $("#profit-min").html(data.sort((a, b) => a.operating_margin - b.operating_margin)[0].operating_margin);
+                $("#profit-max").html(data.filter((item) => item.year === 2023).sort((a, b) => b.operating_margin - a.operating_margin)[0].operating_margin);
+                $("#profit-min").html(data.filter((item) => item.year === 2023).sort((a, b) => a.operating_margin - b.operating_margin)[0].operating_margin);
 
             }
         });
@@ -273,8 +273,8 @@
             type: 'GET',
             success: function (data) {
 
-                $("#cashflow-max").html(data.sort((a, b) => b.free_cash_flow_margin - a.free_cash_flow_margin)[0].free_cash_flow_margin);
-                $("#cashflow-min").html(data.sort((a, b) => a.free_cash_flow_margin - b.free_cash_flow_margin)[0].free_cash_flow_margin);
+                $("#cashflow-max").html(data.filter((item) => item.year === 2023).sort((a, b) => b.free_cash_flow_margin - a.free_cash_flow_margin)[0].free_cash_flow_margin);
+                $("#cashflow-min").html(data.filter((item) => item.year === 2023).sort((a, b) => a.free_cash_flow_margin - b.free_cash_flow_margin)[0].free_cash_flow_margin);
 
             }
         });
@@ -296,8 +296,8 @@
             type: 'GET',
             success: function (data) {
 
-                $("#interestcover-max").html(data.sort((a, b) => b.interest_cover - a.interest_cover)[0].interest_cover);
-                $("#interestcover-min").html(data.sort((a, b) => a.interest_cover - b.interest_cover)[0].interest_cover);
+                $("#interestcover-max").html(data.filter((item) => item.year === 2023).sort((a, b) => b.interest_cover - a.interest_cover)[0].interest_cover);
+                $("#interestcover-min").html(data.filter((item) => item.year === 2023).sort((a, b) => a.interest_cover - b.interest_cover)[0].interest_cover);
 
             }
         });
@@ -312,8 +312,8 @@
             type: 'GET',
             success: function (data) {
                 
-                const max = data.sort((a, b) => b.turnover - a.turnover)[0].turnover;
-                const min = data.sort((a, b) => a.turnover - b.turnover)[0].turnover;
+                const max = data.filter((item) => item.year === 2023).sort((a, b) => b.turnover - a.turnover)[0].turnover;
+                const min = data.filter((item) => item.year === 2023).sort((a, b) => a.turnover - b.turnover)[0].turnover;
                 const leftstart = (4 * min + max) / 5;
                 const rightstart = (4 * max + min) / 5;
 
@@ -388,8 +388,8 @@
             type: 'GET',
             success: function (data) {
 
-                const max = data.sort((a, b) => b.total_assets - a.total_assets)[0].total_assets;
-                const min = data.sort((a, b) => a.total_assets - b.total_assets)[0].total_assets;
+                const max = data.filter((item) => item.year === 2023).sort((a, b) => b.total_assets - a.total_assets)[0].total_assets;
+                const min = data.filter((item) => item.year === 2023).sort((a, b) => a.total_assets - b.total_assets)[0].total_assets;
                 const leftstart = (4 * min + max) / 5;
                 const rightstart = (4 * max + min) / 5;
 
@@ -463,8 +463,8 @@
             type: 'GET',
             success: function (data) {
                 // JQuery slider cannot manage numbers less than 1 well, so profit margin is multiplied by 100 here
-                const max = 100 * (data.sort((a, b) => b.operating_margin - a.operating_margin)[0].operating_margin);
-                const min = 100 * (data.sort((a, b) => a.operating_margin - b.operating_margin)[0].operating_margin);
+                const max = 100 * (data.filter((item) => item.year === 2023).sort((a, b) => b.operating_margin - a.operating_margin)[0].operating_margin);
+                const min = 100 * (data.filter((item) => item.year === 2023).sort((a, b) => a.operating_margin - b.operating_margin)[0].operating_margin);
                 const leftstart = (4 * min + max) / 5;
                 const rightstart = (4 * max + min) / 5;
 
@@ -525,8 +525,8 @@
             type: 'GET',
             success: function (data) {
                 // JQuery slider cannot manage numbers less than 1 well, so free cash flow margin is multiplied by 100 here
-                const max = 100 * (data.sort((a, b) => b.free_cash_flow_margin - a.free_cash_flow_margin)[0].free_cash_flow_margin);
-                const min = 100 * (data.sort((a, b) => a.free_cash_flow_margin - b.free_cash_flow_margin)[0].free_cash_flow_margin);
+                const max = 100 * (data.filter((item) => item.year === 2023).sort((a, b) => b.free_cash_flow_margin - a.free_cash_flow_margin)[0].free_cash_flow_margin);
+                const min = 100 * (data.filter((item) => item.year === 2023).sort((a, b) => a.free_cash_flow_margin - b.free_cash_flow_margin)[0].free_cash_flow_margin);
                 const leftstart = (4 * min + max) / 5;
                 const rightstart = (4 * max + min) / 5;
                 // Because %s are multiplied by 100, the '%' sign is manually added in
@@ -587,8 +587,8 @@
             type: 'GET',
             success: function (data) {
                 // JQuery slider cannot manage numbers less than 1 well, so interest cover is multiplied by 100 here
-                const max = 100 * (data.sort((a, b) => b.interest_cover - a.interest_cover)[0].interest_cover);
-                const min = 100 * (data.sort((a, b) => a.interest_cover - b.interest_cover)[0].interest_cover);
+                const max = 100 * (data.filter((item) => item.year === 2023).sort((a, b) => b.interest_cover - a.interest_cover)[0].interest_cover);
+                const min = 100 * (data.filter((item) => item.year === 2023).sort((a, b) => a.interest_cover - b.interest_cover)[0].interest_cover);
                 const leftstart = (4 * min + max) / 5;
                 const rightstart = (4 * max + min) / 5;
                 // Because %s are multiplied by 100, the '%' sign is manually added in
