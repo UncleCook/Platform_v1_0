@@ -317,89 +317,324 @@
                 const leftstart = (4 * min + max) / 5;
                 const rightstart = (4 * max + min) / 5;
 
-
                 $("#range-slider-turnover").slider({
                     range: true,
                     min: min,
                     max: max,
                     values: [leftstart, rightstart],
                     slide: function (event, ui) {
-                        $("#turnover").val("$" + ui.values[0] + " - $" + ui.values[1]);
+                        // $("#turnover").val("$" + ui.values[0] + " - $" + ui.values[1]);
+                        // FractionDigits specify the number of decimal places
+                        $("#turnover").val(
+                            Intl.NumberFormat('en-GB', {
+                                style: 'currency',
+                                currency: 'GBP',
+                                notation: 'compact',
+                                compactDisplay: 'short',
+                                minimumFractionDigits: 1,
+                                maximumFractionDigits: 1,
+                            }).format(ui.values[0]) +
+
+                            " to " +
+
+                            Intl.NumberFormat('en-GB', {
+                                style: 'currency',
+                                currency: 'GBP',
+                                notation: 'compact',
+                                compactDisplay: 'short',
+                                minimumFractionDigits: 1,
+                                maximumFractionDigits: 1,
+                            }).format(ui.values[1])
+                        );
                     }
                 });
+
+                // Initial values shown before range slider buttons are used
+                $("#turnover").val(
+                    Intl.NumberFormat('en-GB', {
+                        style: 'currency',
+                        currency: 'GBP',
+                        notation: 'compact',
+                        compactDisplay: 'short',
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 1,
+                    }).format($("#range-slider-turnover").slider("values", 0)) +
+
+                    " to " +
+
+                    Intl.NumberFormat('en-GB', {
+                        style: 'currency',
+                        currency: 'GBP',
+                        notation: 'compact',
+                        compactDisplay: 'short',
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 1,
+                    }).format($("#range-slider-turnover").slider("values", 1))
+
+                );
+
             }
+
         });
-
-
-        $("#turnover").val("$" + $("#range-slider-turnover").slider("values", 0) +
-            " - $" + $("#range-slider-turnover").slider("values", 1));           
-
-        //$("#range-slider-turnover").slider("option", "max", 1000000);
 
     });
 
 
     // Generates Assets range slider
     $(document).ready(function () {
-        $("#range-slider-assets").slider({
-            range: true,
-            min: 0,
-            max: 500,
-            values: [75, 300],
-            slide: function (event, ui) {
-                $("#assets").val("$" + ui.values[0] + " - $" + ui.values[1]);
+
+        $.ajax({
+            url: $(".financials-data").data("url"),
+            type: 'GET',
+            success: function (data) {
+
+                const max = data.sort((a, b) => b.total_assets - a.total_assets)[0].total_assets;
+                const min = data.sort((a, b) => a.total_assets - b.total_assets)[0].total_assets;
+                const leftstart = (4 * min + max) / 5;
+                const rightstart = (4 * max + min) / 5;
+
+                $("#range-slider-assets").slider({
+                    range: true,
+                    min: min,
+                    max: max,
+                    values: [leftstart, rightstart],
+                    slide: function (event, ui) {
+                        // FractionDigits specify the number of decimal places
+                        $("#assets").val(
+                            Intl.NumberFormat('en-GB', {
+                                style: 'currency',
+                                currency: 'GBP',
+                                notation: 'compact',
+                                compactDisplay: 'short',
+                                minimumFractionDigits: 1,
+                                maximumFractionDigits: 1,
+                            }).format(ui.values[0]) +
+
+                            " to " +
+
+                            Intl.NumberFormat('en-GB', {
+                                style: 'currency',
+                                currency: 'GBP',
+                                notation: 'compact',
+                                compactDisplay: 'short',
+                                minimumFractionDigits: 1,
+                                maximumFractionDigits: 1,
+                            }).format(ui.values[1])
+                        );
+                    }
+                });
+
+                // Initial values shown before range slider buttons are used
+                $("#assets").val(
+                    Intl.NumberFormat('en-GB', {
+                        style: 'currency',
+                        currency: 'GBP',
+                        notation: 'compact',
+                        compactDisplay: 'short',
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 1,
+                    }).format($("#range-slider-assets").slider("values", 0)) +
+
+                    " to " +
+
+                    Intl.NumberFormat('en-GB', {
+                        style: 'currency',
+                        currency: 'GBP',
+                        notation: 'compact',
+                        compactDisplay: 'short',
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 1,
+                    }).format($("#range-slider-assets").slider("values", 1))
+
+                );
+
             }
+
         });
-        $("#assets").val("$" + $("#range-slider-assets").slider("values", 0) +
-            " - $" + $("#range-slider-assets").slider("values", 1));
+
     });
 
 
     // Generates Operarating Profit Margin range slider
     $(document).ready(function () {
-        $("#range-slider-profit").slider({
-            range: true,
-            min: 0,
-            max: 500,
-            values: [75, 300],
-            slide: function (event, ui) {
-                $("#profit").val("$" + ui.values[0] + " - $" + ui.values[1]);
+
+        $.ajax({
+            url: $(".financials-data").data("url"),
+            type: 'GET',
+            success: function (data) {
+                // JQuery slider cannot manage numbers less than 1 well, so profit margin is multiplied by 100 here
+                const max = 100 * (data.sort((a, b) => b.operating_margin - a.operating_margin)[0].operating_margin);
+                const min = 100 * (data.sort((a, b) => a.operating_margin - b.operating_margin)[0].operating_margin);
+                const leftstart = (4 * min + max) / 5;
+                const rightstart = (4 * max + min) / 5;
+
+                $("#range-slider-profit").slider({
+                    range: true,
+                    min: min,
+                    max: max,
+                    values: [leftstart, rightstart],
+                    slide: function (event, ui) {
+                        $("#profit").val(
+                            Intl.NumberFormat('en-GB', {
+                                minimumFractionDigits: 1,
+                                maximumFractionDigits: 1,
+                            }).format(ui.values[0]) +
+
+                            "% to " +
+
+                            Intl.NumberFormat('en-GB', {
+                                minimumFractionDigits: 1,
+                                maximumFractionDigits: 1,
+                            }).format(ui.values[1]) +
+
+                            "%"
+                        );
+                    }
+                });
+
+                // Initial values shown before range slider buttons are used
+                $("#profit").val(
+                    Intl.NumberFormat('en-GB', {
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 1,
+                    }).format($("#range-slider-profit").slider("values", 0)) +
+
+                    "% to " +
+
+                    Intl.NumberFormat('en-GB', {
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 1,
+                    }).format($("#range-slider-profit").slider("values", 1)) +
+
+                    "%"
+
+                );
+
             }
+
         });
-        $("#profit").val("$" + $("#range-slider-profit").slider("values", 0) +
-            " - $" + $("#range-slider-profit").slider("values", 1));
+
     });
 
 
     // Generates Free Cash Flow Margin range slider
     $(document).ready(function () {
-        $("#range-slider-cashflow").slider({
-            range: true,
-            min: 0,
-            max: 500,
-            values: [75, 300],
-            slide: function (event, ui) {
-                $("#cashflow").val("$" + ui.values[0] + " - $" + ui.values[1]);
+
+        $.ajax({
+            url: $(".financials-data").data("url"),
+            type: 'GET',
+            success: function (data) {
+                // JQuery slider cannot manage numbers less than 1 well, so free cash flow margin is multiplied by 100 here
+                const max = 100 * (data.sort((a, b) => b.free_cash_flow_margin - a.free_cash_flow_margin)[0].free_cash_flow_margin);
+                const min = 100 * (data.sort((a, b) => a.free_cash_flow_margin - b.free_cash_flow_margin)[0].free_cash_flow_margin);
+                const leftstart = (4 * min + max) / 5;
+                const rightstart = (4 * max + min) / 5;
+                // Because %s are multiplied by 100, the '%' sign is manually added in
+                $("#range-slider-cashflow").slider({
+                    range: true,
+                    min: min,
+                    max: max,
+                    values: [leftstart, rightstart],
+                    slide: function (event, ui) {
+                        $("#cashflow").val(
+                            Intl.NumberFormat('en-GB', {
+                                minimumFractionDigits: 1,
+                                maximumFractionDigits: 1,
+                            }).format(ui.values[0]) +
+
+                            "% to " +
+
+                            Intl.NumberFormat('en-GB', {
+                                minimumFractionDigits: 1,
+                                maximumFractionDigits: 1,
+                            }).format(ui.values[1]) +
+
+                            "%"
+                        );
+                    }
+                });
+
+                // Initial values shown before range slider buttons are used
+                $("#cashflow").val(
+                    Intl.NumberFormat('en-GB', {
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 1,
+                    }).format($("#range-slider-cashflow").slider("values", 0)) +
+
+                    "% to " +
+
+                    Intl.NumberFormat('en-GB', {
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 1,
+                    }).format($("#range-slider-cashflow").slider("values", 1)) +
+
+                    "%"
+
+                );
+
             }
+
         });
-        $("#cashflow").val("$" + $("#range-slider-cashflow").slider("values", 0) +
-            " - $" + $("#range-slider-cashflow").slider("values", 1));
+
     });
 
 
     // Generates Interest Cover Ratio range slider
     $(document).ready(function () {
-        $("#range-slider-interestcover").slider({
-            range: true,
-            min: 0,
-            max: 500,
-            values: [75, 300],
-            slide: function (event, ui) {
-                $("#interestcover").val("$" + ui.values[0] + " - $" + ui.values[1]);
+
+        $.ajax({
+            url: $(".financials-data").data("url"),
+            type: 'GET',
+            success: function (data) {
+                // JQuery slider cannot manage numbers less than 1 well, so interest cover is multiplied by 100 here
+                const max = 100 * (data.sort((a, b) => b.interest_cover - a.interest_cover)[0].interest_cover);
+                const min = 100 * (data.sort((a, b) => a.interest_cover - b.interest_cover)[0].interest_cover);
+                const leftstart = (4 * min + max) / 5;
+                const rightstart = (4 * max + min) / 5;
+                // Because %s are multiplied by 100, the '%' sign is manually added in
+                $("#range-slider-interestcover").slider({
+                    range: true,
+                    min: min,
+                    max: max,
+                    values: [leftstart, rightstart],
+                    slide: function (event, ui) {
+                        $("#interestcover").val(
+                            Intl.NumberFormat('en-GB', {
+                                minimumFractionDigits: 1,
+                                maximumFractionDigits: 1,
+                            }).format(ui.values[0] / 100) +
+
+                            " to " +
+
+                            Intl.NumberFormat('en-GB', {
+                                minimumFractionDigits: 1,
+                                maximumFractionDigits: 1,
+                            }).format(ui.values[1] / 100)
+
+                        );
+                    }
+                });
+
+                // Initial values shown before range slider buttons are used
+                $("#interestcover").val(
+                    Intl.NumberFormat('en-GB', {
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 1,
+                    }).format($("#range-slider-interestcover").slider("values", 0) / 100) +
+
+                    " to " +
+
+                    Intl.NumberFormat('en-GB', {
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 1,
+                    }).format($("#range-slider-interestcover").slider("values", 1) / 100)
+
+                );
+
             }
+
         });
-        $("#interestcover").val("$" + $("#range-slider-interestcover").slider("values", 0) +
-            " - $" + $("#range-slider-interestcover").slider("values", 1));
+
     });
 
 
