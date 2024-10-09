@@ -12,8 +12,8 @@
 
 <!-- Original link -->
 <!-- <script src="https://code.jquery.com/ui/1.14.0/jquery-ui.js"></script> -->
-<!-- Updated link. The "defer" attribute in the <script> tag is used to ensure that the script is executed after the HTML document has been fully parsed and loaded.
-    This means that the browser will download the script but not execute it until the HTML parsing is complete. -->
+<!-- The "defer" attribute in the <script> tag is used to ensure that the script is executed after the HTML document has been fully parsed and loaded.
+     This means that the browser will download the script but not execute it until the HTML parsing is complete. -->
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" defer></script>
 
 <div class="row">
@@ -202,10 +202,34 @@
             type: 'GET',
             success: function (data) {
 
-                // [0] is needed to remove the square brackets that encompose the inner curly brackets i.e. pulls out the
-                // inner object from the outer array container
-                $("#turnover-max").html(data.filter((item) => item.year === 2023).sort((a, b) => b.turnover - a.turnover)[0].turnover);
-                $("#turnover-min").html(data.filter((item) => item.year === 2023).sort((a, b) => a.turnover - b.turnover)[0].turnover);
+                // [0] is needed to remove the square brackets that encompose the inner curly brackets
+                // i.e. it pulls out the inner objects from the outer array container
+
+                $("#turnover-max").html(Intl.NumberFormat('en-GB', {
+                    style: 'currency',
+                    currency: 'GBP',
+                    notation: 'compact',
+                    compactDisplay: 'short',
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1,
+                }).format(
+                    data.filter((item) => item.year === 2023).sort((a, b) => b.turnover - a.turnover)[0].turnover)
+                );
+
+                $("#turnover-min").html(Intl.NumberFormat('en-GB', {
+                    style: 'currency',
+                    currency: 'GBP',
+                    notation: 'compact',
+                    compactDisplay: 'short',
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1,
+                }).format(
+                    data.filter((item) => item.year === 2023).sort((a, b) => a.turnover - b.turnover)[0].turnover)
+                );
+
+                // Previous version without currency formatting
+                //$("#turnover-max").html(data.filter((item) => item.year === 2023).sort((a, b) => b.turnover - a.turnover)[0].turnover);
+                //$("#turnover-min").html(data.filter((item) => item.year === 2023).sort((a, b) => a.turnover - b.turnover)[0].turnover);
 
             }
         });
@@ -227,9 +251,27 @@
             type: 'GET',
             success: function (data) {
 
-                $("#assets-max").html(data.filter((item) => item.year === 2023).sort((a, b) => b.total_assets - a.total_assets)[0].total_assets);
-                $("#assets-min").html(data.filter((item) => item.year === 2023).sort((a, b) => a.total_assets - b.total_assets)[0].total_assets);
+                $("#assets-max").html(Intl.NumberFormat('en-GB', {
+                    style: 'currency',
+                    currency: 'GBP',
+                    notation: 'compact',
+                    compactDisplay: 'short',
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1,
+                }).format(
+                    data.filter((item) => item.year === 2023).sort((a, b) => b.total_assets - a.total_assets)[0].total_assets)
+                );
 
+                $("#assets-min").html(Intl.NumberFormat('en-GB', {
+                    style: 'currency',
+                    currency: 'GBP',
+                    notation: 'compact',
+                    compactDisplay: 'short',
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1,
+                }).format(
+                    data.filter((item) => item.year === 2023).sort((a, b) => a.total_assets - b.total_assets)[0].total_assets)
+                );
             }
         });
     };
@@ -250,9 +292,22 @@
             type: 'GET',
             success: function (data) {
 
-                $("#profit-max").html(data.filter((item) => item.year === 2023).sort((a, b) => b.operating_margin - a.operating_margin)[0].operating_margin);
-                $("#profit-min").html(data.filter((item) => item.year === 2023).sort((a, b) => a.operating_margin - b.operating_margin)[0].operating_margin);
+                // Range slider is not used here, so percent style can be used; this contrasts to the slider values when moving
+                $("#profit-max").html(Intl.NumberFormat('en-GB', {
+                    style: 'percent',
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1,
+                }).format(
+                    data.filter((item) => item.year === 2023).sort((a, b) => b.operating_margin - a.operating_margin)[0].operating_margin)
+                );
 
+                $("#profit-min").html(Intl.NumberFormat('en-GB', {
+                    style: 'percent',
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1,
+                }).format(
+                    data.filter((item) => item.year === 2023).sort((a, b) => a.operating_margin - b.operating_margin)[0].operating_margin)
+                );
             }
         });
     };
@@ -273,9 +328,22 @@
             type: 'GET',
             success: function (data) {
 
-                $("#cashflow-max").html(data.filter((item) => item.year === 2023).sort((a, b) => b.free_cash_flow_margin - a.free_cash_flow_margin)[0].free_cash_flow_margin);
-                $("#cashflow-min").html(data.filter((item) => item.year === 2023).sort((a, b) => a.free_cash_flow_margin - b.free_cash_flow_margin)[0].free_cash_flow_margin);
+                // Range slider is not used here, so percent style can be used; this contrasts to the slider values when moving
+                $("#cashflow-max").html(Intl.NumberFormat('en-GB', {
+                    style: 'percent',
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1,
+                }).format(
+                    data.filter((item) => item.year === 2023).sort((a, b) => b.free_cash_flow_margin - a.free_cash_flow_margin)[0].free_cash_flow_margin)
+                );
 
+                $("#cashflow-min").html(Intl.NumberFormat('en-GB', {
+                    style: 'percent',
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1,
+                }).format(
+                    data.filter((item) => item.year === 2023).sort((a, b) => a.free_cash_flow_margin - b.free_cash_flow_margin)[0].free_cash_flow_margin)
+                );
             }
         });
     };
@@ -296,9 +364,19 @@
             type: 'GET',
             success: function (data) {
 
-                $("#interestcover-max").html(data.filter((item) => item.year === 2023).sort((a, b) => b.interest_cover - a.interest_cover)[0].interest_cover);
-                $("#interestcover-min").html(data.filter((item) => item.year === 2023).sort((a, b) => a.interest_cover - b.interest_cover)[0].interest_cover);
+                $("#interestcover-max").html(Intl.NumberFormat('en-GB', {
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1,
+                }).format(
+                    data.filter((item) => item.year === 2023).sort((a, b) => b.interest_cover - a.interest_cover)[0].interest_cover)
+                );
 
+                $("#interestcover-min").html(Intl.NumberFormat('en-GB', {
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1,
+                }).format(
+                    data.filter((item) => item.year === 2023).sort((a, b) => a.interest_cover - b.interest_cover)[0].interest_cover)
+                );
             }
         });
     };
