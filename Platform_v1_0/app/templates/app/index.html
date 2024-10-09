@@ -56,53 +56,43 @@
 <!-- Range sliders -->
 <div id="range-slider-cont">
     <div id="range-turnover-cont" class="financials-data" data-url="{% url 'financials-data' %}">
-        <p>
-            <label for="turnover">Turnover:</label>
-            <input type="text" id="turnover" readonly="" style="border:0; color:#f6931f; font-weight:bold;">
-        </p>
-        <span id="turnover-min"></span>
-        <div id="range-slider-turnover"></div>
-        <span id="turnover-max"></span>
+        <label class="rangeValuesLabel" for="turnover">Turnover range:</label>
+        <input class="rangeValues" type="text" id="turnover" readonly="">
+        <span class="rangeMin" id="turnover-min"></span>
+        <div class="rangeSlider" id="range-slider-turnover"></div>
+        <span class="rangeMax" id="turnover-max"></span>
     </div>
 
     <div id="range-assets-cont" class="financials-data" data-url="{% url 'financials-data' %}">
-        <p>
-            <label for="assets">Total Assets:</label>
-            <input type="text" id="assets" readonly="" style="border:0; color:#f6931f; font-weight:bold;">
-        </p>
-        <span id="assets-min"></span>
-        <div id="range-slider-assets"></div>
-        <span id="assets-max"></span>
+        <label class="rangeValuesLabel" for="assets">Total Assets range:</label>
+        <input class="rangeValues" type="text" id="assets" readonly="">
+        <span class="rangeMin" id="assets-min"></span>
+        <div class="rangeSlider" id="range-slider-assets"></div>
+        <span class="rangeMax" id="assets-max"></span>
     </div>
 
     <div id="range-profit-cont" class="financials-data" data-url="{% url 'financials-data' %}">
-        <p>
-            <label for="profit">Operating Profit:</label>
-            <input type="text" id="profit" readonly="" style="border:0; color:#f6931f; font-weight:bold;">
-        </p>
-        <span id="profit-min"></span>
-        <div id="range-slider-profit"></div>
-        <span id="profit-max"></span>
+        <label class="rangeValuesLabel" for="profit">Operating Profit Margin range:</label>
+        <input class="rangeValues" type="text" id="profit" readonly="">
+        <span class="rangeMin" id="profit-min"></span>
+        <div class="rangeSlider" id="range-slider-profit"></div>
+        <span class="rangeMax" id="profit-max"></span>
     </div>
 
     <div id="range-cashflow-cont" class="financials-data" data-url="{% url 'financials-data' %}">
-        <p>
-            <label for="cashflow">Free Cash Flow Margin:</label>
-            <input type="text" id="cashflow" readonly="" style="border:0; color:#f6931f; font-weight:bold;">
-        </p>
-        <span id="cashflow-min"></span>
-        <div id="range-slider-cashflow"></div>
-        <span id="cashflow-max"></span>
+        <label class="rangeValuesLabel" for="cashflow">Free Cash Flow Margin range:</label>
+        <input class="rangeValues" type="text" id="cashflow" readonly="">
+        <span class="rangeMin" id="cashflow-min"></span>
+        <div class="rangeSlider" id="range-slider-cashflow"></div>
+        <span class="rangeMax" id="cashflow-max"></span>
     </div>
 
     <div id="range-interestcover-cont" class="financials-data" data-url="{% url 'financials-data' %}">
-        <p>
-            <label for="interestcover">Interest Cover Ratio:</label>
-            <input type="text" id="interestcover" readonly="" style="border:0; color:#f6931f; font-weight:bold;">
-        </p>
-        <span id="interestcover-min"></span>
-        <div id="range-slider-interestcover"></div>
-        <span id="interestcover-max"></span>
+        <label class="rangeValuesLabel" for="interestcover">Interest Cover Ratio range:</label>
+        <input class="rangeValues" type="text" id="interestcover" readonly="">
+        <span class="rangeMin" id="interestcover-min"></span>
+        <div class="rangeSlider" id="range-slider-interestcover"></div>
+        <span class="rangeMax" id="interestcover-max"></span>
     </div>
 </div>
 
@@ -148,7 +138,7 @@
 
 <!-- the "document.location..." code above causes the auto code colouring below to go wrong for some reason -->
 <script>
-
+        
     filterSelection('all')
 
     function filterSelection(c) {
@@ -196,43 +186,6 @@
         else {
             x.style.display = "grid";
         }
-
-        $.ajax({
-            url: $(".financials-data").data("url"),
-            type: 'GET',
-            success: function (data) {
-
-                // [0] is needed to remove the square brackets that encompose the inner curly brackets
-                // i.e. it pulls out the inner objects from the outer array container
-
-                $("#turnover-max").html(Intl.NumberFormat('en-GB', {
-                    style: 'currency',
-                    currency: 'GBP',
-                    notation: 'compact',
-                    compactDisplay: 'short',
-                    minimumFractionDigits: 1,
-                    maximumFractionDigits: 1,
-                }).format(
-                    data.filter((item) => item.year === 2023).sort((a, b) => b.turnover - a.turnover)[0].turnover)
-                );
-
-                $("#turnover-min").html(Intl.NumberFormat('en-GB', {
-                    style: 'currency',
-                    currency: 'GBP',
-                    notation: 'compact',
-                    compactDisplay: 'short',
-                    minimumFractionDigits: 1,
-                    maximumFractionDigits: 1,
-                }).format(
-                    data.filter((item) => item.year === 2023).sort((a, b) => a.turnover - b.turnover)[0].turnover)
-                );
-
-                // Previous version without currency formatting
-                //$("#turnover-max").html(data.filter((item) => item.year === 2023).sort((a, b) => b.turnover - a.turnover)[0].turnover);
-                //$("#turnover-min").html(data.filter((item) => item.year === 2023).sort((a, b) => a.turnover - b.turnover)[0].turnover);
-
-            }
-        });
     };
 
 
@@ -245,35 +198,6 @@
         else {
             x.style.display = "grid";
         }
-
-        $.ajax({
-            url: $(".financials-data").data("url"),
-            type: 'GET',
-            success: function (data) {
-
-                $("#assets-max").html(Intl.NumberFormat('en-GB', {
-                    style: 'currency',
-                    currency: 'GBP',
-                    notation: 'compact',
-                    compactDisplay: 'short',
-                    minimumFractionDigits: 1,
-                    maximumFractionDigits: 1,
-                }).format(
-                    data.filter((item) => item.year === 2023).sort((a, b) => b.total_assets - a.total_assets)[0].total_assets)
-                );
-
-                $("#assets-min").html(Intl.NumberFormat('en-GB', {
-                    style: 'currency',
-                    currency: 'GBP',
-                    notation: 'compact',
-                    compactDisplay: 'short',
-                    minimumFractionDigits: 1,
-                    maximumFractionDigits: 1,
-                }).format(
-                    data.filter((item) => item.year === 2023).sort((a, b) => a.total_assets - b.total_assets)[0].total_assets)
-                );
-            }
-        });
     };
 
 
@@ -286,30 +210,6 @@
         else {
             x.style.display = "grid";
         }
-
-        $.ajax({
-            url: $(".financials-data").data("url"),
-            type: 'GET',
-            success: function (data) {
-
-                // Range slider is not used here, so percent style can be used; this contrasts to the slider values when moving
-                $("#profit-max").html(Intl.NumberFormat('en-GB', {
-                    style: 'percent',
-                    minimumFractionDigits: 1,
-                    maximumFractionDigits: 1,
-                }).format(
-                    data.filter((item) => item.year === 2023).sort((a, b) => b.operating_margin - a.operating_margin)[0].operating_margin)
-                );
-
-                $("#profit-min").html(Intl.NumberFormat('en-GB', {
-                    style: 'percent',
-                    minimumFractionDigits: 1,
-                    maximumFractionDigits: 1,
-                }).format(
-                    data.filter((item) => item.year === 2023).sort((a, b) => a.operating_margin - b.operating_margin)[0].operating_margin)
-                );
-            }
-        });
     };
 
 
@@ -322,30 +222,6 @@
         else {
             x.style.display = "grid";
         }
-
-        $.ajax({
-            url: $(".financials-data").data("url"),
-            type: 'GET',
-            success: function (data) {
-
-                // Range slider is not used here, so percent style can be used; this contrasts to the slider values when moving
-                $("#cashflow-max").html(Intl.NumberFormat('en-GB', {
-                    style: 'percent',
-                    minimumFractionDigits: 1,
-                    maximumFractionDigits: 1,
-                }).format(
-                    data.filter((item) => item.year === 2023).sort((a, b) => b.free_cash_flow_margin - a.free_cash_flow_margin)[0].free_cash_flow_margin)
-                );
-
-                $("#cashflow-min").html(Intl.NumberFormat('en-GB', {
-                    style: 'percent',
-                    minimumFractionDigits: 1,
-                    maximumFractionDigits: 1,
-                }).format(
-                    data.filter((item) => item.year === 2023).sort((a, b) => a.free_cash_flow_margin - b.free_cash_flow_margin)[0].free_cash_flow_margin)
-                );
-            }
-        });
     };
 
 
@@ -358,27 +234,6 @@
         else {
             x.style.display = "grid";
         }
-
-        $.ajax({
-            url: $(".financials-data").data("url"),
-            type: 'GET',
-            success: function (data) {
-
-                $("#interestcover-max").html(Intl.NumberFormat('en-GB', {
-                    minimumFractionDigits: 1,
-                    maximumFractionDigits: 1,
-                }).format(
-                    data.filter((item) => item.year === 2023).sort((a, b) => b.interest_cover - a.interest_cover)[0].interest_cover)
-                );
-
-                $("#interestcover-min").html(Intl.NumberFormat('en-GB', {
-                    minimumFractionDigits: 1,
-                    maximumFractionDigits: 1,
-                }).format(
-                    data.filter((item) => item.year === 2023).sort((a, b) => a.interest_cover - b.interest_cover)[0].interest_cover)
-                );
-            }
-        });
     };
 
 
@@ -401,7 +256,8 @@
                     max: max,
                     values: [leftstart, rightstart],
                     slide: function (event, ui) {
-                        // $("#turnover").val("$" + ui.values[0] + " - $" + ui.values[1]);
+
+                        // Range slider once activiated and moved by the user
                         // FractionDigits specify the number of decimal places
                         $("#turnover").val(
                             Intl.NumberFormat('en-GB', {
@@ -451,6 +307,27 @@
 
                 );
 
+                // Max and min values
+                $("#turnover-max").html(Intl.NumberFormat('en-GB', {
+                    style: 'currency',
+                    currency: 'GBP',
+                    notation: 'compact',
+                    compactDisplay: 'short',
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1,
+                }).format(max)
+                );
+
+                $("#turnover-min").html(Intl.NumberFormat('en-GB', {
+                    style: 'currency',
+                    currency: 'GBP',
+                    notation: 'compact',
+                    compactDisplay: 'short',
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1,
+                }).format(min)
+                );
+
             }
 
         });
@@ -471,6 +348,7 @@
                 const leftstart = (4 * min + max) / 5;
                 const rightstart = (4 * max + min) / 5;
 
+                // Range slider once activiated and moved by the user
                 $("#range-slider-assets").slider({
                     range: true,
                     min: min,
@@ -526,6 +404,27 @@
 
                 );
 
+                // Max and min values
+                $("#assets-max").html(Intl.NumberFormat('en-GB', {
+                    style: 'currency',
+                    currency: 'GBP',
+                    notation: 'compact',
+                    compactDisplay: 'short',
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1,
+                }).format(max)
+                );
+
+                $("#assets-min").html(Intl.NumberFormat('en-GB', {
+                    style: 'currency',
+                    currency: 'GBP',
+                    notation: 'compact',
+                    compactDisplay: 'short',
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1,
+                }).format(min)
+                );
+
             }
 
         });
@@ -546,6 +445,7 @@
                 const leftstart = (4 * min + max) / 5;
                 const rightstart = (4 * max + min) / 5;
 
+                // Range slider once activiated and moved by the user
                 $("#range-slider-profit").slider({
                     range: true,
                     min: min,
@@ -588,6 +488,22 @@
 
                 );
 
+                // Max and min values
+                // Range slider is not used here, so percent style can be used; this contrasts to the slider values when moving
+                $("#profit-max").html(Intl.NumberFormat('en-GB', {
+                    style: 'percent',
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1,
+                }).format(max)
+                );
+
+                $("#profit-min").html(Intl.NumberFormat('en-GB', {
+                    style: 'percent',
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1,
+                }).format(min)
+                );
+
             }
 
         });
@@ -607,6 +523,8 @@
                 const min = 100 * (data.filter((item) => item.year === 2023).sort((a, b) => a.free_cash_flow_margin - b.free_cash_flow_margin)[0].free_cash_flow_margin);
                 const leftstart = (4 * min + max) / 5;
                 const rightstart = (4 * max + min) / 5;
+
+                // Range slider once activiated and moved by the user
                 // Because %s are multiplied by 100, the '%' sign is manually added in
                 $("#range-slider-cashflow").slider({
                     range: true,
@@ -650,6 +568,22 @@
 
                 );
 
+                // Max and min values
+                // Range slider is not used here, so percent style can be used; this contrasts to the slider values when moving
+                $("#cashflow-max").html(Intl.NumberFormat('en-GB', {
+                    style: 'percent',
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1,
+                }).format(max)
+                );
+
+                $("#cashflow-min").html(Intl.NumberFormat('en-GB', {
+                    style: 'percent',
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1,
+                }).format(min)
+                );
+
             }
 
         });
@@ -669,6 +603,8 @@
                 const min = 100 * (data.filter((item) => item.year === 2023).sort((a, b) => a.interest_cover - b.interest_cover)[0].interest_cover);
                 const leftstart = (4 * min + max) / 5;
                 const rightstart = (4 * max + min) / 5;
+
+                // Range slider once activiated and moved by the user
                 // Because %s are multiplied by 100, the '%' sign is manually added in
                 $("#range-slider-interestcover").slider({
                     range: true,
@@ -707,6 +643,19 @@
                         maximumFractionDigits: 1,
                     }).format($("#range-slider-interestcover").slider("values", 1) / 100)
 
+                );
+
+                // Max and min values
+                $("#interestcover-max").html(Intl.NumberFormat('en-GB', {
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1,
+                }).format(max)
+                );
+
+                $("#interestcover-min").html(Intl.NumberFormat('en-GB', {
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1,
+                }).format(min)
                 );
 
             }

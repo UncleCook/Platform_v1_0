@@ -366,57 +366,144 @@ div.sliderDropdown {
 
 
 /* RANGE SLIDERS */
+/* cont = container */
 #range-slider-cont {
     width: 1250px;
     display: grid;
-    grid-template-columns: auto auto auto auto auto; /* don't want to specify sizes here, as want boxes to collapse if not selected */
+    grid-template-columns: auto auto auto auto auto; /* Sizes not specified here, so that boxes collapse if not selected */
     grid-template-rows: auto;
     gap: 0px;
-    border: 3px solid grey;
-    margin: 10px 0px; /* top and bottom and then the sides e.g. 10px for top and bottom */
+    margin: 10px 0px; /* Top and bottom and then the sides e.g. 10px for top and bottom */
     grid-template-areas: 'turnover assets profit cashflow interestcover';
     justify-content: start;
 }
 
 #range-turnover-cont {
-    display: none;
+    display: grid; /* Of the 5 range sliders, so this is only one shown initially on landing */
     width: 240px;
     grid-area: turnover;
-    border: 2px solid red;
     margin: 0px 5px 0px 0px;
+    padding: 5px; /* Padding adds 10px in total to the sides, so the range slider needs to be 10px thinner to accommodate */
+    grid-template-columns: 50px 130px 50px;
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+        'label label label'
+        'values values values'
+        'min slider max';
+    justify-content: start;
+    align-items: center;
+    border: 2px solid rgba(128, 128, 128, 1.0);
+    border-radius: 5px;
 }
 
 #range-assets-cont {
     display: none;
     width: 240px;
     grid-area: assets;
-    border: 2px solid green;
     margin: 0px 5px 0px 0px;
+    padding: 5px;
+    grid-template-columns: 50px 130px 50px;
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+        'label label label'
+        'values values values'
+        'min slider max';
+    justify-content: start;
+    align-items: center;
+    border: 2px solid rgba(128, 128, 128, 1.0);
+    border-radius: 5px;
 }
 
 #range-profit-cont {
     display: none;
     width: 240px;
     grid-area: profit;
-    border: 2px solid yellow;
     margin: 0px 5px 0px 0px;
+    padding: 5px;
+    grid-template-columns: 50px 130px 50px;
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+        'label label label'
+        'values values values'
+        'min slider max';
+    justify-content: start;
+    align-items: center;
+    border: 2px solid rgba(128, 128, 128, 1.0);
+    border-radius: 5px;
 }
 
 #range-cashflow-cont {
     display: none;
     width: 240px;
     grid-area: cashflow;
-    border: 2px solid orange;
     margin: 0px 5px 0px 0px;
+    padding: 5px;
+    grid-template-columns: 50px 130px 50px;
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+        'label label label'
+        'values values values'
+        'min slider max';
+    justify-content: start;
+    align-items: center;
+    border: 2px solid rgba(128, 128, 128, 1.0);
+    border-radius: 5px;
 }
 
 #range-interestcover-cont {
     display: none;
     width: 240px;
     grid-area: interestcover;
-    border: 2px solid blue;
     margin: 0px 5px 0px 0px;
+    padding: 5px;
+    grid-template-columns: 50px 130px 50px;
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+        'label label label'
+        'values values values'
+        'min slider max';
+    justify-content: start;
+    align-items: center;
+    border: 2px solid rgba(128, 128, 128, 1.0);
+    border-radius: 5px;
 }
+
+.rangeValuesLabel {
+    font-weight: bold;
+    grid-area: label;
+    border: 1px solid red;
+}
+
+.rangeValues {
+    background-color: transparent;
+    grid-area: values;
+    /*border: 0; Border = 0 needed to stop text input box formatting appearing */
+    border: 1px solid pink;
+}
+
+.rangeMin {
+    grid-area: min;
+    justify-self: center;
+    margin-right: 2px;
+    font-size: 12px;
+    border: 1px solid green;
+}
+
+.rangeSlider {
+    grid-area: slider;
+    justify-self: stretch;
+    border: 1px solid blue;
+}
+
+.rangeMax {
+    grid-area: max;
+    justify-self: center;
+    margin-left: 2px;
+    font-size: 12px;
+    border: 1px solid yellow;
+}
+
+
 
 
 
@@ -444,7 +531,6 @@ td {
 th {
     padding-bottom: 5px;
 }
-
 
 
 
