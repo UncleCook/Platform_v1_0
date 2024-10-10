@@ -129,7 +129,7 @@
 
 <!-- Tiles of each company -->
 <div id="filteringContainer">
-    <button class="filterDiv btn cars" onclick="document.location={% url 'trading' %}"><figure><img src="{% static 'app/images/Board game company logo.svg' %}" width=150 height=150 alt=""><figcaption>Board Game Company</figcaption></figure></button>
+    <button id="tile-Britvic" class="filterDiv btn cars" onclick="document.location={% url 'trading' %}"><figure><img src="{% static 'app/images/Board game company logo.svg' %}" width=150 height=150 alt=""><figcaption>Board Game Company</figcaption></figure></button>
     <button class="filterDiv btn colors fruits" onclick="document.location={% url 'trading' %}"><figure><img src="{% static 'app/images/Pizza company logo.svg' %}" width=150 height=150 alt=""><figcaption>Pizza Company</figcaption></figure></button>
     <button class="filterDiv btn cars" onclick="document.location={% url 'trading' %}"><figure><img src="{% static 'app/images/Building materials company logo.svg' %}" width=150 height=150 alt=""><figcaption>Building Materials<br>Company</figcaption></figure></button>
     <button class="filterDiv btn colors" onclick="document.location={% url 'trading' %}"><figure><img src="{% static 'app/images/Chemicals company logo.svg' %}" width=150 height=150 alt=""><figcaption>Chemicals Company</figcaption></figure></button>
@@ -146,6 +146,14 @@
 </div>
 
 
+
+
+<script>
+    function dummy() {
+
+            btns[i].addEventListener("click",)
+    }
+</script>
 
 
 <!-- the "document.location..." code above causes the auto code colouring below to go wrong for some reason -->
@@ -189,6 +197,110 @@
 
 
 
+    // Range slider submit filters button
+    function rangeSubmitFilters() {
+        
+        $.ajax({
+            url: $(".financials-data").data("url"),
+            type: 'GET',
+            success: function (data) {
+
+                // Sources the range slider values
+                let turnoverleft = $("#range-slider-turnover").slider("values", 0);
+                let turnoverright = $("#range-slider-turnover").slider("values", 1);
+                let assetsleft = $("#range-slider-assets").slider("values", 0);
+                let assetsright = $("#range-slider-assets").slider("values", 1);
+                let profitleft = $("#range-slider-profit").slider("values", 0);
+                let profitright = $("#range-slider-profit").slider("values", 1);
+                let cashflowleft = $("#range-slider-cashflow").slider("values", 0);
+                let cashflowright = $("#range-slider-cashflow").slider("values", 1);
+                let interestcoverleft = $("#range-slider-interestcover").slider("values", 0);
+                let interestcoverright = $("#range-slider-interestcover").slider("values", 1);
+
+                // Sources the financials values for each firm to compare against the range slider values above
+                let turnoverAstonMartin = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Aston Martin Lagonda')[0].turnover;
+                let turnoverBritvic = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Britvic')[0].turnover;
+                let turnoverBritishLand = data.filter((item) => item.year === 2023).filter((item) => item.company === 'British Land')[0].turnover;
+                let turnoverAJBell = data.filter((item) => item.year === 2023).filter((item) => item.company === 'AJ Bell')[0].turnover;
+                let turnoverDominos = data.filter((item) => item.year === 2023).filter((item) => item.company === "Domino's Pizza Group")[0].turnover;
+                let turnoverBloomsbury = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Bloomsbury Publishing')[0].turnover;
+                let turnoverDrMartens = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Dr Martens')[0].turnover;
+                let turnoverGamesWorkshop = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Games Workshop Group')[0].turnover;
+                let turnoverHays = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Hays')[0].turnover;
+                let turnoverIbstock = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Ibstock')[0].turnover;
+                let turnoverITV = data.filter((item) => item.year === 2023).filter((item) => item.company === 'ITV')[0].turnover;
+                let turnoverJohnsonMatthey = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Johnson Matthey')[0].turnover;
+
+                let assetsAstonMartin = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Aston Martin Lagonda')[0].total_assets;
+                let assetsBritvic = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Britvic')[0].total_assets;
+                let assetsBritishLand = data.filter((item) => item.year === 2023).filter((item) => item.company === 'British Land')[0].total_assets;
+                let assetsAJBell = data.filter((item) => item.year === 2023).filter((item) => item.company === 'AJ Bell')[0].total_assets;
+                let assetsDominos = data.filter((item) => item.year === 2023).filter((item) => item.company === "Domino's Pizza Group")[0].total_assets;
+                let assetsBloomsbury = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Bloomsbury Publishing')[0].total_assets;
+                let assetsDrMartens = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Dr Martens')[0].total_assets;
+                let assetsGamesWorkshop = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Games Workshop Group')[0].total_assets;
+                let assetsHays = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Hays')[0].total_assets;
+                let assetsIbstock = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Ibstock')[0].total_assets;
+                let assetsITV = data.filter((item) => item.year === 2023).filter((item) => item.company === 'ITV')[0].total_assets;
+                let assetsJohnsonMatthey = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Johnson Matthey')[0].total_assets;
+
+                let profitAstonMartin = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Aston Martin Lagonda')[0].operating_margin;
+                let profitBritvic = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Britvic')[0].operating_margin;
+                let profitBritishLand = data.filter((item) => item.year === 2023).filter((item) => item.company === 'British Land')[0].operating_margin;
+                let profitAJBell = data.filter((item) => item.year === 2023).filter((item) => item.company === 'AJ Bell')[0].operating_margin;
+                let profitDominos = data.filter((item) => item.year === 2023).filter((item) => item.company === "Domino's Pizza Group")[0].operating_margin;
+                let profitBloomsbury = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Bloomsbury Publishing')[0].operating_margin;
+                let profitDrMartens = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Dr Martens')[0].operating_margin;
+                let profitGamesWorkshop = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Games Workshop Group')[0].operating_margin;
+                let profitHays = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Hays')[0].operating_margin;
+                let profitIbstock = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Ibstock')[0].operating_margin;
+                let profitITV = data.filter((item) => item.year === 2023).filter((item) => item.company === 'ITV')[0].operating_margin;
+                let profitJohnsonMatthey = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Johnson Matthey')[0].operating_margin;
+
+                let cashflowAstonMartin = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Aston Martin Lagonda')[0].free_cash_flow_margin;
+                let cashflowBritvic = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Britvic')[0].free_cash_flow_margin;
+                let cashflowBritishLand = data.filter((item) => item.year === 2023).filter((item) => item.company === 'British Land')[0].free_cash_flow_margin;
+                let cashflowAJBell = data.filter((item) => item.year === 2023).filter((item) => item.company === 'AJ Bell')[0].free_cash_flow_margin;
+                let cashflowDominos = data.filter((item) => item.year === 2023).filter((item) => item.company === "Domino's Pizza Group")[0].free_cash_flow_margin;
+                let cashflowBloomsbury = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Bloomsbury Publishing')[0].free_cash_flow_margin;
+                let cashflowDrMartens = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Dr Martens')[0].free_cash_flow_margin;
+                let cashflowGamesWorkshop = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Games Workshop Group')[0].free_cash_flow_margin;
+                let cashflowHays = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Hays')[0].free_cash_flow_margin;
+                let cashflowIbstock = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Ibstock')[0].free_cash_flow_margin;
+                let cashflowITV = data.filter((item) => item.year === 2023).filter((item) => item.company === 'ITV')[0].free_cash_flow_margin;
+                let cashflowJohnsonMatthey = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Johnson Matthey')[0].free_cash_flow_margin;
+
+                let interestcoverAstonMartin = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Aston Martin Lagonda')[0].interest_cover;
+                let interestcoverBritvic = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Britvic')[0].interest_cover;
+                let interestcoverBritishLand = data.filter((item) => item.year === 2023).filter((item) => item.company === 'British Land')[0].interest_cover;
+                let interestcoverAJBell = data.filter((item) => item.year === 2023).filter((item) => item.company === 'AJ Bell')[0].interest_cover;
+                let interestcoverDominos = data.filter((item) => item.year === 2023).filter((item) => item.company === "Domino's Pizza Group")[0].interest_cover;
+                let interestcoverBloomsbury = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Bloomsbury Publishing')[0].interest_cover;
+                let interestcoverDrMartens = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Dr Martens')[0].interest_cover;
+                let interestcoverGamesWorkshop = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Games Workshop Group')[0].interest_cover;
+                let interestcoverHays = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Hays')[0].interest_cover;
+                let interestcoverIbstock = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Ibstock')[0].interest_cover;
+                let interestcoverITV = data.filter((item) => item.year === 2023).filter((item) => item.company === 'ITV')[0].interest_cover;
+                let interestcoverJohnsonMatthey = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Johnson Matthey')[0].interest_cover;
+
+                var firm = document.getElementById("tile-Britvic");
+                if (turnoverBritvic < turnoverright && turnoverBritvic > turnoverleft &&
+                    assetsBritvic < assetsright && assetsBritvic > assetsleft &&
+                    100 * profitBritvic < profitright && 100 * profitBritvic > profitleft &&
+                    100 * cashflowBritvic < cashflowright && 100 * cashflowBritvic > cashflowleft &&
+                    100 * interestcoverBritvic < interestcoverright && 100 * interestcoverBritvic > interestcoverleft) {
+                    //alert('Britvic meets criteria');
+                    firm.style.display = "inline-block"
+                } else {
+                    //alert('Britvic does not meet criteria');
+                    firm.style.display = "none";
+                }
+                
+            }
+
+        });
+
+    };
 
 
     // Turnover range slider hide / show

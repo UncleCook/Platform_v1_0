@@ -478,39 +478,32 @@ div.sliderDropdown {
 .rangeValuesLabel {
     font-weight: bold;
     grid-area: label;
-    border: 1px solid red;
 }
 
 .rangeValues {
     background-color: transparent;
     grid-area: values;
-    /*border: 0; Border = 0 needed to stop text input box formatting appearing */
-    border: 1px solid pink;
+    border: 0; /* Border = 0 needed to stop text input box formatting appearing */
 }
 
 .rangeMin {
     grid-area: min;
     justify-self: center;
-    margin-right: 2px;
+    margin-right: 5px;
     font-size: 12px;
-    border: 1px solid green;
 }
 
 .rangeSlider {
     grid-area: slider;
     justify-self: stretch;
-    border: 1px solid blue;
 }
 
 .rangeMax {
     grid-area: max;
     justify-self: center;
-    margin-left: 2px;
+    margin-left: 5px;
     font-size: 12px;
-    border: 1px solid yellow;
 }
-
-
 
 
 
