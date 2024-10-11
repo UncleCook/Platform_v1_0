@@ -208,14 +208,15 @@ input[type=number] {
     display: block;
 }
 
-#filteringBtnContainer {
+/*
+#companyTileBtnCont {
     margin-top: 20px;
-    /* display: flex; */
     justify-content: left;
     grid-gap: 4px;
 }
+*/
 
-#filteringContainer {
+#company-tile-cont {
     margin-top: 20px;
     overflow: hidden;
     display: grid;
@@ -224,14 +225,16 @@ input[type=number] {
     grid-gap: 6px;
 }
 
-.filterDiv {
+.companyTile {
     height: 250px;
+    width: 250px;
+    margin: 10px;
     white-space: nowrap;
     cursor: pointer;
     font-size: 20px;
     font-weight: bold;
     color: #333333;
-    display: none;
+    display: inline-block;
     background-color: #ffffff;
     border: 2px solid #cccccc;
     border-radius: 6px;
@@ -239,11 +242,11 @@ input[type=number] {
     text-align: center;
 }
 
-.filterDiv:hover,
-.filterDiv:focus,
-.filterDiv:active,
-.filterDiv.active,
-.open .dropdown-toggle.filterDiv {
+.companyTile:hover,
+.companyTile:focus,
+.companyTile:active,
+.companyTile.active,
+.open .dropdown-toggle.companyTile {
     color: #333333;
     background-color: #ebebeb;
     border-color: #adadad;
@@ -367,6 +370,7 @@ div.sliderDropdown {
     grid-template-rows: auto;
     justify-content: start;
     gap: 10px;
+    margin: 10px 0px;
 }
 
 

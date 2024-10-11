@@ -20,24 +20,11 @@
 
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4" >
         <h2>Getting started</h2>
         <p>
-            Django gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
+            Osborns is a platform that allows people to invest in companies raising debt. This debt take the form of securities called bonds.
         </p>
-        <p><a class="btn btn-default" href="https://djangobook.com/django-tutorials/">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>The Python Package Index is a repository of software for the Python programming language.</p>
-        <p><a class="btn btn-default" href="https://pypi.org/">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Microsoft Azure</h2>
-        <p>You can easily publish to Microsoft Azure using Visual Studio. Find out how you can host your application using a free trial today.</p>
-        <p><a class="btn btn-default" href="http://azure.microsoft.com">Learn more &raquo;</a></p>
     </div>
 </div>
 
@@ -45,14 +32,15 @@
 
 
 <!-- Filtering buttons -->
-<div id="filteringBtnContainer">
+<!--
+<div id="companyTileBtnCont">
     <button class="btn btn-default" onclick="filterSelection('all')"> Show all</button>
     <button class="btn btn-default " onclick="filterSelection('cars')"> Cars</button>
     <button class="btn btn-default " onclick="filterSelection('animals')"> Animals</button>
     <button class="btn btn-default " onclick="filterSelection('fruits')"> Fruits</button>
     <button class="btn btn-default " onclick="filterSelection('colors')"> Colors</button>
 </div>
-
+-->
 
 
 
@@ -128,26 +116,25 @@
 
 
 <!-- Tiles of each company -->
-<div id="filteringContainer">
-    <button id="tile-Britvic" class="filterDiv btn cars" onclick="document.location={% url 'trading' %}"><figure><img src="{% static 'app/images/Board game company logo.svg' %}" width=150 height=150 alt=""><figcaption>Board Game Company</figcaption></figure></button>
-    <button class="filterDiv btn colors fruits" onclick="document.location={% url 'trading' %}"><figure><img src="{% static 'app/images/Pizza company logo.svg' %}" width=150 height=150 alt=""><figcaption>Pizza Company</figcaption></figure></button>
-    <button class="filterDiv btn cars" onclick="document.location={% url 'trading' %}"><figure><img src="{% static 'app/images/Building materials company logo.svg' %}" width=150 height=150 alt=""><figcaption>Building Materials<br>Company</figcaption></figure></button>
-    <button class="filterDiv btn colors" onclick="document.location={% url 'trading' %}"><figure><img src="{% static 'app/images/Chemicals company logo.svg' %}" width=150 height=150 alt=""><figcaption>Chemicals Company</figcaption></figure></button>
-
-    <button class="filterDiv btn cars"><a href="{% url 'trading' %}">Ford</a></button>
-    <button class="filterDiv btn colors"><a href="{% url 'trading' %}">Blue</a></button>
-    <button class="filterDiv btn animals"><a href="{% url 'trading' %}">Cat</a></button>
-    <button class="filterDiv btn animals"><a href="{% url 'trading' %}">Dog</a></button>
-    <button class="filterDiv btn fruits"><a href="{% url 'trading' %}">Melon</a></button>
-    <button class="filterDiv btn fruits animals"><a href="{% url 'trading' %}">Kiwi</a></button>
-    <button class="filterDiv btn fruits"><a href="{% url 'trading' %}">Banana</a></button>
-    <button class="filterDiv btn fruits"><a href="{% url 'trading' %}">Lemon</a></button>
-    <button class="filterDiv btn animals"><a href="{% url 'trading' %}">Cow</a></button>
+<div id="company-Tile-Cont">
+    <button id="tile-GamesWorkshop" class="companyTile btn cars" onclick="document.location={% url 'trading' %}"><figure><img src="{% static 'app/images/Board game company logo.svg' %}" width=150 height=150 alt=""><figcaption>Board Game Company</figcaption></figure></button>
+    <button id="tile-Dominos" class="companyTile btn colors fruits" onclick="document.location={% url 'trading' %}"><figure><img src="{% static 'app/images/Pizza company logo.svg' %}" width=150 height=150 alt=""><figcaption>Pizza Company</figcaption></figure></button>
+    <button id="tile-Ibstock" class="companyTile btn cars" onclick="document.location={% url 'trading' %}"><figure><img src="{% static 'app/images/Building materials company logo.svg' %}" width=150 height=150 alt=""><figcaption>Building Materials<br>Company</figcaption></figure></button>
+    <button id="tile-JohnsonMatthey" class="companyTile btn colors" onclick="document.location={% url 'trading' %}"><figure><img src="{% static 'app/images/Chemicals company logo.svg' %}" width=150 height=150 alt=""><figcaption>Chemicals Company</figcaption></figure></button>
+    <button id="tile-AstonMartin" class="companyTile btn cars"><a href="{% url 'trading' %}">Sports Car Manufacturer</a></button>
+    <button id="tile-Britvic" class="companyTile btn colors"><a href="{% url 'trading' %}">Beverage Company</a></button>
+    <button id="tile-BritishLand" class="companyTile btn animals"><a href="{% url 'trading' %}">Property Development Company</a></button>
+    <button id="tile-AJBell" class="companyTile btn animals"><a href="{% url 'trading' %}">Investment Platform and Broker</a></button>
+    <button id="tile-Bloomsbury" class="companyTile btn fruits"><a href="{% url 'trading' %}">Book Publisher</a></button>
+    <button id="tile-DrMartens" class="companyTile btn fruits animals"><a href="{% url 'trading' %}">Shoe Company</a></button>
+    <button id="tile-Hays" class="companyTile btn fruits"><a href="{% url 'trading' %}">Recruitment Company</a></button>
+    <button id="tile-ITV" class="companyTile btn fruits"><a href="{% url 'trading' %}">Television Company</a></button>
 </div>
 
 
 
 
+<!-- Random code to stop auto code colouring stopping -->
 <script>
     function dummy() {
 
@@ -159,11 +146,12 @@
 <!-- the "document.location..." code above causes the auto code colouring below to go wrong for some reason -->
 <script>
 
+    /*
     filterSelection('all')
 
     function filterSelection(c) {
         var x, i;
-        x = document.getElementsByClassName('filterDiv');
+        x = document.getElementsByClassName('companyTile');
         if (c == 'all')
             c = '';
         for (i = 0; i < x.length; i++) {
@@ -184,7 +172,7 @@
     }
 
     // Add active class to the current button (highlight it)
-    var btnContainer = document.getElementById("filteringContainer");
+    var btnContainer = document.getElementById("company-Tile-Cont");
     var btns = btnContainer.getElementsByClassName("btn");
     for (var i = 0; i < btns.length; i++) {
         btns[i].addEventListener("click", function () {
@@ -193,6 +181,7 @@
             this.className += " active";
         });
     }
+    */
 
 
 
@@ -205,7 +194,7 @@
             type: 'GET',
             success: function (data) {
 
-                // Sources the range slider values
+                // Sources the current range slider values
                 let turnoverleft = $("#range-slider-turnover").slider("values", 0);
                 let turnoverright = $("#range-slider-turnover").slider("values", 1);
                 let assetsleft = $("#range-slider-assets").slider("values", 0);
@@ -283,19 +272,81 @@
                 let interestcoverITV = data.filter((item) => item.year === 2023).filter((item) => item.company === 'ITV')[0].interest_cover;
                 let interestcoverJohnsonMatthey = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Johnson Matthey')[0].interest_cover;
 
-                var firm = document.getElementById("tile-Britvic");
-                if (turnoverBritvic < turnoverright && turnoverBritvic > turnoverleft &&
-                    assetsBritvic < assetsright && assetsBritvic > assetsleft &&
-                    100 * profitBritvic < profitright && 100 * profitBritvic > profitleft &&
-                    100 * cashflowBritvic < cashflowright && 100 * cashflowBritvic > cashflowleft &&
-                    100 * interestcoverBritvic < interestcoverright && 100 * interestcoverBritvic > interestcoverleft) {
+                const tileAstonMartin= document.getElementById("tile-AstonMartin");
+                const tileBritvic = document.getElementById("tile-Britvic");
+                const tileBritishLand = document.getElementById("tile-BritishLand");
+                const tileAJBell = document.getElementById("tile-AJBell");
+                const tileDominos = document.getElementById("tile-Dominos");
+                const tileBloomsbury = document.getElementById("tile-Bloomsbury");
+                const tileDrMartens = document.getElementById("tile-DrMartens");
+                const tileGamesWorkshop = document.getElementById("tile-GamesWorkshop");
+                const tileHays = document.getElementById("tile-Hays");
+                const tileIbstock = document.getElementById("tile-Ibstock");
+                const tileITV = document.getElementById("tile-ITV");
+                const tileJohnsonMatthey = document.getElementById("tile-JohnsonMatthey");
+
+                // Aston Martin financials comparison to current range slider values
+                if (turnoverAstonMartin <= turnoverright && turnoverAstonMartin >= turnoverleft &&
+                    assetsAstonMartin <= assetsright && assetsAstonMartin >= assetsleft &&
+                    100 * profitAstonMartin <= profitright && 100 * profitAstonMartin >= profitleft &&
+                    100 * cashflowAstonMartin <= cashflowright && 100 * cashflowAstonMartin >= cashflowleft &&
+                    100 * interestcoverAstonMartin <= interestcoverright && 100 * interestcoverAstonMartin >= interestcoverleft) {
+                    //alert('AstonMartin meets criteria');
+                    tileAstonMartin.style.display = "inline-block"
+                } else {
+                    //alert('AstonMartin does not meet criteria');
+                    tileAstonMartin.style.display = "none";
+                }
+
+
+                // Britvic financials comparison to current range slider values
+                if (turnoverBritvic <= turnoverright && turnoverBritvic >= turnoverleft &&
+                    assetsBritvic <= assetsright && assetsBritvic >= assetsleft &&
+                    100 * profitBritvic <= profitright && 100 * profitBritvic >= profitleft &&
+                    100 * cashflowBritvic <= cashflowright && 100 * cashflowBritvic >= cashflowleft &&
+                    100 * interestcoverBritvic <= interestcoverright && 100 * interestcoverBritvic >= interestcoverleft) {
                     //alert('Britvic meets criteria');
-                    firm.style.display = "inline-block"
+                    tileBritvic.style.display = "inline-block"
                 } else {
                     //alert('Britvic does not meet criteria');
-                    firm.style.display = "none";
+                    tileBritvic.style.display = "none";
                 }
+
+
+                // BritishLand financials comparison to current range slider values
+                if (turnoverBritishLand <= turnoverright && turnoverBritishLand >= turnoverleft &&
+                    assetsBritishLand <= assetsright && assetsBritishLand >= assetsleft &&
+                    100 * profitBritishLand <= profitright && 100 * profitBritishLand >= profitleft &&
+                    100 * cashflowBritishLand <= cashflowright && 100 * cashflowBritishLand >= cashflowleft &&
+                    100 * interestcoverBritishLand <= interestcoverright && 100 * interestcoverBritishLand >= interestcoverleft) {
+                    //alert('BritishLand meets criteria');
+                    tileBritishLand.style.display = "inline-block"
+                } else {
+                    //alert('BritishLand does not meet criteria');
+                    tileBritishLand.style.display = "none";
+                }
+
+
+                // AJBell financials comparison to current range slider values
+                if (turnoverAJBell <= turnoverright && turnoverAJBell >= turnoverleft &&
+                    assetsAJBell <= assetsright && assetsAJBell >= assetsleft &&
+                    100 * profitAJBell <= profitright && 100 * profitAJBell >= profitleft &&
+                    100 * cashflowAJBell <= cashflowright && 100 * cashflowAJBell >= cashflowleft &&
+                    100 * interestcoverAJBell <= interestcoverright && 100 * interestcoverAJBell >= interestcoverleft) {
+                    //alert('AJBell meets criteria');
+                    tileAJBell.style.display = "inline-block"
+                } else {
+                    //alert('AJBell does not meet criteria');
+                    tileAJBell.style.display = "none";
+                }
+
+                /*  code testing criteria
+                alert("Turnover =" + turnoverBritishLand + "Assets =" + assetsBritishLand + "Profit =" + profitBritishLand +
+                    "Cashflow =" + cashflowBritishLand + "Interest Cover=" + interestcoverBritishLand);
                 
+                alert("Turnover max =" + turnoverright + " Assets max = " + assetsright + " Profit max = " + profitright +
+                    " Cashflow max = " + cashflowright + " Interest Cover max = " + interestcoverright);
+                */
             }
 
         });
@@ -566,8 +617,8 @@
             type: 'GET',
             success: function (data) {
                 // JQuery slider cannot manage numbers less than 1 well, so profit margin is multiplied by 100 here
-                const max = 100 * (data.filter((item) => item.year === 2023).sort((a, b) => b.operating_margin - a.operating_margin)[0].operating_margin);
-                const min = 100 * (data.filter((item) => item.year === 2023).sort((a, b) => a.operating_margin - b.operating_margin)[0].operating_margin);
+                const max = Math.ceil(100000 * (data.filter((item) => item.year === 2023).sort((a, b) => b.operating_margin - a.operating_margin)[0].operating_margin));
+                const min = Math.floor(100000 * (data.filter((item) => item.year === 2023).sort((a, b) => a.operating_margin - b.operating_margin)[0].operating_margin));
                 const leftstart = (4 * min + max) / 5;
                 const rightstart = (4 * max + min) / 5;
 
@@ -582,14 +633,14 @@
                             Intl.NumberFormat('en-GB', {
                                 minimumFractionDigits: 1,
                                 maximumFractionDigits: 1,
-                            }).format(ui.values[0]) +
+                            }).format(ui.values[0] / 1000) +
 
                             "% to " +
 
                             Intl.NumberFormat('en-GB', {
                                 minimumFractionDigits: 1,
                                 maximumFractionDigits: 1,
-                            }).format(ui.values[1]) +
+                            }).format(ui.values[1] / 1000) +
 
                             "%"
                         );
@@ -601,14 +652,14 @@
                     Intl.NumberFormat('en-GB', {
                         minimumFractionDigits: 1,
                         maximumFractionDigits: 1,
-                    }).format($("#range-slider-profit").slider("values", 0)) +
+                    }).format($("#range-slider-profit").slider("values", 0) / 1000) +
 
                     "% to " +
 
                     Intl.NumberFormat('en-GB', {
                         minimumFractionDigits: 1,
                         maximumFractionDigits: 1,
-                    }).format($("#range-slider-profit").slider("values", 1)) +
+                    }).format($("#range-slider-profit").slider("values", 1) / 1000) +
 
                     "%"
 
@@ -620,14 +671,14 @@
                     style: 'percent',
                     minimumFractionDigits: 1,
                     maximumFractionDigits: 1,
-                }).format(max / 100)
+                }).format(max / 100000)
                 );
 
                 $("#profit-min").html(Intl.NumberFormat('en-GB', {
                     style: 'percent',
                     minimumFractionDigits: 1,
                     maximumFractionDigits: 1,
-                }).format(min / 100)
+                }).format(min / 100000)
                 );
 
             }
@@ -645,8 +696,8 @@
             type: 'GET',
             success: function (data) {
                 // JQuery slider cannot manage numbers less than 1 well, so free cash flow margin is multiplied by 100 here
-                const max = 100 * (data.filter((item) => item.year === 2023).sort((a, b) => b.free_cash_flow_margin - a.free_cash_flow_margin)[0].free_cash_flow_margin);
-                const min = 100 * (data.filter((item) => item.year === 2023).sort((a, b) => a.free_cash_flow_margin - b.free_cash_flow_margin)[0].free_cash_flow_margin);
+                const max = Math.ceil(100000 * (data.filter((item) => item.year === 2023).sort((a, b) => b.free_cash_flow_margin - a.free_cash_flow_margin)[0].free_cash_flow_margin));
+                const min = Math.floor(100000 * (data.filter((item) => item.year === 2023).sort((a, b) => a.free_cash_flow_margin - b.free_cash_flow_margin)[0].free_cash_flow_margin));
                 const leftstart = (4 * min + max) / 5;
                 const rightstart = (4 * max + min) / 5;
 
@@ -662,14 +713,14 @@
                             Intl.NumberFormat('en-GB', {
                                 minimumFractionDigits: 1,
                                 maximumFractionDigits: 1,
-                            }).format(ui.values[0]) +
+                            }).format(ui.values[0] / 1000) +
 
                             "% to " +
 
                             Intl.NumberFormat('en-GB', {
                                 minimumFractionDigits: 1,
                                 maximumFractionDigits: 1,
-                            }).format(ui.values[1]) +
+                            }).format(ui.values[1] / 1000) +
 
                             "%"
                         );
@@ -681,14 +732,14 @@
                     Intl.NumberFormat('en-GB', {
                         minimumFractionDigits: 1,
                         maximumFractionDigits: 1,
-                    }).format($("#range-slider-cashflow").slider("values", 0)) +
+                    }).format($("#range-slider-cashflow").slider("values", 0) / 1000) +
 
                     "% to " +
 
                     Intl.NumberFormat('en-GB', {
                         minimumFractionDigits: 1,
                         maximumFractionDigits: 1,
-                    }).format($("#range-slider-cashflow").slider("values", 1)) +
+                    }).format($("#range-slider-cashflow").slider("values", 1) / 1000) +
 
                     "%"
 
@@ -700,14 +751,14 @@
                     style: 'percent',
                     minimumFractionDigits: 1,
                     maximumFractionDigits: 1,
-                }).format(max / 100)
+                }).format(max / 100000)
                 );
 
                 $("#cashflow-min").html(Intl.NumberFormat('en-GB', {
                     style: 'percent',
                     minimumFractionDigits: 1,
                     maximumFractionDigits: 1,
-                }).format(min / 100)
+                }).format(min / 100000)
                 );
 
             }
@@ -725,8 +776,8 @@
             type: 'GET',
             success: function (data) {
                 // JQuery slider cannot manage numbers less than 1 well, so interest cover is multiplied by 100 here
-                const max = 100 * (data.filter((item) => item.year === 2023).sort((a, b) => b.interest_cover - a.interest_cover)[0].interest_cover);
-                const min = 100 * (data.filter((item) => item.year === 2023).sort((a, b) => a.interest_cover - b.interest_cover)[0].interest_cover);
+                const max = Math.ceil(100 * (data.filter((item) => item.year === 2023).sort((a, b) => b.interest_cover - a.interest_cover)[0].interest_cover));
+                const min = Math.floor(100 * (data.filter((item) => item.year === 2023).sort((a, b) => a.interest_cover - b.interest_cover)[0].interest_cover));
                 const leftstart = (4 * min + max) / 5;
                 const rightstart = (4 * max + min) / 5;
 
