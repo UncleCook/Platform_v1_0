@@ -96,15 +96,15 @@
     <!-- Filters dropdown button -->
     <div class="sliderDropdown btn btn-default">
         <input type="checkbox" id="checkbox-toggle">
-        <label for="checkbox-toggle">Additional Filters</label>
-        <ul>
-            <li><button value="turnover" onclick="rangeTurnover()">Turnover</button></li>
-            <li><button value="assets" onclick="rangeAssets()">Assets</button></li>
-            <li><button value="operating_profit" onclick="rangeProfit()">Operating Profit Margin</button></li>
-            <li><button value="free_cash_flow_margin" onclick="rangeCashFlow()">Free Cash Flow Margin</button></li>
-            <li><button value="interest_cover" onclick="rangeInterestCover()">Interest Cover</button></li>
-        </ul>
-    </div>
+        <label for="checkbox-toggle">Additional Filters&ensp;<div arrow class="arrow"></div></label>
+                <ul>
+                    <li><button value="turnover" onclick="rangeTurnover()">Turnover</button></li>
+                    <li><button value="assets" onclick="rangeAssets()">Assets</button></li>
+                    <li><button value="operating_profit" onclick="rangeProfit()">Operating Profit Margin</button></li>
+                    <li><button value="free_cash_flow_margin" onclick="rangeCashFlow()">Free Cash Flow Margin</button></li>
+                    <li><button value="interest_cover" onclick="rangeInterestCover()">Interest Cover</button></li>
+                </ul>
+</div>
 
     <!-- Submit filters button -->
     <button class="btn btn-default" value="submit" onclick="rangeSubmitFilters()">
@@ -285,6 +285,7 @@
                 const tileITV = document.getElementById("tile-ITV");
                 const tileJohnsonMatthey = document.getElementById("tile-JohnsonMatthey");
 
+
                 // Aston Martin financials comparison to current range slider values
                 if (turnoverAstonMartin <= turnoverright && turnoverAstonMartin >= turnoverleft &&
                     assetsAstonMartin <= assetsright && assetsAstonMartin >= assetsleft &&
@@ -338,6 +339,118 @@
                 } else {
                     //alert('AJBell does not meet criteria');
                     tileAJBell.style.display = "none";
+                }
+
+
+                // Dominos financials comparison to current range slider values
+                if (turnoverDominos <= turnoverright && turnoverDominos >= turnoverleft &&
+                    assetsDominos <= assetsright && assetsDominos >= assetsleft &&
+                    100 * profitDominos <= profitright && 100 * profitDominos >= profitleft &&
+                    100 * cashflowDominos <= cashflowright && 100 * cashflowDominos >= cashflowleft &&
+                    100 * interestcoverDominos <= interestcoverright && 100 * interestcoverDominos >= interestcoverleft) {
+                    //alert('Dominos meets criteria');
+                    tileDominos.style.display = "inline-block"
+                } else {
+                    //alert('Dominos does not meet criteria');
+                    tileDominos.style.display = "none";
+                }
+
+
+                // Bloomsbury financials comparison to current range slider values
+                if (turnoverBloomsbury <= turnoverright && turnoverBloomsbury >= turnoverleft &&
+                    assetsBloomsbury <= assetsright && assetsBloomsbury >= assetsleft &&
+                    100 * profitBloomsbury <= profitright && 100 * profitBloomsbury >= profitleft &&
+                    100 * cashflowBloomsbury <= cashflowright && 100 * cashflowBloomsbury >= cashflowleft &&
+                    100 * interestcoverBloomsbury <= interestcoverright && 100 * interestcoverBloomsbury >= interestcoverleft) {
+                    //alert('Bloomsbury meets criteria');
+                    tileBloomsbury.style.display = "inline-block"
+                } else {
+                    //alert('Bloomsbury does not meet criteria');
+                    tileBloomsbury.style.display = "none";
+                }
+
+
+                // DrMartens financials comparison to current range slider values
+                if (turnoverDrMartens <= turnoverright && turnoverDrMartens >= turnoverleft &&
+                    assetsDrMartens <= assetsright && assetsDrMartens >= assetsleft &&
+                    100 * profitDrMartens <= profitright && 100 * profitDrMartens >= profitleft &&
+                    100 * cashflowDrMartens <= cashflowright && 100 * cashflowDrMartens >= cashflowleft &&
+                    100 * interestcoverDrMartens <= interestcoverright && 100 * interestcoverDrMartens >= interestcoverleft) {
+                    //alert('DrMartens meets criteria');
+                    tileDrMartens.style.display = "inline-block"
+                } else {
+                    //alert('DrMartens does not meet criteria');
+                    tileDrMartens.style.display = "none";
+                }
+
+
+                // GamesWorkshop financials comparison to current range slider values
+                if (turnoverGamesWorkshop <= turnoverright && turnoverGamesWorkshop >= turnoverleft &&
+                    assetsGamesWorkshop <= assetsright && assetsGamesWorkshop >= assetsleft &&
+                    100 * profitGamesWorkshop <= profitright && 100 * profitGamesWorkshop >= profitleft &&
+                    100 * cashflowGamesWorkshop <= cashflowright && 100 * cashflowGamesWorkshop >= cashflowleft &&
+                    100 * interestcoverGamesWorkshop <= interestcoverright && 100 * interestcoverGamesWorkshop >= interestcoverleft) {
+                    //alert('GamesWorkshop meets criteria');
+                    tileGamesWorkshop.style.display = "inline-block"
+                } else {
+                    //alert('GamesWorkshop does not meet criteria');
+                    tileGamesWorkshop.style.display = "none";
+                }
+
+
+                // Hays financials comparison to current range slider values
+                if (turnoverHays <= turnoverright && turnoverHays >= turnoverleft &&
+                    assetsHays <= assetsright && assetsHays >= assetsleft &&
+                    100 * profitHays <= profitright && 100 * profitHays >= profitleft &&
+                    100 * cashflowHays <= cashflowright && 100 * cashflowHays >= cashflowleft &&
+                    100 * interestcoverHays <= interestcoverright && 100 * interestcoverHays >= interestcoverleft) {
+                    //alert('Hays meets criteria');
+                    tileHays.style.display = "inline-block"
+                } else {
+                    //alert('Hays does not meet criteria');
+                    tileHays.style.display = "none";
+                }
+
+
+                // Ibstock financials comparison to current range slider values
+                if (turnoverIbstock <= turnoverright && turnoverIbstock >= turnoverleft &&
+                    assetsIbstock <= assetsright && assetsIbstock >= assetsleft &&
+                    100 * profitIbstock <= profitright && 100 * profitIbstock >= profitleft &&
+                    100 * cashflowIbstock <= cashflowright && 100 * cashflowIbstock >= cashflowleft &&
+                    100 * interestcoverIbstock <= interestcoverright && 100 * interestcoverIbstock >= interestcoverleft) {
+                    //alert('Ibstock meets criteria');
+                    tileIbstock.style.display = "inline-block"
+                } else {
+                    //alert('Ibstock does not meet criteria');
+                    tileIbstock.style.display = "none";
+                }
+
+
+                // ITV financials comparison to current range slider values
+                if (turnoverITV <= turnoverright && turnoverITV >= turnoverleft &&
+                    assetsITV <= assetsright && assetsITV >= assetsleft &&
+                    100 * profitITV <= profitright && 100 * profitITV >= profitleft &&
+                    100 * cashflowITV <= cashflowright && 100 * cashflowITV >= cashflowleft &&
+                    100 * interestcoverITV <= interestcoverright && 100 * interestcoverITV >= interestcoverleft) {
+                    //alert('ITV meets criteria');
+                    tileITV.style.display = "inline-block"
+                } else {
+                    //alert('ITV does not meet criteria');
+                    tileITV.style.display = "none";
+                }
+
+
+                // JohnsonMatthey financials comparison to current range slider values
+                if (turnoverJohnsonMatthey <= turnoverright && turnoverJohnsonMatthey >= turnoverleft &&
+                    assetsJohnsonMatthey <= assetsright && assetsJohnsonMatthey >= assetsleft &&
+                    100 * profitJohnsonMatthey <= profitright && 100 * profitJohnsonMatthey >= profitleft &&
+                    100 * cashflowJohnsonMatthey <= cashflowright && 100 * cashflowJohnsonMatthey >= cashflowleft &&
+                    100 * interestcoverJohnsonMatthey <= interestcoverright && 100 * interestcoverJohnsonMatthey >= interestcoverleft) {
+                    //alert('JohnsonMatthey meets criteria');
+                    tileJohnsonMatthey.style.display = "inline-block"
+                } else {
+                    //alert('JohnsonMatthey does not meet criteria');
+                    tileJohnsonMatthey.style.display = "none";
                 }
 
                 /*  code testing criteria

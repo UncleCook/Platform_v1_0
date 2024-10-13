@@ -11,10 +11,6 @@ body {
     color: rgba(51, 51, 51, 1.0); /* font colours */
 }
 
-.label {
-
-}
-
 label {
     display: inline;
     margin-bottom: 0px;
@@ -371,6 +367,15 @@ div.sliderDropdown {
     justify-content: start;
     gap: 10px;
     margin: 10px 0px;
+}
+
+.arrow {
+    border: solid black;
+    border-width: 0 1px 1px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
 }
 
 
