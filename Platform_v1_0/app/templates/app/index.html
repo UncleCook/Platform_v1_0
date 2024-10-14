@@ -96,7 +96,7 @@
     <!-- Filters dropdown button -->
     <div class="sliderDropdown btn btn-default">
         <input type="checkbox" id="checkbox-toggle">
-        <label for="checkbox-toggle">Additional Filters&ensp;<div arrow class="arrow"></div></label>
+        <label for="checkbox-toggle">Additional Filters&ensp;&ensp;<div arrow class="arrow"></div></label>
                 <ul>
                     <li><button value="turnover" onclick="rangeTurnover()">Turnover</button></li>
                     <li><button value="assets" onclick="rangeAssets()">Assets</button></li>
@@ -104,7 +104,7 @@
                     <li><button value="free_cash_flow_margin" onclick="rangeCashFlow()">Free Cash Flow Margin</button></li>
                     <li><button value="interest_cover" onclick="rangeInterestCover()">Interest Cover</button></li>
                 </ul>
-</div>
+    </div>
 
     <!-- Submit filters button -->
     <button class="btn btn-default" value="submit" onclick="rangeSubmitFilters()">
@@ -453,6 +453,7 @@
                     tileJohnsonMatthey.style.display = "none";
                 }
 
+
                 /*  code testing criteria
                 alert("Turnover =" + turnoverBritishLand + "Assets =" + assetsBritishLand + "Profit =" + profitBritishLand +
                     "Cashflow =" + cashflowBritishLand + "Interest Cover=" + interestcoverBritishLand);
@@ -613,8 +614,8 @@
                     currency: 'GBP',
                     notation: 'compact',
                     compactDisplay: 'short',
-                    minimumFractionDigits: 1,
-                    maximumFractionDigits: 1,
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
                 }).format(min)
                 );
 
@@ -710,8 +711,8 @@
                     currency: 'GBP',
                     notation: 'compact',
                     compactDisplay: 'short',
-                    minimumFractionDigits: 1,
-                    maximumFractionDigits: 1,
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
                 }).format(min)
                 );
 
