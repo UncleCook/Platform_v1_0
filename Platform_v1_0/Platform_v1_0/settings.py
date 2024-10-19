@@ -93,17 +93,26 @@ WSGI_APPLICATION = 'Platform_v1_0.wsgi.application'
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'platformdb',
-        'USER': 'root',
-        'PASSWORD': 'Lampost_220783',
-        'HOST':'localhost',
-        'PORT':'3306',
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'mytest2db',
+            'USER': 'root',
+            'PASSWORD': 'Lampost_220783',
+            'HOST':'localhost',
+            'PORT':'3306',
     }
+
 }
 
 
 """
+    'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'platformdb',
+            'USER': 'root',
+            'PASSWORD': 'Lampost_220783',
+            'HOST':'localhost',
+            'PORT':'3306',
+
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
