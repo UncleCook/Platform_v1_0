@@ -1,6 +1,7 @@
 """
 Django settings for Platform_v1_0 project.
 
+
 Based on 'django-admin startproject' using Django 2.1.2.
 
 For more information on this file, see
@@ -93,30 +94,48 @@ WSGI_APPLICATION = 'Platform_v1_0.wsgi.application'
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 DATABASES = {
     'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'mytest2db',
-            'USER': 'root',
-            'PASSWORD': 'Lampost_220783',
-            'HOST':'localhost',
-            'PORT':'3306',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'platformdb',
+        'USER': 'myuser',
+        'PASSWORD': 'lampost1',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 
 }
 
 
+
 """
-    'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'platformdb',
-            'USER': 'root',
-            'PASSWORD': 'Lampost_220783',
-            'HOST':'localhost',
-            'PORT':'3306',
+Postgresql database code
 
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'platformdb',
+        'USER': 'myuser',
+        'PASSWORD': 'lampost1',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+
+        superuser name: tomos
+        superuser password: Lampost_220784
 """
+
+
+"""
+SQLite database code
+
+    'default': {
+                'ENGINE': 'django.db.backends.mysql',
+                'NAME': 'mytest2db',
+                'USER': 'root',
+                'PASSWORD': 'Lampost_220783',
+                'HOST':'localhost',
+                'PORT':'3306',
+
+"""
+
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
