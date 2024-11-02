@@ -1,0 +1,153 @@
+﻿{% extends "app/layout.html" %}
+
+{% block content %}
+
+{% load static %}
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.0/chart.umd.js"></script>
+
+
+<h2 id="financials-company-name">Company name placeholder text</h2>
+
+
+<!-- Financials chart -->
+<!-- data is stored as an Array of Objects -->
+<script>
+
+    $(function () {
+
+        const $financialsChart = $("#financials-chart"); // jQuery #id selector to find specific element; .data() then attaches 'url' object to selected, search for 'jquery .data()' for more
+
+        $.ajax({
+            url: $financialsChart.data("url"), //jQuery standard element selector
+            success: function (data) {
+
+                const ctx = $financialsChart[0].getContext("2d");
+
+                // Uses JS filter() method to select only a single company
+                const companyData = data.filter(item => item.company === 'Britvic');
+
+                new Chart(ctx, {
+                    type: 'scatter',
+                    data: {
+                        datasets: [
+                            {
+                                showLine: true,
+                                pointStyle: false,
+                                lineBorderColor: 'rgba(127, 127, 127, 1.0)',
+                                lineBorderWidth: 2,
+                                data: companyData,
+                                parsing: {
+                                    xAxisKey: 'year',
+                                    yAxisKey: 'turnover'
+                                }
+                            },
+                        ]
+                    },
+                    options: {
+                        scales: {
+                            x: {
+                                type: 'linear',
+                                // min: 0,
+                                ticks: {
+                                    stepSize: 1,
+                                }
+                            },
+                            y: {
+                                type: 'linear',
+                                min: 0,
+                                /*
+                                max: 2500,
+                                ticks: {
+                                    stepSize: 100,
+
+                                }
+                                */
+                            }
+                        },                     
+                        plugins: {
+                            responsive: true,
+                            legend: {
+                                display: false,
+                            },
+                        }
+                    }
+                });
+
+                $("#financials-company-name").html(companyData[0].company);
+
+            }
+        });
+    });
+</script>
+
+
+
+
+<div style="width: 100%; max-width: 800px; max-height: 500px">
+    <h3 id="financials-chart-title" style="font-weight: bold; text-align: center">Financial metric placeholder text</h3>
+    <canvas id="financials-chart" data-url="{% url 'financials-chart' %}"></canvas>
+</div>
+
+
+
+
+<h3>Financial metric placeholder text</h3> <!-- Company name hardcoded for now -->
+
+<table style="width:100%">
+    <!-- Year values for th divs are hardcoded for now but may benefit from sourcing from database in future -->
+    <tr>
+        <th>2019</th>
+        <th>2020</th>
+        <th>2021</th>
+        <th>2022</th>
+        <th>2023</th>
+    </tr>
+    <tr id="financials-table" data-url="{% url 'financials-table' %}">
+        <td id="financials-table-1"></td>
+        <td id="financials-table-2"></td>
+        <td id="financials-table-3"></td>
+        <td id="financials-table-4"></td>
+        <td id="financials-table-5"></td>
+    </tr>
+</table>
+
+
+
+
+<script>
+
+    // Company financials data sourcing
+    // Data is stored as an Array of Objects
+    $(function () {
+        $.ajax({
+            url: $("#financials-table").data("url"),
+            type: 'GET',
+            success: function (data) {
+
+                const companyData = data.filter(item => item.company === 'Britvic');
+
+                const data2019 = companyData.filter(item => item.year === 2019);
+                const data2020 = companyData.filter(item => item.year === 2020);
+                const data2021 = companyData.filter(item => item.year === 2021);
+                const data2022 = companyData.filter(item => item.year === 2022);
+                const data2023 = companyData.filter(item => item.year === 2023);
+                
+                // [0] is needed to remove the square brackets that encompose the inner curly brackets i.e. pulls out the
+                // inner object from the outer array container
+                $("#financials-table-1").html(data2019[0].turnover.toLocaleString('en-US'));
+                $("#financials-table-2").html(data2020[0].turnover.toLocaleString('en-US'));
+                $("#financials-table-3").html(data2021[0].turnover.toLocaleString('en-US'));
+                $("#financials-table-4").html(data2022[0].turnover.toLocaleString('en-US'));
+                $("#financials-table-5").html(data2023[0].turnover.toLocaleString('en-US'));
+            }
+        });
+    });
+
+
+</script>
+
+
+{% endblock %}

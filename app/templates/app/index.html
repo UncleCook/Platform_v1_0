@@ -1,0 +1,966 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+
+{% load static %}
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<!-- original link -->
+<!-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.0/themes/base/jquery-ui.css"> -->
+<!-- Updated link. Version downgraded -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
+<!-- Original link -->
+<!-- <script src="https://code.jquery.com/ui/1.14.0/jquery-ui.js"></script> -->
+<!-- The "defer" attribute in the <script> tag is used to ensure that the script is executed after the HTML document has been fully parsed and loaded.
+     This means that the browser will download the script but not execute it until the HTML parsing is complete. -->
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" defer></script>
+
+
+
+
+<div class="row">
+    <div class="col-md-4" >
+        <h2>Getting started</h2>
+        <p>
+            Osborns is a platform that allows people to invest in companies raising debt. This debt take the form of securities called bonds.
+        </p>
+    </div>
+</div>
+
+
+
+
+<!-- Filtering buttons -->
+<!--
+<div id="companyTileBtnCont">
+    <button class="btn btn-default" onclick="filterSelection('all')"> Show all</button>
+    <button class="btn btn-default " onclick="filterSelection('cars')"> Cars</button>
+    <button class="btn btn-default " onclick="filterSelection('animals')"> Animals</button>
+    <button class="btn btn-default " onclick="filterSelection('fruits')"> Fruits</button>
+    <button class="btn btn-default " onclick="filterSelection('colors')"> Colors</button>
+</div>
+-->
+
+
+
+<!-- Range sliders -->
+<div id="range-slider-cont">
+    <div id="range-turnover-cont" class="financials-data" data-url="{% url 'financials-data' %}">
+        <label class="rangeValuesLabel" for="turnover">Turnover range:</label>
+        <input class="rangeValues" type="text" id="turnover" readonly="">
+        <span class="rangeMin" id="turnover-min"></span>
+        <div class="rangeSlider" id="range-slider-turnover"></div>
+        <span class="rangeMax" id="turnover-max"></span>
+    </div>
+
+    <div id="range-assets-cont" class="financials-data" data-url="{% url 'financials-data' %}">
+        <label class="rangeValuesLabel" for="assets">Total Assets range:</label>
+        <input class="rangeValues" type="text" id="assets" readonly="">
+        <span class="rangeMin" id="assets-min"></span>
+        <div class="rangeSlider" id="range-slider-assets"></div>
+        <span class="rangeMax" id="assets-max"></span>
+    </div>
+
+    <div id="range-profit-cont" class="financials-data" data-url="{% url 'financials-data' %}">
+        <label class="rangeValuesLabel" for="profit">Operating Profit Margin range:</label>
+        <input class="rangeValues" type="text" id="profit" readonly="">
+        <span class="rangeMin" id="profit-min"></span>
+        <div class="rangeSlider" id="range-slider-profit"></div>
+        <span class="rangeMax" id="profit-max"></span>
+    </div>
+
+    <div id="range-cashflow-cont" class="financials-data" data-url="{% url 'financials-data' %}">
+        <label class="rangeValuesLabel" for="cashflow">Free Cash Flow Margin range:</label>
+        <input class="rangeValues" type="text" id="cashflow" readonly="">
+        <span class="rangeMin" id="cashflow-min"></span>
+        <div class="rangeSlider" id="range-slider-cashflow"></div>
+        <span class="rangeMax" id="cashflow-max"></span>
+    </div>
+
+    <div id="range-interestcover-cont" class="financials-data" data-url="{% url 'financials-data' %}">
+        <label class="rangeValuesLabel" for="interestcover">Interest Cover Ratio range:</label>
+        <input class="rangeValues" type="text" id="interestcover" readonly="">
+        <span class="rangeMin" id="interestcover-min"></span>
+        <div class="rangeSlider" id="range-slider-interestcover"></div>
+        <span class="rangeMax" id="interestcover-max"></span>
+    </div>
+</div>
+
+
+
+
+<!-- Range slider and hide / show toggle button -->
+<div id="filters-btn-cont">
+
+    <!-- Filters dropdown button -->
+    <div class="sliderDropdown btn btn-default">
+        <input type="checkbox" id="checkbox-toggle">
+        <label for="checkbox-toggle">Additional Filters&ensp;&ensp;<div arrow class="arrow"></div></label>
+                <ul>
+                    <li><button value="turnover" onclick="rangeTurnover()">Turnover</button></li>
+                    <li><button value="assets" onclick="rangeAssets()">Assets</button></li>
+                    <li><button value="operating_profit" onclick="rangeProfit()">Operating Profit Margin</button></li>
+                    <li><button value="free_cash_flow_margin" onclick="rangeCashFlow()">Free Cash Flow Margin</button></li>
+                    <li><button value="interest_cover" onclick="rangeInterestCover()">Interest Cover</button></li>
+                </ul>
+    </div>
+
+    <!-- Submit filters button -->
+    <button class="btn btn-default" value="submit" onclick="rangeSubmitFilters()">
+        Submit Filters
+    </button>
+
+</div>
+
+
+
+
+<!-- Tiles of each company -->
+<div id="company-Tile-Cont">
+    <button id="tile-GamesWorkshop" class="companyTile btn cars" onclick="document.location={% url 'trading' %}"><figure><img src="{% static 'app/images/Board game company logo.svg' %}" width=150 height=150 alt=""><figcaption>Board Game Company</figcaption></figure></button>
+    <button id="tile-Dominos" class="companyTile btn colors fruits" onclick="document.location={% url 'trading' %}"><figure><img src="{% static 'app/images/Pizza company logo.svg' %}" width=150 height=150 alt=""><figcaption>Pizza Company</figcaption></figure></button>
+    <button id="tile-Ibstock" class="companyTile btn cars" onclick="document.location={% url 'trading' %}"><figure><img src="{% static 'app/images/Building materials company logo.svg' %}" width=150 height=150 alt=""><figcaption>Building Materials<br>Company</figcaption></figure></button>
+    <button id="tile-JohnsonMatthey" class="companyTile btn colors" onclick="document.location={% url 'trading' %}"><figure><img src="{% static 'app/images/Chemicals company logo.svg' %}" width=150 height=150 alt=""><figcaption>Chemicals Company</figcaption></figure></button>
+    <button id="tile-AstonMartin" class="companyTile btn cars"><a href="{% url 'trading' %}">Sports Car Manufacturer</a></button>
+    <button id="tile-Britvic" class="companyTile btn colors"><a href="{% url 'trading' %}">Beverage Company</a></button>
+    <button id="tile-BritishLand" class="companyTile btn animals"><a href="{% url 'trading' %}">Property Development Company</a></button>
+    <button id="tile-AJBell" class="companyTile btn animals"><a href="{% url 'trading' %}">Investment Platform and Broker</a></button>
+    <button id="tile-Bloomsbury" class="companyTile btn fruits"><a href="{% url 'trading' %}">Book Publisher</a></button>
+    <button id="tile-DrMartens" class="companyTile btn fruits animals"><a href="{% url 'trading' %}">Shoe Company</a></button>
+    <button id="tile-Hays" class="companyTile btn fruits"><a href="{% url 'trading' %}">Recruitment Company</a></button>
+    <button id="tile-ITV" class="companyTile btn fruits"><a href="{% url 'trading' %}">Television Company</a></button>
+</div>
+
+
+
+
+<!-- Random code to stop auto code colouring stopping -->
+<script>
+    function dummy() {
+
+            btns[i].addEventListener("click",)
+    }
+</script>
+
+
+<!-- the "document.location..." code above causes the auto code colouring below to go wrong for some reason -->
+<script>
+
+    /*
+    filterSelection('all')
+
+    function filterSelection(c) {
+        var x, i;
+        x = document.getElementsByClassName('companyTile');
+        if (c == 'all')
+            c = '';
+        for (i = 0; i < x.length; i++) {
+            RemoveClass(x[i]);
+            if (x[i].className.indexOf(c) > -1)
+                x[i].className += ' ' + 'show';
+        }
+    }
+
+    function RemoveClass(element) {
+        var i, arr1;
+        arr1 = element.className.split(' ');
+        //Removes 'show' from the class name
+        if (arr1.indexOf('show') > -1) {
+            arr1.splice(-1);
+        }
+        element.className = arr1.join(' ');
+    }
+
+    // Add active class to the current button (highlight it)
+    var btnContainer = document.getElementById("company-Tile-Cont");
+    var btns = btnContainer.getElementsByClassName("btn");
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener("click", function () {
+            var current = document.getElementsByClassName("active");
+            current[0].className = current[0].className.replace(" active", "");
+            this.className += " active";
+        });
+    }
+    */
+
+
+
+
+    // Range slider submit filters button
+    function rangeSubmitFilters() {
+        
+        $.ajax({
+            url: $(".financials-data").data("url"),
+            type: 'GET',
+            success: function (data) {
+
+                // Sources the current range slider values
+                let turnoverleft = $("#range-slider-turnover").slider("values", 0);
+                let turnoverright = $("#range-slider-turnover").slider("values", 1);
+                let assetsleft = $("#range-slider-assets").slider("values", 0);
+                let assetsright = $("#range-slider-assets").slider("values", 1);
+                let profitleft = $("#range-slider-profit").slider("values", 0);
+                let profitright = $("#range-slider-profit").slider("values", 1);
+                let cashflowleft = $("#range-slider-cashflow").slider("values", 0);
+                let cashflowright = $("#range-slider-cashflow").slider("values", 1);
+                let interestcoverleft = $("#range-slider-interestcover").slider("values", 0);
+                let interestcoverright = $("#range-slider-interestcover").slider("values", 1);
+
+                // Sources the financials values for each firm to compare against the range slider values above
+                let turnoverAstonMartin = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Aston Martin Lagonda')[0].turnover;
+                let turnoverBritvic = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Britvic')[0].turnover;
+                let turnoverBritishLand = data.filter((item) => item.year === 2023).filter((item) => item.company === 'British Land')[0].turnover;
+                let turnoverAJBell = data.filter((item) => item.year === 2023).filter((item) => item.company === 'AJ Bell')[0].turnover;
+                let turnoverDominos = data.filter((item) => item.year === 2023).filter((item) => item.company === "Domino's Pizza Group")[0].turnover;
+                let turnoverBloomsbury = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Bloomsbury Publishing')[0].turnover;
+                let turnoverDrMartens = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Dr Martens')[0].turnover;
+                let turnoverGamesWorkshop = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Games Workshop Group')[0].turnover;
+                let turnoverHays = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Hays')[0].turnover;
+                let turnoverIbstock = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Ibstock')[0].turnover;
+                let turnoverITV = data.filter((item) => item.year === 2023).filter((item) => item.company === 'ITV')[0].turnover;
+                let turnoverJohnsonMatthey = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Johnson Matthey')[0].turnover;
+
+                let assetsAstonMartin = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Aston Martin Lagonda')[0].total_assets;
+                let assetsBritvic = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Britvic')[0].total_assets;
+                let assetsBritishLand = data.filter((item) => item.year === 2023).filter((item) => item.company === 'British Land')[0].total_assets;
+                let assetsAJBell = data.filter((item) => item.year === 2023).filter((item) => item.company === 'AJ Bell')[0].total_assets;
+                let assetsDominos = data.filter((item) => item.year === 2023).filter((item) => item.company === "Domino's Pizza Group")[0].total_assets;
+                let assetsBloomsbury = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Bloomsbury Publishing')[0].total_assets;
+                let assetsDrMartens = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Dr Martens')[0].total_assets;
+                let assetsGamesWorkshop = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Games Workshop Group')[0].total_assets;
+                let assetsHays = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Hays')[0].total_assets;
+                let assetsIbstock = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Ibstock')[0].total_assets;
+                let assetsITV = data.filter((item) => item.year === 2023).filter((item) => item.company === 'ITV')[0].total_assets;
+                let assetsJohnsonMatthey = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Johnson Matthey')[0].total_assets;
+
+                let profitAstonMartin = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Aston Martin Lagonda')[0].operating_margin;
+                let profitBritvic = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Britvic')[0].operating_margin;
+                let profitBritishLand = data.filter((item) => item.year === 2023).filter((item) => item.company === 'British Land')[0].operating_margin;
+                let profitAJBell = data.filter((item) => item.year === 2023).filter((item) => item.company === 'AJ Bell')[0].operating_margin;
+                let profitDominos = data.filter((item) => item.year === 2023).filter((item) => item.company === "Domino's Pizza Group")[0].operating_margin;
+                let profitBloomsbury = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Bloomsbury Publishing')[0].operating_margin;
+                let profitDrMartens = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Dr Martens')[0].operating_margin;
+                let profitGamesWorkshop = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Games Workshop Group')[0].operating_margin;
+                let profitHays = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Hays')[0].operating_margin;
+                let profitIbstock = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Ibstock')[0].operating_margin;
+                let profitITV = data.filter((item) => item.year === 2023).filter((item) => item.company === 'ITV')[0].operating_margin;
+                let profitJohnsonMatthey = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Johnson Matthey')[0].operating_margin;
+
+                let cashflowAstonMartin = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Aston Martin Lagonda')[0].free_cash_flow_margin;
+                let cashflowBritvic = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Britvic')[0].free_cash_flow_margin;
+                let cashflowBritishLand = data.filter((item) => item.year === 2023).filter((item) => item.company === 'British Land')[0].free_cash_flow_margin;
+                let cashflowAJBell = data.filter((item) => item.year === 2023).filter((item) => item.company === 'AJ Bell')[0].free_cash_flow_margin;
+                let cashflowDominos = data.filter((item) => item.year === 2023).filter((item) => item.company === "Domino's Pizza Group")[0].free_cash_flow_margin;
+                let cashflowBloomsbury = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Bloomsbury Publishing')[0].free_cash_flow_margin;
+                let cashflowDrMartens = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Dr Martens')[0].free_cash_flow_margin;
+                let cashflowGamesWorkshop = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Games Workshop Group')[0].free_cash_flow_margin;
+                let cashflowHays = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Hays')[0].free_cash_flow_margin;
+                let cashflowIbstock = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Ibstock')[0].free_cash_flow_margin;
+                let cashflowITV = data.filter((item) => item.year === 2023).filter((item) => item.company === 'ITV')[0].free_cash_flow_margin;
+                let cashflowJohnsonMatthey = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Johnson Matthey')[0].free_cash_flow_margin;
+
+                let interestcoverAstonMartin = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Aston Martin Lagonda')[0].interest_cover;
+                let interestcoverBritvic = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Britvic')[0].interest_cover;
+                let interestcoverBritishLand = data.filter((item) => item.year === 2023).filter((item) => item.company === 'British Land')[0].interest_cover;
+                let interestcoverAJBell = data.filter((item) => item.year === 2023).filter((item) => item.company === 'AJ Bell')[0].interest_cover;
+                let interestcoverDominos = data.filter((item) => item.year === 2023).filter((item) => item.company === "Domino's Pizza Group")[0].interest_cover;
+                let interestcoverBloomsbury = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Bloomsbury Publishing')[0].interest_cover;
+                let interestcoverDrMartens = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Dr Martens')[0].interest_cover;
+                let interestcoverGamesWorkshop = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Games Workshop Group')[0].interest_cover;
+                let interestcoverHays = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Hays')[0].interest_cover;
+                let interestcoverIbstock = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Ibstock')[0].interest_cover;
+                let interestcoverITV = data.filter((item) => item.year === 2023).filter((item) => item.company === 'ITV')[0].interest_cover;
+                let interestcoverJohnsonMatthey = data.filter((item) => item.year === 2023).filter((item) => item.company === 'Johnson Matthey')[0].interest_cover;
+
+                const tileAstonMartin= document.getElementById("tile-AstonMartin");
+                const tileBritvic = document.getElementById("tile-Britvic");
+                const tileBritishLand = document.getElementById("tile-BritishLand");
+                const tileAJBell = document.getElementById("tile-AJBell");
+                const tileDominos = document.getElementById("tile-Dominos");
+                const tileBloomsbury = document.getElementById("tile-Bloomsbury");
+                const tileDrMartens = document.getElementById("tile-DrMartens");
+                const tileGamesWorkshop = document.getElementById("tile-GamesWorkshop");
+                const tileHays = document.getElementById("tile-Hays");
+                const tileIbstock = document.getElementById("tile-Ibstock");
+                const tileITV = document.getElementById("tile-ITV");
+                const tileJohnsonMatthey = document.getElementById("tile-JohnsonMatthey");
+
+
+                // Aston Martin financials comparison to current range slider values
+                if (turnoverAstonMartin <= turnoverright && turnoverAstonMartin >= turnoverleft &&
+                    assetsAstonMartin <= assetsright && assetsAstonMartin >= assetsleft &&
+                    100 * profitAstonMartin <= profitright && 100 * profitAstonMartin >= profitleft &&
+                    100 * cashflowAstonMartin <= cashflowright && 100 * cashflowAstonMartin >= cashflowleft &&
+                    100 * interestcoverAstonMartin <= interestcoverright && 100 * interestcoverAstonMartin >= interestcoverleft) {
+                    //alert('AstonMartin meets criteria');
+                    tileAstonMartin.style.display = "inline-block"
+                } else {
+                    //alert('AstonMartin does not meet criteria');
+                    tileAstonMartin.style.display = "none";
+                }
+
+
+                // Britvic financials comparison to current range slider values
+                if (turnoverBritvic <= turnoverright && turnoverBritvic >= turnoverleft &&
+                    assetsBritvic <= assetsright && assetsBritvic >= assetsleft &&
+                    100 * profitBritvic <= profitright && 100 * profitBritvic >= profitleft &&
+                    100 * cashflowBritvic <= cashflowright && 100 * cashflowBritvic >= cashflowleft &&
+                    100 * interestcoverBritvic <= interestcoverright && 100 * interestcoverBritvic >= interestcoverleft) {
+                    //alert('Britvic meets criteria');
+                    tileBritvic.style.display = "inline-block"
+                } else {
+                    //alert('Britvic does not meet criteria');
+                    tileBritvic.style.display = "none";
+                }
+
+
+                // BritishLand financials comparison to current range slider values
+                if (turnoverBritishLand <= turnoverright && turnoverBritishLand >= turnoverleft &&
+                    assetsBritishLand <= assetsright && assetsBritishLand >= assetsleft &&
+                    100 * profitBritishLand <= profitright && 100 * profitBritishLand >= profitleft &&
+                    100 * cashflowBritishLand <= cashflowright && 100 * cashflowBritishLand >= cashflowleft &&
+                    100 * interestcoverBritishLand <= interestcoverright && 100 * interestcoverBritishLand >= interestcoverleft) {
+                    //alert('BritishLand meets criteria');
+                    tileBritishLand.style.display = "inline-block"
+                } else {
+                    //alert('BritishLand does not meet criteria');
+                    tileBritishLand.style.display = "none";
+                }
+
+
+                // AJBell financials comparison to current range slider values
+                if (turnoverAJBell <= turnoverright && turnoverAJBell >= turnoverleft &&
+                    assetsAJBell <= assetsright && assetsAJBell >= assetsleft &&
+                    100 * profitAJBell <= profitright && 100 * profitAJBell >= profitleft &&
+                    100 * cashflowAJBell <= cashflowright && 100 * cashflowAJBell >= cashflowleft &&
+                    100 * interestcoverAJBell <= interestcoverright && 100 * interestcoverAJBell >= interestcoverleft) {
+                    //alert('AJBell meets criteria');
+                    tileAJBell.style.display = "inline-block"
+                } else {
+                    //alert('AJBell does not meet criteria');
+                    tileAJBell.style.display = "none";
+                }
+
+
+                // Dominos financials comparison to current range slider values
+                if (turnoverDominos <= turnoverright && turnoverDominos >= turnoverleft &&
+                    assetsDominos <= assetsright && assetsDominos >= assetsleft &&
+                    100 * profitDominos <= profitright && 100 * profitDominos >= profitleft &&
+                    100 * cashflowDominos <= cashflowright && 100 * cashflowDominos >= cashflowleft &&
+                    100 * interestcoverDominos <= interestcoverright && 100 * interestcoverDominos >= interestcoverleft) {
+                    //alert('Dominos meets criteria');
+                    tileDominos.style.display = "inline-block"
+                } else {
+                    //alert('Dominos does not meet criteria');
+                    tileDominos.style.display = "none";
+                }
+
+
+                // Bloomsbury financials comparison to current range slider values
+                if (turnoverBloomsbury <= turnoverright && turnoverBloomsbury >= turnoverleft &&
+                    assetsBloomsbury <= assetsright && assetsBloomsbury >= assetsleft &&
+                    100 * profitBloomsbury <= profitright && 100 * profitBloomsbury >= profitleft &&
+                    100 * cashflowBloomsbury <= cashflowright && 100 * cashflowBloomsbury >= cashflowleft &&
+                    100 * interestcoverBloomsbury <= interestcoverright && 100 * interestcoverBloomsbury >= interestcoverleft) {
+                    //alert('Bloomsbury meets criteria');
+                    tileBloomsbury.style.display = "inline-block"
+                } else {
+                    //alert('Bloomsbury does not meet criteria');
+                    tileBloomsbury.style.display = "none";
+                }
+
+
+                // DrMartens financials comparison to current range slider values
+                if (turnoverDrMartens <= turnoverright && turnoverDrMartens >= turnoverleft &&
+                    assetsDrMartens <= assetsright && assetsDrMartens >= assetsleft &&
+                    100 * profitDrMartens <= profitright && 100 * profitDrMartens >= profitleft &&
+                    100 * cashflowDrMartens <= cashflowright && 100 * cashflowDrMartens >= cashflowleft &&
+                    100 * interestcoverDrMartens <= interestcoverright && 100 * interestcoverDrMartens >= interestcoverleft) {
+                    //alert('DrMartens meets criteria');
+                    tileDrMartens.style.display = "inline-block"
+                } else {
+                    //alert('DrMartens does not meet criteria');
+                    tileDrMartens.style.display = "none";
+                }
+
+
+                // GamesWorkshop financials comparison to current range slider values
+                if (turnoverGamesWorkshop <= turnoverright && turnoverGamesWorkshop >= turnoverleft &&
+                    assetsGamesWorkshop <= assetsright && assetsGamesWorkshop >= assetsleft &&
+                    100 * profitGamesWorkshop <= profitright && 100 * profitGamesWorkshop >= profitleft &&
+                    100 * cashflowGamesWorkshop <= cashflowright && 100 * cashflowGamesWorkshop >= cashflowleft &&
+                    100 * interestcoverGamesWorkshop <= interestcoverright && 100 * interestcoverGamesWorkshop >= interestcoverleft) {
+                    //alert('GamesWorkshop meets criteria');
+                    tileGamesWorkshop.style.display = "inline-block"
+                } else {
+                    //alert('GamesWorkshop does not meet criteria');
+                    tileGamesWorkshop.style.display = "none";
+                }
+
+
+                // Hays financials comparison to current range slider values
+                if (turnoverHays <= turnoverright && turnoverHays >= turnoverleft &&
+                    assetsHays <= assetsright && assetsHays >= assetsleft &&
+                    100 * profitHays <= profitright && 100 * profitHays >= profitleft &&
+                    100 * cashflowHays <= cashflowright && 100 * cashflowHays >= cashflowleft &&
+                    100 * interestcoverHays <= interestcoverright && 100 * interestcoverHays >= interestcoverleft) {
+                    //alert('Hays meets criteria');
+                    tileHays.style.display = "inline-block"
+                } else {
+                    //alert('Hays does not meet criteria');
+                    tileHays.style.display = "none";
+                }
+
+
+                // Ibstock financials comparison to current range slider values
+                if (turnoverIbstock <= turnoverright && turnoverIbstock >= turnoverleft &&
+                    assetsIbstock <= assetsright && assetsIbstock >= assetsleft &&
+                    100 * profitIbstock <= profitright && 100 * profitIbstock >= profitleft &&
+                    100 * cashflowIbstock <= cashflowright && 100 * cashflowIbstock >= cashflowleft &&
+                    100 * interestcoverIbstock <= interestcoverright && 100 * interestcoverIbstock >= interestcoverleft) {
+                    //alert('Ibstock meets criteria');
+                    tileIbstock.style.display = "inline-block"
+                } else {
+                    //alert('Ibstock does not meet criteria');
+                    tileIbstock.style.display = "none";
+                }
+
+
+                // ITV financials comparison to current range slider values
+                if (turnoverITV <= turnoverright && turnoverITV >= turnoverleft &&
+                    assetsITV <= assetsright && assetsITV >= assetsleft &&
+                    100 * profitITV <= profitright && 100 * profitITV >= profitleft &&
+                    100 * cashflowITV <= cashflowright && 100 * cashflowITV >= cashflowleft &&
+                    100 * interestcoverITV <= interestcoverright && 100 * interestcoverITV >= interestcoverleft) {
+                    //alert('ITV meets criteria');
+                    tileITV.style.display = "inline-block"
+                } else {
+                    //alert('ITV does not meet criteria');
+                    tileITV.style.display = "none";
+                }
+
+
+                // JohnsonMatthey financials comparison to current range slider values
+                if (turnoverJohnsonMatthey <= turnoverright && turnoverJohnsonMatthey >= turnoverleft &&
+                    assetsJohnsonMatthey <= assetsright && assetsJohnsonMatthey >= assetsleft &&
+                    100 * profitJohnsonMatthey <= profitright && 100 * profitJohnsonMatthey >= profitleft &&
+                    100 * cashflowJohnsonMatthey <= cashflowright && 100 * cashflowJohnsonMatthey >= cashflowleft &&
+                    100 * interestcoverJohnsonMatthey <= interestcoverright && 100 * interestcoverJohnsonMatthey >= interestcoverleft) {
+                    //alert('JohnsonMatthey meets criteria');
+                    tileJohnsonMatthey.style.display = "inline-block"
+                } else {
+                    //alert('JohnsonMatthey does not meet criteria');
+                    tileJohnsonMatthey.style.display = "none";
+                }
+
+
+                /*  code testing criteria
+                alert("Turnover =" + turnoverBritishLand + "Assets =" + assetsBritishLand + "Profit =" + profitBritishLand +
+                    "Cashflow =" + cashflowBritishLand + "Interest Cover=" + interestcoverBritishLand);
+                
+                alert("Turnover max =" + turnoverright + " Assets max = " + assetsright + " Profit max = " + profitright +
+                    " Cashflow max = " + cashflowright + " Interest Cover max = " + interestcoverright);
+                */
+            }
+
+        });
+
+    };
+
+
+    // Turnover range slider hide / show
+    function rangeTurnover() {
+        var x = document.getElementById("range-turnover-cont");
+        if (x.style.display === "grid") {
+            x.style.display = "none";
+        }
+        else {
+            x.style.display = "grid";
+        }
+    };
+
+
+    // Assets range slider hide / show
+    function rangeAssets() {
+        var x = document.getElementById("range-assets-cont");
+        if (x.style.display === "grid") {
+            x.style.display = "none";
+        }
+        else {
+            x.style.display = "grid";
+        }
+    };
+
+
+    // Operating Profit Margin range slider hide / show
+    function rangeProfit() {
+        var x = document.getElementById("range-profit-cont");
+        if (x.style.display === "grid") {
+            x.style.display = "none";
+        }
+        else {
+            x.style.display = "grid";
+        }
+    };
+
+
+    // Free Cash Flow Margin range slider hide / show
+    function rangeCashFlow() {
+        var x = document.getElementById("range-cashflow-cont");
+        if (x.style.display === "grid") {
+            x.style.display = "none";
+        }
+        else {
+            x.style.display = "grid";
+        }
+    };
+
+
+    // Interest Cover range slider hide / show
+    function rangeInterestCover() {
+        var x = document.getElementById("range-interestcover-cont");
+        if (x.style.display === "grid") {
+            x.style.display = "none";
+        }
+        else {
+            x.style.display = "grid";
+        }
+    };
+
+
+    // Generates Turnover JQuery range slider
+    $(document).ready(function () {
+
+        $.ajax({
+            url: $(".financials-data").data("url"),
+            type: 'GET',
+            success: function (data) {
+
+                const max = data.filter((item) => item.year === 2023).sort((a, b) => b.turnover - a.turnover)[0].turnover;
+                const min = data.filter((item) => item.year === 2023).sort((a, b) => a.turnover - b.turnover)[0].turnover;
+                const leftstart = (4 * min + max) / 5;
+                const rightstart = (4 * max + min) / 5;
+
+                $("#range-slider-turnover").slider({
+                    range: true,
+                    min: min,
+                    max: max,
+                    values: [leftstart, rightstart],
+                    slide: function (event, ui) {
+
+                        // Range slider once activiated and moved by the user
+                        // FractionDigits specify the number of decimal places
+                        $("#turnover").val(
+                            Intl.NumberFormat('en-GB', {
+                                style: 'currency',
+                                currency: 'GBP',
+                                notation: 'compact',
+                                compactDisplay: 'short',
+                                minimumFractionDigits: 1,
+                                maximumFractionDigits: 1,
+                            }).format(ui.values[0]) +
+
+                            " to " +
+
+                            Intl.NumberFormat('en-GB', {
+                                style: 'currency',
+                                currency: 'GBP',
+                                notation: 'compact',
+                                compactDisplay: 'short',
+                                minimumFractionDigits: 1,
+                                maximumFractionDigits: 1,
+                            }).format(ui.values[1])
+                        );
+                    }
+                });
+
+                // Initial values shown before range slider buttons are used
+                $("#turnover").val(
+                    Intl.NumberFormat('en-GB', {
+                        style: 'currency',
+                        currency: 'GBP',
+                        notation: 'compact',
+                        compactDisplay: 'short',
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 1,
+                    }).format($("#range-slider-turnover").slider("values", 0)) +
+
+                    " to " +
+
+                    Intl.NumberFormat('en-GB', {
+                        style: 'currency',
+                        currency: 'GBP',
+                        notation: 'compact',
+                        compactDisplay: 'short',
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 1,
+                    }).format($("#range-slider-turnover").slider("values", 1))
+
+                );
+
+                // Max and min values
+                $("#turnover-max").html(Intl.NumberFormat('en-GB', {
+                    style: 'currency',
+                    currency: 'GBP',
+                    notation: 'compact',
+                    compactDisplay: 'short',
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1,
+                }).format(max)
+                );
+
+                $("#turnover-min").html(Intl.NumberFormat('en-GB', {
+                    style: 'currency',
+                    currency: 'GBP',
+                    notation: 'compact',
+                    compactDisplay: 'short',
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
+                }).format(min)
+                );
+
+            }
+
+        });
+
+    });
+
+
+    // Generates Assets range slider
+    $(document).ready(function () {
+
+        $.ajax({
+            url: $(".financials-data").data("url"),
+            type: 'GET',
+            success: function (data) {
+
+                const max = data.filter((item) => item.year === 2023).sort((a, b) => b.total_assets - a.total_assets)[0].total_assets;
+                const min = data.filter((item) => item.year === 2023).sort((a, b) => a.total_assets - b.total_assets)[0].total_assets;
+                const leftstart = (4 * min + max) / 5;
+                const rightstart = (4 * max + min) / 5;
+
+                // Range slider once activiated and moved by the user
+                $("#range-slider-assets").slider({
+                    range: true,
+                    min: min,
+                    max: max,
+                    values: [leftstart, rightstart],
+                    slide: function (event, ui) {
+                        // FractionDigits specify the number of decimal places
+                        $("#assets").val(
+                            Intl.NumberFormat('en-GB', {
+                                style: 'currency',
+                                currency: 'GBP',
+                                notation: 'compact',
+                                compactDisplay: 'short',
+                                minimumFractionDigits: 1,
+                                maximumFractionDigits: 1,
+                            }).format(ui.values[0]) +
+
+                            " to " +
+
+                            Intl.NumberFormat('en-GB', {
+                                style: 'currency',
+                                currency: 'GBP',
+                                notation: 'compact',
+                                compactDisplay: 'short',
+                                minimumFractionDigits: 1,
+                                maximumFractionDigits: 1,
+                            }).format(ui.values[1])
+                        );
+                    }
+                });
+
+                // Initial values shown before range slider buttons are used
+                $("#assets").val(
+                    Intl.NumberFormat('en-GB', {
+                        style: 'currency',
+                        currency: 'GBP',
+                        notation: 'compact',
+                        compactDisplay: 'short',
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 1,
+                    }).format($("#range-slider-assets").slider("values", 0)) +
+
+                    " to " +
+
+                    Intl.NumberFormat('en-GB', {
+                        style: 'currency',
+                        currency: 'GBP',
+                        notation: 'compact',
+                        compactDisplay: 'short',
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 1,
+                    }).format($("#range-slider-assets").slider("values", 1))
+
+                );
+
+                // Max and min values
+                $("#assets-max").html(Intl.NumberFormat('en-GB', {
+                    style: 'currency',
+                    currency: 'GBP',
+                    notation: 'compact',
+                    compactDisplay: 'short',
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1,
+                }).format(max)
+                );
+
+                $("#assets-min").html(Intl.NumberFormat('en-GB', {
+                    style: 'currency',
+                    currency: 'GBP',
+                    notation: 'compact',
+                    compactDisplay: 'short',
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
+                }).format(min)
+                );
+
+            }
+
+        });
+
+    });
+
+
+    // Generates Operarating Profit Margin range slider
+    $(document).ready(function () {
+
+        $.ajax({
+            url: $(".financials-data").data("url"),
+            type: 'GET',
+            success: function (data) {
+                // JQuery slider cannot manage numbers less than 1 well, so profit margin is multiplied by 100 here
+                const max = Math.ceil(100000 * (data.filter((item) => item.year === 2023).sort((a, b) => b.operating_margin - a.operating_margin)[0].operating_margin));
+                const min = Math.floor(100000 * (data.filter((item) => item.year === 2023).sort((a, b) => a.operating_margin - b.operating_margin)[0].operating_margin));
+                const leftstart = (4 * min + max) / 5;
+                const rightstart = (4 * max + min) / 5;
+
+                // Range slider once activiated and moved by the user
+                $("#range-slider-profit").slider({
+                    range: true,
+                    min: min,
+                    max: max,
+                    values: [leftstart, rightstart],
+                    slide: function (event, ui) {
+                        $("#profit").val(
+                            Intl.NumberFormat('en-GB', {
+                                minimumFractionDigits: 1,
+                                maximumFractionDigits: 1,
+                            }).format(ui.values[0] / 1000) +
+
+                            "% to " +
+
+                            Intl.NumberFormat('en-GB', {
+                                minimumFractionDigits: 1,
+                                maximumFractionDigits: 1,
+                            }).format(ui.values[1] / 1000) +
+
+                            "%"
+                        );
+                    }
+                });
+
+                // Initial values shown before range slider buttons are used
+                $("#profit").val(
+                    Intl.NumberFormat('en-GB', {
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 1,
+                    }).format($("#range-slider-profit").slider("values", 0) / 1000) +
+
+                    "% to " +
+
+                    Intl.NumberFormat('en-GB', {
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 1,
+                    }).format($("#range-slider-profit").slider("values", 1) / 1000) +
+
+                    "%"
+
+                );
+
+                // Max and min values
+                // Range slider is not used here, so percent style can be used; this contrasts to the slider values when moving
+                $("#profit-max").html(Intl.NumberFormat('en-GB', {
+                    style: 'percent',
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1,
+                }).format(max / 100000)
+                );
+
+                $("#profit-min").html(Intl.NumberFormat('en-GB', {
+                    style: 'percent',
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1,
+                }).format(min / 100000)
+                );
+
+            }
+
+        });
+
+    });
+
+
+    // Generates Free Cash Flow Margin range slider
+    $(document).ready(function () {
+
+        $.ajax({
+            url: $(".financials-data").data("url"),
+            type: 'GET',
+            success: function (data) {
+                // JQuery slider cannot manage numbers less than 1 well, so free cash flow margin is multiplied by 100 here
+                const max = Math.ceil(100000 * (data.filter((item) => item.year === 2023).sort((a, b) => b.free_cash_flow_margin - a.free_cash_flow_margin)[0].free_cash_flow_margin));
+                const min = Math.floor(100000 * (data.filter((item) => item.year === 2023).sort((a, b) => a.free_cash_flow_margin - b.free_cash_flow_margin)[0].free_cash_flow_margin));
+                const leftstart = (4 * min + max) / 5;
+                const rightstart = (4 * max + min) / 5;
+
+                // Range slider once activiated and moved by the user
+                // Because %s are multiplied by 100, the '%' sign is manually added in
+                $("#range-slider-cashflow").slider({
+                    range: true,
+                    min: min,
+                    max: max,
+                    values: [leftstart, rightstart],
+                    slide: function (event, ui) {
+                        $("#cashflow").val(
+                            Intl.NumberFormat('en-GB', {
+                                minimumFractionDigits: 1,
+                                maximumFractionDigits: 1,
+                            }).format(ui.values[0] / 1000) +
+
+                            "% to " +
+
+                            Intl.NumberFormat('en-GB', {
+                                minimumFractionDigits: 1,
+                                maximumFractionDigits: 1,
+                            }).format(ui.values[1] / 1000) +
+
+                            "%"
+                        );
+                    }
+                });
+
+                // Initial values shown before range slider buttons are used
+                $("#cashflow").val(
+                    Intl.NumberFormat('en-GB', {
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 1,
+                    }).format($("#range-slider-cashflow").slider("values", 0) / 1000) +
+
+                    "% to " +
+
+                    Intl.NumberFormat('en-GB', {
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 1,
+                    }).format($("#range-slider-cashflow").slider("values", 1) / 1000) +
+
+                    "%"
+
+                );
+
+                // Max and min values
+                // Range slider is not used here, so percent style can be used; this contrasts to the slider values when moving
+                $("#cashflow-max").html(Intl.NumberFormat('en-GB', {
+                    style: 'percent',
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1,
+                }).format(max / 100000)
+                );
+
+                $("#cashflow-min").html(Intl.NumberFormat('en-GB', {
+                    style: 'percent',
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1,
+                }).format(min / 100000)
+                );
+
+            }
+
+        });
+
+    });
+
+
+    // Generates Interest Cover Ratio range slider
+    $(document).ready(function () {
+
+        $.ajax({
+            url: $(".financials-data").data("url"),
+            type: 'GET',
+            success: function (data) {
+                // JQuery slider cannot manage numbers less than 1 well, so interest cover is multiplied by 100 here
+                const max = Math.ceil(100 * (data.filter((item) => item.year === 2023).sort((a, b) => b.interest_cover - a.interest_cover)[0].interest_cover));
+                const min = Math.floor(100 * (data.filter((item) => item.year === 2023).sort((a, b) => a.interest_cover - b.interest_cover)[0].interest_cover));
+                const leftstart = (4 * min + max) / 5;
+                const rightstart = (4 * max + min) / 5;
+
+                // Range slider once activiated and moved by the user
+                // Because %s are multiplied by 100, the '%' sign is manually added in
+                $("#range-slider-interestcover").slider({
+                    range: true,
+                    min: min,
+                    max: max,
+                    values: [leftstart, rightstart],
+                    slide: function (event, ui) {
+                        $("#interestcover").val(
+                            Intl.NumberFormat('en-GB', {
+                                minimumFractionDigits: 1,
+                                maximumFractionDigits: 1,
+                            }).format(ui.values[0] / 100) +
+
+                            " to " +
+
+                            Intl.NumberFormat('en-GB', {
+                                minimumFractionDigits: 1,
+                                maximumFractionDigits: 1,
+                            }).format(ui.values[1] / 100)
+
+                        );
+                    }
+                });
+
+                // Initial values shown before range slider buttons are used
+                $("#interestcover").val(
+                    Intl.NumberFormat('en-GB', {
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 1,
+                    }).format($("#range-slider-interestcover").slider("values", 0) / 100) +
+
+                    " to " +
+
+                    Intl.NumberFormat('en-GB', {
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 1,
+                    }).format($("#range-slider-interestcover").slider("values", 1) / 100)
+
+                );
+
+                // Max and min values
+                $("#interestcover-max").html(Intl.NumberFormat('en-GB', {
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1,
+                }).format(max / 100)
+                );
+
+                $("#interestcover-min").html(Intl.NumberFormat('en-GB', {
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1,
+                }).format(min / 100)
+                );
+
+            }
+
+        });
+
+    });
+
+
+</script>
+
+
+
+
+{% endblock %}
+
