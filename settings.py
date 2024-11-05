@@ -174,19 +174,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 STATIC_URL = '/static/'
-STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['static']))
+# STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['static']))
 # Original STATIC_ROOT is above
-# STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-# Whitenoise static file storage above seems to cause the utf-8 read issue
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
-WHITENOISE_USE_FINDERS = True
 
 if 'DATABASE_URL' in os.environ:
     DATABASES['default'] = dj_database_url.config(
         conn_max_age=500,
         conn_health_checks=True,
     )
-
