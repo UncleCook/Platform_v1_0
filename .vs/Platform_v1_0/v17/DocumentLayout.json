@@ -1,7 +1,12 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\tomos\\OneDrive\\Platform\\GitHub\\Platform_v1_0\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9B890DE9-7788-40BA-8B83-FB45B1B2F1AC}|Platform_v1_0.pyproj|C:\\Users\\tomos\\OneDrive\\Platform\\GitHub\\Platform_v1_0\\Platform_v1_0\\settings.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{9B890DE9-7788-40BA-8B83-FB45B1B2F1AC}|Platform_v1_0.pyproj|solutionrelative:Platform_v1_0\\settings.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +14,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -20,8 +25,17 @@
               "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "settings.py",
+              "DocumentMoniker": "C:\\Users\\tomos\\OneDrive\\Platform\\GitHub\\Platform_v1_0\\Platform_v1_0\\settings.py",
+              "RelativeDocumentMoniker": "Platform_v1_0\\settings.py",
+              "ToolTip": "C:\\Users\\tomos\\OneDrive\\Platform\\GitHub\\Platform_v1_0\\Platform_v1_0\\settings.py",
+              "RelativeToolTip": "Platform_v1_0\\settings.py",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
+              "WhenOpened": "2024-11-08T12:30:17.667Z",
+              "EditorCaption": ""
             }
           ]
         }
