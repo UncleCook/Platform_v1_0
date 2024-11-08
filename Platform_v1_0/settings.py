@@ -13,20 +13,20 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 # Must run pip install dj-database-url first for import dj_database_url
 import os
-import psycopg2
+# import psycopg2
 import posixpath
-import dj_database_url
+# import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.dirname(PROJECT_ROOT)
 
 # Four lines of coded below added for deployment and taken from 'Django Tutorial Part 11: Deploying Django to production'
 
 import os
-from dotenv import load_dotenv
-env_path = load_dotenv(os.path.join(BASE_DIR, '.env'))
-load_dotenv(env_path)
+# from dotenv import load_dotenv
+# env_path = load_dotenv(os.path.join(BASE_DIR, '.env'))
+# load_dotenv(env_path)
 
 
 
@@ -34,18 +34,18 @@ load_dotenv(env_path)
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = '945dda43-e3c9-4374-83ca-01520d4049a4'
+SECRET_KEY = '945dda43-e3c9-4374-83ca-01520d4049a4'
 
 # Original Secret Key is directly above and commented out, the below is taken from the Django Tutorial Part 11 referenced above
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-&psk#na5l=p3q8_a+-$4w1f^lt3lx1c@d*p4x$ymm_rn7pwb87')
+# SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-&psk#na5l=p3q8_a+-$4w1f^lt3lx1c@d*p4x$ymm_rn7pwb87')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-
+DEBUG = True
 # Original Debug is directly above and commented out, the below is taken from the Django Tutorial Part 11 referenced above
-DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+# DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
+ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 
 # Application references
 # https://docs.djangoproject.com/en/2.1/ref/settings/#std:setting-INSTALLED_APPS
@@ -57,7 +57,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'whitenoise.runserver_nostatic',
+    #'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'import_export',
 ]
@@ -66,7 +66,7 @@ INSTALLED_APPS = [
 # https://docs.djangoproject.com/en/2.1/topics/http/middleware/
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMidsdleware',
+    #'whitenoise.middleware.WhiteNoiseMidsdleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -100,7 +100,7 @@ WSGI_APPLICATION = 'Platform_v1_0.wsgi.application'
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'platformdb',
         'USER': 'myuser',
         'PASSWORD': 'lampost1',
@@ -111,8 +111,20 @@ DATABASES = {
 }
 
 
-WHITENOISE_USE_FINDERS = True
 
+
+"""
+Heroku Postgresql database code
+
+'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'platformdb',
+        'USER': 'myuser',
+        'PASSWORD': 'lampost1',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+"""
 
 
 """
@@ -181,12 +193,14 @@ STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['static']))
 
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Whitenoise static file storage above seems to cause the utf-8 read issue
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
-WHITENOISE_USE_FINDERS = True
+# STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+# WHITENOISE_USE_FINDERS = True
 
+"""
 if 'DATABASE_URL' in os.environ:
     DATABASES['default'] = dj_database_url.config(
         conn_max_age=500,
         conn_health_checks=True,
     )
+"""
 
